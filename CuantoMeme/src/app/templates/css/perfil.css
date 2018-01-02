@@ -1,0 +1,34 @@
+#body-perfil {
+    background-image: none !important;
+    background-color: #F6F6F6;
+}
+
+#user-avatar {
+    padding-top: 20px;
+}
+
+.btn-select {
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.btn-select.active {
+    color: white;
+    background-color: #5bc0de;
+    border-radius: 50px;
+}
+
+.btn-group {
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+}
+
+.btn-follow {
+    margin: 5px;
+}
+
+.media {
+    margin: 20px;
+}

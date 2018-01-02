@@ -1,0 +1,37 @@
+<div *ngIf="servicioLogin.user_logged">
+        <h2 class="text-center">{{servicioLogin.user_logged.username}}</h2>
+        <img [src]="servicioLogin.user_logged.avatar" width="50%" class="rounded-circle img-responsive mx-auto d-block">
+        <ul *ngIf="servicioLogin.user_logged">
+                <li><a routerLink='/home'><i class="fa fa-user" aria-hidden="true"></i> Perfil</a></li>
+        </ul>
+        <div *ngIf="servicioLogin.user_logged.role == 'teacher'">
+            <ul>
+                    <li><a routerLink="/users"><i class="fa fa-star" aria-hidden="true"></i> Usuarios</a></li>
+                    <li><a routerLink="/events"><i class="fa fa-star" aria-hidden="true"></i> Eventos</a></li>
+                    <li><a routerLink="/classrooms"><i class="fa fa-star" aria-hidden="true"></i> Clases</a></li>
+                    <li><a routerLink="/favorites"><i class="fa fa-star" aria-hidden="true"></i> Subir imagenes</a></li>
+
+
+            </ul>
+                <ul  *ngFor="let level of levels">
+                        <div  *ngIf="level">
+                            <li class="dropdown" >
+                                <a routerLink="/login" (click)="get_classrooms_by_level(level)"><i class="dropdown-toggle" aria-hidden="true"></i> {{level}}</a>
+                                <ul  *ngFor="let classroom of classrooms_to_list">
+                                    <div *ngIf="classroom.level == level">
+                                        <li>{{classroom.classs}}</li>
+                                    </div>
+                                </ul>
+                            </li>
+                        </div>
+                    </ul>
+        
+        </div>
+        <ul>
+                <li><a routerLink="/" (click)="logOut()"><i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar sesión</a></li>
+        </ul>
+    </div>
+    <div *ngIf="!servicioLogin.user_logged">
+        <h2 class="text-center">Anónimo</h2>
+    </div>
+
