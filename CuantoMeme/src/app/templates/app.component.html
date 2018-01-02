@@ -1,8 +1,22 @@
 <div id="outlet">
+        
     <div *ngIf="servicioLogin.user_logged">
         <side-menu [@slideInOut]="toggled"></side-menu>
     </div>
     <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+            <a class="navbar-brand" href="#">
+              <img src="../../assets/CuantoMeme.png" width="30" height="30" class="d-inline-block align-top" alt="">
+              Bootstrap
+            </a>
+        </nav>
+    <router-outlet></router-outlet>
+
+
+             
+        <!--
+
+    
+        <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
         <div *ngIf="servicioLogin.user_logged">
             <h2 class="text-center">{{servicioLogin.user_logged.username}}</h2>
             <button id="menutoggle" (click)="toggleMenu()" class="btn btn-outline-secondary"><i class="fa fa-bars fa-4" aria-hidden="true"></i></button>
@@ -16,6 +30,8 @@
                 <li class="nav-item"> <a class="nav-link" routerLink="/busqueda">Busqueda avanzada</a> </li>
             </ul>
         </div>
-    </nav>
-    <router-outlet></router-outlet>
+        
+        -->
+
+    
 </div>
