@@ -15,6 +15,10 @@ import { BusquedaComponent } from './busquedaComponent.component';
 import { LoginComponent } from './login.component';
 import { SignUpComponent } from './signup.component';
 import { listaVinetasComponent } from './listaVinetas.component';
+
+import { listaEventosComponent } from './listaEventos.component';
+
+
 import { vinetasDetalleComponent } from './vinetasDetalle.component';
 import { VinetasService } from './services/vinetas.service';
 import { UsuarioService } from './services/usuarios.service';
@@ -40,6 +44,7 @@ import { EventsComponent } from './eventsComponent.component';
 
 @NgModule({
   declarations: [
+    listaEventosComponent,
     AppComponent,
     IndexComponent,
     BusquedaComponent,

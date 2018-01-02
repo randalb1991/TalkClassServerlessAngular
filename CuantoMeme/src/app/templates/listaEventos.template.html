@@ -1,0 +1,29 @@
+<div *ngIf="listaEventos"> 
+
+    <div class="col-md-12" *ngFor="let evento of listaEventos">
+        <div *ngIf="evento">
+            <div class="jumbotron">
+                <img src="https://media.cntraveler.com/photos/5715168e3658675c4f784750/master/w_1440,c_limit/skylines-nyc-cr-getty-110397100.jpg"  class="img-fluid mx-auto d-block" alt="vineta imagen" />
+                <div class="container social-container text-center">
+                    <hr>
+                    <h3 class="display-4">{{evento.title}}</h3>
+                    <p class="lead">{{evento.description}}</p>
+                    <button class="btn btn-warning btn-circle" > <i class="fa fa-star" aria-hidden="true"></i></button>
+                    <button class="btn btn-info btn-circle" > <i class="fa fa-comments" aria-hidden="true"></i> <span style="color:#5bc0de" class="badge"></span></button>
+                    <button class="btn btn-success btn-circle" > <i class="fa fa-thumbs-up" aria-hidden="true"></i> <span style="color:#5cb85c" class="badge"></span></button>
+                    <button class="btn btn-danger btn-circle" > <i class="fa fa-thumbs-down" aria-hidden="true"></i> <span style="color:#d9534f" class="badge"></span></button>
+                    <button *ngIf="isAdmin" class="btn btn-secondary btn-circle" > <i class="fa fa-crosshairs" aria-hidden="true"></i></button>
+                    <hr>
+                    <!--
+                    <button class="btn btn-warning btn-circle" (click)="favorite(vineta)"> <i class="fa fa-star" aria-hidden="true"></i></button>
+                    <button class="btn btn-info btn-circle" [routerLink]="['/vineta', vineta.id]"> <i class="fa fa-comments" aria-hidden="true"></i> <span style="color:#5bc0de" class="badge">{{vineta.comentarios.length}}</span></button>
+                    <button class="btn btn-success btn-circle" (click)="like(vineta)"> <i class="fa fa-thumbs-up" aria-hidden="true"></i> <span style="color:#5cb85c" class="badge">{{vineta.likes}}</span></button>
+                    <button class="btn btn-danger btn-circle" (click)="dislike(vineta)"> <i class="fa fa-thumbs-down" aria-hidden="true"></i> <span style="color:#d9534f" class="badge">{{vineta.dislikes}}</span></button>
+                    <button *ngIf="isAdmin" class="btn btn-secondary btn-circle" (click)="eliminarVineta(vineta.id, vineta)"> <i class="fa fa-crosshairs" aria-hidden="true"></i></button>
+                    <hr>
+                    -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
