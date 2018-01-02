@@ -12,7 +12,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
-import { Classroom } from 'app/classes/Classroom.class';
+import { Classroom } from '../classes/Classroom.class';
 import { error } from 'selenium-webdriver';
 
 

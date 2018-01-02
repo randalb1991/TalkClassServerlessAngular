@@ -12,21 +12,23 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/common": "^2.4.10",
-    "@angular/compiler": "^2.4.10",
-    "@angular/core": "^2.4.10",
-    "@angular/forms": "^2.4.10",
-    "@angular/http": "^2.4.10",
-    "@angular/platform-browser": "^2.4.10",
-    "@angular/platform-browser-dynamic": "^2.4.10",
-    "@angular/router": "^3.4.10",
+    "@angular/common": "^4.0.0",
+        "@angular/compiler": "^4.0.0",
+        "@angular/core": "^4.0.0",
+        "@angular/forms": "^4.0.0",
+        "@angular/http": "^4.0.0",
+        "@angular/platform-browser": "^4.0.0",
+        "@angular/platform-browser-dynamic": "^4.0.0",
+        "@angular/router": "^4.0.0",
+        "systemjs": "^0.19.47",
+        "zone.js": "^0.8.5",
     "@angular/upgrade": "^2.4.10",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-beta.8",
     "@types/jasmine": "^2.8.3",
     "angular2-in-memory-web-api": "0.0.21",
     "angular2-multiselect-dropdown": "2.2.1",
     "animate.css": "^3.5.2",
-    "bootstrap": "^4.0.0-beta.2",
+    "bootstrap": "4.0.0-beta.2",
     "codelyzer": "^2.1.1",
     "core-js": "^2.5.3",
     "jasmine-core": "^2.8.0",
@@ -36,8 +38,7 @@
     "rxjs": "^5.5.6",
     "ts-helpers": "^1.1.2",
     "ts-node": "^1.7.3",
-    "typescript": "^2.6.2",
-    "zone.js": "^0.7.8"
+    "typescript": "~2.3.3"
   },
   "devDependencies": {
     "@angular/cli": "^1.6.3",
@@ -45,7 +46,7 @@
     "@types/jasmine": "^2.8.3",
     "@types/node": "^6.0.95",
     "angular2-multiselect-dropdown": "^2.2.1",
-    "bootstrap": "^4.0.0-beta.3",
+    "bootstrap": "4.0.0-beta.2",
     "codelyzer": "^2.1.1",
     "jasmine-core": "^2.8.0",
     "jasmine-spec-reporter": "^2.7.0",
@@ -58,6 +59,6 @@
     "protractor": "^4.0.14",
     "ts-node": "^1.7.3",
     "tslint": "^4.5.1",
-    "typescript": "^2.6.2"
+    "typescript": "~2.3.3"
   }
 }
