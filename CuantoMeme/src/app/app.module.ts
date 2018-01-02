@@ -3,8 +3,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule }   from '@angular/router';
+//---------
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+//import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
-//import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+//------
+
 import { AppComponent } from './app.component';
 import { IndexComponent } from './IndexComponent.component';
 import { BusquedaComponent } from './busquedaComponent.component';
@@ -53,7 +57,7 @@ import { EventsComponent } from './eventsComponent.component';
     EventsComponent
   ],
   imports: [
-  //  NgbModule,
+    NgbModule.forRoot(),
     AngularMultiSelectModule,
     BrowserModule,
     FormsModule,

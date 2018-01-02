@@ -32,8 +32,9 @@
                                 </div>
 
                                 -->
-                                <p style="color:rgb(248, 53, 53)" value="">{{error_message}}</p>
-                                
+                                <div *ngIf="error">
+                                        <ngb-alert type= "danger">{{error_message}}</ngb-alert>
+                                </div>                                
                             </fieldset>
                         </form>
                     </div>

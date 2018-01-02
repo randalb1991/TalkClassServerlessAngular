@@ -1,6 +1,7 @@
 <div id="outlet">
-  
-    <side-menu [@slideInOut]="toggled"></side-menu>
+    <div *ngIf="servicioLogin.user_logged">
+        <side-menu [@slideInOut]="toggled"></side-menu>
+    </div>
     <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
         <div *ngIf="servicioLogin.user_logged">
             <h2 class="text-center">{{servicioLogin.user_logged.username}}</h2>

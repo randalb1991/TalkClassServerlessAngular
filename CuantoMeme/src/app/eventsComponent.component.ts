@@ -2,6 +2,9 @@
 Ver el siguiente modulo para implementar un multiselect dropdown
 https://github.com/CuppaLabs/angular2-multiselect-dropdown
 
+
+Varios diseños 
+https://github.com/mdbootstrap/Angular-Bootstrap-with-Material-Design
 */
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -34,7 +37,7 @@ export class EventsComponent implements OnInit {
     title: string = '';
     description: string = '';
     place: string = ''
-    date: string = '';
+    date= {};
     plane: string = '';
     imgVineta: FileList;
 
@@ -55,7 +58,7 @@ export class EventsComponent implements OnInit {
         //---- Necesario para multiselect dropdown
         this.selectedItems = [];
         this.settings = {
-          text: "Select Countries",
+          text: "Seleecciona clases participantes",
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           classes: "myclass custom-class"
@@ -105,8 +108,9 @@ export class EventsComponent implements OnInit {
     }
     //-----MultiSelect Dropdown ---
     crearEvento() {
-      var pieces = this.date.split('-')
-      var date = pieces[2]+'/'+pieces[1]+'/'+pieces[0]
+      //var pieces = this.date.split('-')
+      console.log(this.date)
+      var date = this.date["day"]+'/'+this.date["month"]+'/'+this.date["year"]
       var classrooms = []
       for (let classroom of this.selectedItems){
         classrooms.push(classroom["itemName"])

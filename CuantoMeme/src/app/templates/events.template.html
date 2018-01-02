@@ -33,13 +33,19 @@
                                 <label for="placeinput">Lugar</label>
                                 <input [(ngModel)]="place" type="text" class="form-control" id="placeinput" aria-describedby="emailHelp" placeholder="¿Dónde será el evento?" name="place">
                         </div>
+
                         <div class="form-group">
-                                <label for="dateinput">Fecha</label>
-                                <input [(ngModel)]="date" type="date" class="form-control" id="dateinput" aria-describedby="emailHelp" placeholder="¿Cuándo será el evento?" name="date">
+                            <label for="dateinput">Fecha</label>
+                            <div class="input-group">
+                              <input class="form-control" placeholder="yyyy-mm-dd"
+                                     name="dp"  [(ngModel)]="date"  ngbDatepicker #d="ngbDatepicker">
+                              <button class="input-group-addon" (click)="d.toggle()" type="button">
+                                <img src="../../assets/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                              </button>
+                            </div>
                         </div>
-                    
                     <div *ngIf="itemList" class="form-group">
-                            <label for="dateinput">Clases a invitar</label>
+                            <label for="dateinput">Clases participantes</label>
                             <angular2-multiselect [data]="itemList" 
                             [(ngModel)]="selectedItems" name= "something4"
                             [settings]="settings" 

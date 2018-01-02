@@ -4,10 +4,11 @@ import { LoginService } from './services/login.service';
 import { loggedUserService } from './services/logged-user.service';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'login-component',
   templateUrl: './templates/login.template.html',
-  styleUrls: ['./templates/css/app.component.css']
+  //styleUrls: ['./templates/css/app.component.css']
 })
 export class LoginComponent {
 
