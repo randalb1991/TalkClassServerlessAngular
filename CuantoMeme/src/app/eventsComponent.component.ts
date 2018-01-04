@@ -23,7 +23,7 @@ import { error } from 'selenium-webdriver';
 @Component({
   selector: 'events-component',
   templateUrl: './templates/events.template.html',
-  styleUrls: ['./templates/css/perfil.css', './templates/font-awesome/css/font-awesome.css']
+  styleUrls: ['./templates/css/sidemenu.css','./templates/css/perfil.css',  './templates/font-awesome/css/font-awesome.css']
 })
 
 export class EventsComponent implements OnInit {

@@ -1,10 +1,12 @@
-#body-perfil {
+#total-container {
     background-image: none !important;
     background-color: #F6F6F6;
+    margin-top: -25px;
 }
 
-#user-avatar {
-    padding-top: 20px;
+#tabs{
+    width: inherit;
+    text-align: center;
 }
 
 .btn-select {
@@ -23,12 +25,10 @@
     border-bottom-right-radius: 0px !important;
     border-top-left-radius: 0px !important;
     border-top-right-radius: 0px !important;
+    width: 100%;
 }
 
 .btn-follow {
     margin: 5px;
 }
 
-.media {
-    margin: 20px;
-}

@@ -1,14 +1,27 @@
 <div id="outlet">
-        
-    <div *ngIf="servicioLogin.user_logged">
-        <side-menu [@slideInOut]="toggled"></side-menu>
+    <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse" id="nbar">
+        <div id="brand">
+                <a class="navbar-brand" href="#" id="nbar">
+                        <img src="../../assets/CuantoMeme.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                        TalkClass
+                    </a>
+        </div>
+
+    </nav>
+    <!--
+    <div class="row">
+        <div class="col-md-3" style="background:red" >
+                <div *ngIf="servicioLogin.user_logged">
+                        <side-menu [@slideInOut]="toggled"></side-menu>
+                </div>
+        </div>
+        <div class="col-md-9" style="background:blue">                
+                    <router-outlet></router-outlet>
+        </div>
+
+
     </div>
-    <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
-            <a class="navbar-brand" href="#">
-              <img src="../../assets/CuantoMeme.png" width="30" height="30" class="d-inline-block align-top" alt="">
-              Bootstrap
-            </a>
-        </nav>
+    -->
     <router-outlet></router-outlet>
 
 
