@@ -3,10 +3,14 @@
     <div class="col-md-12" *ngFor="let evento of listaEventos">
         <div *ngIf="evento">
             <div class="jumbotron">
+                <hr>
+                <div class="container text-center">
+                    <h3 class="display-4">{{evento.title}}</h3>
+                </div>
+                <hr>
                 <img src="https://media.cntraveler.com/photos/5715168e3658675c4f784750/master/w_1440,c_limit/skylines-nyc-cr-getty-110397100.jpg"  class="img-fluid mx-auto d-block" alt="vineta imagen" />
                 <div class="container social-container text-center">
                     <hr>
-                    <h3 class="display-4">{{evento.title}}</h3>
                     <p class="lead">{{evento.description}}</p>
                     <button class="btn btn-warning btn-circle" > <i class="fa fa-star" aria-hidden="true"></i></button>
                     <button class="btn btn-info btn-circle" > <i class="fa fa-comments" aria-hidden="true"></i> <span style="color:#5bc0de" class="badge"></span></button>
