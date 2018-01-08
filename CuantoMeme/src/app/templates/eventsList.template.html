@@ -5,7 +5,7 @@
             <div class="jumbotron">
                 <hr>
                 <div class="container text-center">
-                    <h3 class="display-4">{{evento.title}}</h3>
+                    <h3 [routerLink]="['/event', evento.title, evento.date]" class="display-4">{{evento.title}}</h3>
                 </div>
                 <hr>
                 <img src="https://media.cntraveler.com/photos/5715168e3658675c4f784750/master/w_1440,c_limit/skylines-nyc-cr-getty-110397100.jpg"  class="img-fluid mx-auto d-block" alt="vineta imagen" />

@@ -1,0 +1,63 @@
+<div *ngIf="event">
+    <div id="body-details">
+            <!-- -->
+            <div class="row">
+                <div class="col-md-2" id="sidebar">
+                        <side-menu [@slideInOut]="toggled"></side-menu>
+                </div>
+                <!-- -->
+                <div id="viñeta" class="col-md-10">
+                        <!-- -->
+                        <h2 class="display-3 text-center">{{event.title}}</h2>
+                        <div class="row">
+                                <!-- -->
+                                <div class="col-md-12"> 
+                                    <div id="event-details-carousel">
+                                            <ngb-carousel id="event-details-carousel-slide">
+                                                    <ng-template ngbSlide>
+                                                            <img src="https://lorempixel.com/900/500?r=1" alt="Random first slide">
+                                                            <div class="carousel-caption">
+                                                            <h3>First slide label</h3>
+                                                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                                                            </div>
+                                                            <!--
+                                                            <img src="https://media.cntraveler.com/photos/5715168e3658675c4f784750/master/w_1440,c_limit/skylines-nyc-cr-getty-110397100.jpg" alt="Random first slide">
+                                                            <div class="carousel-caption">
+                                                            <h3>First slide label</h3>
+                                                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                                                            </div>
+                                                            -->
+                                                    </ng-template>
+                                            </ngb-carousel>
+                                            <h3 class="lead">Autor</h3>
+                                            <hr>
+
+                                    </div>
+                                </div>
+                                <!-- -->
+                                <!-- -->
+                                <!-- -->
+                        </div>
+                        <p class="text-center lead">{{event.description}}</p>
+                        <h4 class="text-center lead">- Detalles -</h4>
+                        <!-- -->
+                </div>
+                <!-- -->
+            </div>
+            <!-- -->
+            <div id="comentarB" class="row">
+                <div class="container text-center">
+                    <p id="comentarP">Comentar</p>
+                    <hr id="comentarHR">
+                    <div class="input-group">
+                        ****
+                    </div>
+                </div>
+            </div>
+            <!-- -->
+            <div class="row">
+                ****
+            </div>
+            <!-- -->
+    </div>
+</div>

@@ -6,11 +6,11 @@ import { Classroom } from './classes/Classroom.class';
 import { Event } from './classes/Evento.class';
 @Component({
   selector: 'lista-eventos',
-  templateUrl: './templates/listaEventos.template.html',
+  templateUrl: './templates/eventsList.template.html',
   styleUrls: ['./templates/css/listaEventos.css', './templates/font-awesome/css/font-awesome.css']
 })
 
-export class listaEventosComponent implements OnInit {
+export class EventsListComponent implements OnInit {
   
   //El componente recibe una lista de viñetas y las muestra
   listaEventos: Event[];

@@ -10,7 +10,12 @@
     color: dimgrey;
     font-size: 0.8em;
 }
-
+#event-details-carousel{
+    width: 80%;
+}
+#event-details-carousel-slide{
+    text-align: center
+}
 .btn-circle {
     width: 50px;
     height: 50px;

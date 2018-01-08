@@ -5,7 +5,7 @@ import {User} from '../classes/User.class';
 import {VinetasService} from './vinetas.service'
 import {UsuarioService} from './usuarios.service'
 import 'rxjs/Rx';
-const BASE_URL = 'http://localhost:8080/api/usuarios/'
+const BASE_URL = "https://4ybwsxnunf.execute-api.us-east-1.amazonaws.com/dev/talkclass/login"
 
 @Injectable()
 export class LoginService {
@@ -53,13 +53,12 @@ export class LoginService {
 
 	
     login_talkclass(username: string, password:string, role: string){
-        let url = "https://4ybwsxnunf.execute-api.us-east-1.amazonaws.com/dev/talkclass/loginwu"
         let body = {
             username: username,
             password: password,
             role: role
         }
-        return this.http.post(url, body).map(
+        return this.http.post(BASE_URL, body).map(
             response => {
                         if (response.status){
                             this.parsing_login_response(response)

@@ -50,7 +50,7 @@ export class EventsComponent implements OnInit {
     selectedItems = [];
     settings = {};
 
-    constructor(public ServicioLogin: LoginService,public ServicioClassroom: ClassroomsService ,private ServicioEventos :EventsService, private Ruta: ActivatedRoute, private router: Router) {
+    constructor(private ServicioLogin: LoginService,private ServicioClassroom: ClassroomsService ,private ServicioEventos :EventsService, private Ruta: ActivatedRoute, private router: Router) {
 
     }
 
@@ -138,4 +138,11 @@ export class EventsComponent implements OnInit {
       )
 
     }
+
+    //--------Subida de imagen
+
+    fileChange(e) {
+      this.imgVineta = e.target.files;
+    }
+    //--------
 }

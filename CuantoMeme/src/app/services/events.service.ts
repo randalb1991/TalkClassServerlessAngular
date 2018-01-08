@@ -15,21 +15,29 @@ import 'rxjs/Rx';
 import { Classroom } from '../classes/Classroom.class';
 import { error } from 'selenium-webdriver';
 
+const BASE_URL = 'https://4ybwsxnunf.execute-api.us-east-1.amazonaws.com/dev/talkclass/events/'
 
-const BASE_URL = 'http://localhost:8080/api/vinetas/'
 
 @Injectable()
 export class EventsService {
-
+    const
     constructor(private http: Http, private router: Router){}
     //---------------------
     getEvents(){
-        var url = "https://4ybwsxnunf.execute-api.us-east-1.amazonaws.com/dev/talkclass/events"
-        console.log(url)
+        console.log(BASE_URL)
+        return this.http.get(BASE_URL)
+            .map(response => this.generateEvents(response.json()))
+            .catch(error => this.handleError(error))
+    }
+
+    getevent(title: string, date:string){
+        var url = BASE_URL+'?title='+title
+        console.log('requesting url: ' +url)
         return this.http.get(url)
             .map(response => this.generateEvents(response.json()))
             .catch(error => this.handleError(error))
     }
+    
 
     generateEvents(events:any[]){
         var lu: Event[] = []

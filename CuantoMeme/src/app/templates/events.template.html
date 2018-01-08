@@ -58,8 +58,13 @@
                                           (onDeSelect)="OnItemDeSelect($event)" 
                                           (onSelectAll)="onSelectAll($event)" 
                                           (onDeSelectAll)="onDeSelectAll($event)">
-                    </angular2-multiselect>
+                                        </angular2-multiselect>
                                   </div>
+                                  <div class="form-group">
+                                        <label for="imageninput">Imagen de evento</label>
+                                        <input type="file" class="form-control" id="imageninput" name="file" (change)="fileChange($event)">
+                                        <small>¡No más de 1mb!</small>
+                                    </div>
                                   <button class="btn btn-info" type="button" (click)="crearEvento()">Crear evento!</button>
                                   </form>
                                   <p  style="color:rgb(248, 53, 53)" value="">{{message_to_show }}</p>

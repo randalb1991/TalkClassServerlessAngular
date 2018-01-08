@@ -16,8 +16,9 @@ import { LoginComponent } from './login.component';
 import { SignUpComponent } from './signup.component';
 import { listaVinetasComponent } from './listaVinetas.component';
 
-import { listaEventosComponent } from './listaEventos.component';
+import { EventsListComponent } from './eventsList.component';
 
+import { NgbdModalBasicComponent } from './modal-ng/modal-basic.component';
 
 import { vinetasDetalleComponent } from './vinetasDetalle.component';
 import { VinetasService } from './services/vinetas.service';
@@ -39,12 +40,13 @@ import { DislikesComponent } from './dislikesComponent.component';
 import { FavoritesComponent } from './favoritesComponent.component';
 import { HomeComponent } from './homeComponent.component';
 import { EventsComponent } from './eventsComponent.component';
+import { EventDetailsComponent}from './eventDetails.component';
 
 
 
 @NgModule({
   declarations: [
-    listaEventosComponent,
+    EventsListComponent,
     AppComponent,
     IndexComponent,
     BusquedaComponent,
@@ -59,7 +61,9 @@ import { EventsComponent } from './eventsComponent.component';
     FavoritesComponent,
     DislikesComponent,
     HomeComponent,
-    EventsComponent
+    EventDetailsComponent,
+    EventsComponent,
+    NgbdModalBasicComponent
   ],
   imports: [
     NgbModule.forRoot(),
