@@ -62,7 +62,7 @@
                                   </div>
                                   <div class="form-group">
                                         <label for="imageninput">Imagen de evento</label>
-                                        <input type="file" class="form-control" id="imageninput" name="file" (change)="fileChange($event)">
+                                        <input type="file" accept="image/*" class="form-control" id="imageninput" name="file" (change)="fileChange($event)">
                                         <small>¡No más de 1mb!</small>
                                     </div>
                                   <button class="btn btn-info" type="button" (click)="crearEvento()">Crear evento!</button>

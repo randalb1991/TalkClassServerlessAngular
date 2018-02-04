@@ -11,7 +11,7 @@ export class ClassroomsService {
     constructor(private http: Http){}
 
     getClassrooms(){
-        var url = "https://4ybwsxnunf.execute-api.us-east-1.amazonaws.com/dev/talkclass/classrooms"
+        var url = "https://15psp95at5.execute-api.us-east-1.amazonaws.com/dev/talkclass/classrooms"
         return this.http.get(url).map(
             response => this.generateClassrooms(response.json())//console.log(response.json())//this.generateClassrooms(response.json())//this.extractVinetas(response)
         )

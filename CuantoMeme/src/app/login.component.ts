@@ -4,7 +4,8 @@ import { LoginService } from './services/login.service';
 import { loggedUserService } from './services/logged-user.service';
 import { Router } from '@angular/router';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
-
+//import {apigClientFactory} from './scripts/apigClient.js'
+//import {apigClientFactory} from './scripts/apigClient.js'
 
 @Component({
   selector: 'login-component',
@@ -26,6 +27,8 @@ export class LoginComponent implements OnInit{
   //@Output() loggedUser = new EventEmitter<Usuario>();
   //Comentario
   ngOnInit(){
+    //var apigClient = aws.apigClientFactory.newClient()
+    console.log()
     this.itemList = [
       {"id":1,"itemName":"Teacher"},
       {"id":2,"itemName":"Parent"},

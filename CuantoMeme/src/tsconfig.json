@@ -5,6 +5,7 @@
       "lib": [ "esnext","es2015", "dom" ],
       "module": "commonjs",
       "moduleResolution": "node",
+      "allowJs": false,
       "noImplicitAny": false,
       "sourceMap": true,
       "suppressImplicitAnyIndexErrors": true,
@@ -12,5 +13,6 @@
   },
   "exclude": [
       "node_modules/*"
+//      "src/app/scripts/apigClient.js",
   ]
 }

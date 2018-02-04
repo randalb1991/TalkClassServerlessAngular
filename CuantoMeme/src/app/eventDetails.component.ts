@@ -8,6 +8,9 @@ import { LoginService } from './services/login.service';
 import { Event } from './classes/Evento.class';
 //import { Comentario } from './classes/Comentario.class';
 import { EventsService } from './services/events.service';
+import { ClassroomsService } from './services/classrooms.service';
+import { Classroom } from './classes/Classroom.class';
+
 
 import 'rxjs/add/operator/switchMap';
 
@@ -21,8 +24,13 @@ export class EventDetailsComponent implements OnInit {
   title:string;
   date:string;
   event: Event;
+  classrooms: Classroom[] = [];
 
-  constructor (private ServicioLogin: LoginService,private ServicioEventos :EventsService,private route: ActivatedRoute, private router: Router){}
+//MultiSelect Dropdown variables
+      itemList = []
+      selectedItems = [];
+      settings = {};
+  constructor (private ServicioLogin: LoginService,private ServicioClassroom: ClassroomsService ,private ServicioEventos :EventsService,private route: ActivatedRoute, private router: Router){}
 
   ngOnInit() {
 
@@ -43,10 +51,37 @@ export class EventDetailsComponent implements OnInit {
         error => console.log(error)
         
       )
+      this.ServicioClassroom.getClassrooms().subscribe(
+        response => {
+          this.classrooms = response
+          /* 
+          Contruimos los diccionarios para introducirlo en el array para 
+          mostrar las listas de clases. Necesario para multiselec dropdown
+          */
+          var id = 0;
+          for (let classroom of this.classrooms){
+            id++
+            // Tener atributos id e itemName es obligatorio(tal cual)
+            console.log("tete")
+            console.log(this.event.classrooms.indexOf(classroom.name))
+            if (this.event.classrooms.indexOf(classroom.name) < 0){
+              console.log("classroom "+classroom.name+"is not invited")
+              var c = {"id": id,"itemName": classroom.name, "category": classroom.level}
+              this.itemList.push(c)
+            }
+
+          }
+          console.log(this.itemList)
+        },
+        error => console.log(error)
+        
+      )
     } 
 
   }
-  
+  ModifyEvent(){
+    
+  }
   /*
   public vineta: Vineta;
   private followinguser = false;

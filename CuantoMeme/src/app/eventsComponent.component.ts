@@ -19,6 +19,7 @@ import { Classroom } from './classes/Classroom.class';
 import { Event } from './classes/Evento.class';
 import { Response } from '@angular/http/src/static_response';
 import { error } from 'selenium-webdriver';
+import { toBase64String } from '@angular/compiler/src/output/source_map';
 
 @Component({
   selector: 'events-component',
@@ -39,19 +40,24 @@ export class EventsComponent implements OnInit {
     place: string = ''
     date= {};
     plane: string = '';
-    imgVineta: FileList;
+    photo_event: string;
+    photo_event_name : string;
 
     //Cambiar avatar
     optionsModel: number[];
     imgAvatar: FileList;
+    
 
     //MultiSelect Dropdown variables
     itemList = []
     selectedItems = [];
     settings = {};
 
-    constructor(private ServicioLogin: LoginService,private ServicioClassroom: ClassroomsService ,private ServicioEventos :EventsService, private Ruta: ActivatedRoute, private router: Router) {
+    // test
+    private fileReader: FileReader;
+    private base64Encoded: string;
 
+    constructor(private ServicioLogin: LoginService,private ServicioClassroom: ClassroomsService ,private ServicioEventos :EventsService, private Ruta: ActivatedRoute, private router: Router) {
     }
 
     ngOnInit() {
@@ -118,7 +124,7 @@ export class EventsComponent implements OnInit {
       console.log(this.place)
       console.log(date)
       console.log(classrooms)
-      this.ServicioEventos.createEvent(this.title, this.description, this.place, date,classrooms).subscribe(
+      this.ServicioEventos.createEvent(this.title, this.description, this.place, date,classrooms, this.photo_event, this.photo_event_name).subscribe(
         response => {
           this.message_to_show = "Created correctly"
           // Limpiamos formulario
@@ -141,8 +147,22 @@ export class EventsComponent implements OnInit {
 
     //--------Subida de imagen
 
-    fileChange(e) {
-      this.imgVineta = e.target.files;
+    fileChange($event) {
+      this.readThis($event.target);
+    }
+    readThis(inputValue: any): void {
+      var file:File = inputValue.files[0];
+      console.log(file.name)
+      var myReader:FileReader = new FileReader();
+    
+      myReader.onloadend = (e) => {
+        console.log(e)
+        this.photo_event = myReader.result.split(';base64,')[1];
+        this.photo_event_name = file.name
+        console.log("Juuuuas")
+        console.log(this.photo_event)
+      }
+      myReader.readAsDataURL(file);
     }
     //--------
 }

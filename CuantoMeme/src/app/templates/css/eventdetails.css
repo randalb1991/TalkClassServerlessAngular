@@ -11,10 +11,37 @@
     font-size: 0.8em;
 }
 #event-details-carousel{
-    width: 80%;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.list-group-item {
+    height: 45px;
+    text-align: center;
+    position: relative;
+    display: block;
+    padding: 0;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.125);
 }
 #event-details-carousel-slide{
     text-align: center
+}
+#event-details-carousel-slide img {
+    width: inherit;
+}
+#event-detail-classrooms-list{
+    padding-top: 100px;    
+    padding-left: 0;
+    padding-right: 0;
+}
+#event-detail-classrooms-list-container{
+    width: 85%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 .btn-circle {
     width: 50px;

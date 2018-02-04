@@ -15,7 +15,7 @@ import 'rxjs/Rx';
 import { Classroom } from '../classes/Classroom.class';
 import { error } from 'selenium-webdriver';
 
-const BASE_URL = 'https://4ybwsxnunf.execute-api.us-east-1.amazonaws.com/dev/talkclass/events/'
+const BASE_URL = 'https://15psp95at5.execute-api.us-east-1.amazonaws.com/dev/talkclass/events'
 
 
 @Injectable()
@@ -50,16 +50,17 @@ export class EventsService {
     generateEvent(event: Event){
         return new Event(event['Title'],event['Description'],event['Date'],event['Classrooms'],event['Place'])
     }
-    createEvent(title:string, description: string, place:string, date:string, classrooms:string[]){
-        let url = "https://4ybwsxnunf.execute-api.us-east-1.amazonaws.com/dev/talkclass/events"
+    createEvent(title:string, description: string, place:string, date:string, classrooms:string[], photo_event:string, photo_event_name:string){
         let body = {
             title: title,
             description: description,
             date: date,
             place: place,
-            classrooms: classrooms
+            classrooms: classrooms,
+            photo_event:photo_event,
+            photo_name: photo_event_name
         }
-        return this.http.post(url,body).map(
+        return this.http.post(BASE_URL,body).map(
             response => {
                 console.log("status creacion evento: "+response.status)
             },

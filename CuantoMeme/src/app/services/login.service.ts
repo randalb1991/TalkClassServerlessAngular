@@ -5,7 +5,7 @@ import {User} from '../classes/User.class';
 import {VinetasService} from './vinetas.service'
 import {UsuarioService} from './usuarios.service'
 import 'rxjs/Rx';
-const BASE_URL = "https://4ybwsxnunf.execute-api.us-east-1.amazonaws.com/dev/talkclass/login"
+const BASE_URL = "https://15psp95at5.execute-api.us-east-1.amazonaws.com/dev/talkclass/authentication"
 
 @Injectable()
 export class LoginService {
@@ -43,7 +43,7 @@ export class LoginService {
         var credentials = response.credentials
         var profile = response. profile
         console.log("****")
-        console.log(credentials['secret_key'])
+        console.log(credentials)
         var user = new User(profile['Username'], profile['First Name'], profile['Last Name'], profile['Classroom'], profile['Email']
         ,profile['Phone'], profile['Address'], profile['Postcal Code'], profile['Role'], profile['Birthday'], profile['Folder'])
         user.setCredentials(credentials['access_key'],credentials['secret_key'],credentials['session_token'])
