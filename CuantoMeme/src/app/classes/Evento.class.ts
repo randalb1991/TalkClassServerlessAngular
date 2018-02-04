@@ -15,6 +15,19 @@ export class Event {
         this.description = description,
         this.date = date,
         this.place = place
+        this.classrooms = classrooms
+    }
+    add_classroom(classroom: string){
+        this.classrooms.push(classroom)
+    }
+    
+    add_classrooms(classrooms: string[]){
+        for(let classroom of classrooms){
+            this.add_classroom(classroom)
+        }
+    }
+    modify_date(date: string){
+        this.date = date
     }
     
 }

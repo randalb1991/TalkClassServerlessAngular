@@ -2,6 +2,9 @@
 Ver el siguiente modulo para implementar un multiselect dropdown
 https://github.com/CuppaLabs/angular2-multiselect-dropdown
 
+
+Varios diseños 
+https://github.com/mdbootstrap/Angular-Bootstrap-with-Material-Design
 */
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -16,11 +19,12 @@ import { Classroom } from './classes/Classroom.class';
 import { Event } from './classes/Evento.class';
 import { Response } from '@angular/http/src/static_response';
 import { error } from 'selenium-webdriver';
+import { toBase64String } from '@angular/compiler/src/output/source_map';
 
 @Component({
   selector: 'events-component',
   templateUrl: './templates/events.template.html',
-  styleUrls: ['./templates/css/perfil.css', './templates/font-awesome/css/font-awesome.css']
+  styleUrls: ['./templates/css/sidemenu.css','./templates/css/perfil.css',  './templates/font-awesome/css/font-awesome.css']
 })
 
 export class EventsComponent implements OnInit {
@@ -34,28 +38,33 @@ export class EventsComponent implements OnInit {
     title: string = '';
     description: string = '';
     place: string = ''
-    date: string = '';
+    date= {};
     plane: string = '';
-    imgVineta: FileList;
+    photo_event: string;
+    photo_event_name : string;
 
     //Cambiar avatar
     optionsModel: number[];
     imgAvatar: FileList;
+    
 
     //MultiSelect Dropdown variables
     itemList = []
     selectedItems = [];
     settings = {};
 
-    constructor(public ServicioLogin: LoginService,public ServicioClassroom: ClassroomsService ,private ServicioEventos :EventsService, private Ruta: ActivatedRoute, private router: Router) {
+    // test
+    private fileReader: FileReader;
+    private base64Encoded: string;
 
+    constructor(private ServicioLogin: LoginService,private ServicioClassroom: ClassroomsService ,private ServicioEventos :EventsService, private Ruta: ActivatedRoute, private router: Router) {
     }
 
     ngOnInit() {
         //---- Necesario para multiselect dropdown
         this.selectedItems = [];
         this.settings = {
-          text: "Select Countries",
+          text: "Seleecciona clases participantes",
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           classes: "myclass custom-class"
@@ -105,8 +114,9 @@ export class EventsComponent implements OnInit {
     }
     //-----MultiSelect Dropdown ---
     crearEvento() {
-      var pieces = this.date.split('-')
-      var date = pieces[2]+'/'+pieces[1]+'/'+pieces[0]
+      //var pieces = this.date.split('-')
+      console.log(this.date)
+      var date = this.date["day"]+'/'+this.date["month"]+'/'+this.date["year"]
       var classrooms = []
       for (let classroom of this.selectedItems){
         classrooms.push(classroom["itemName"])
@@ -114,7 +124,7 @@ export class EventsComponent implements OnInit {
       console.log(this.place)
       console.log(date)
       console.log(classrooms)
-      this.ServicioEventos.createEvent(this.title, this.description, this.place, date,classrooms).subscribe(
+      this.ServicioEventos.createEvent(this.title, this.description, this.place, date,classrooms, this.photo_event, this.photo_event_name).subscribe(
         response => {
           this.message_to_show = "Created correctly"
           // Limpiamos formulario
@@ -134,4 +144,25 @@ export class EventsComponent implements OnInit {
       )
 
     }
+
+    //--------Subida de imagen
+
+    fileChange($event) {
+      this.readThis($event.target);
+    }
+    readThis(inputValue: any): void {
+      var file:File = inputValue.files[0];
+      console.log(file.name)
+      var myReader:FileReader = new FileReader();
+    
+      myReader.onloadend = (e) => {
+        console.log(e)
+        this.photo_event = myReader.result.split(';base64,')[1];
+        this.photo_event_name = file.name
+        console.log("Juuuuas")
+        console.log(this.photo_event)
+      }
+      myReader.readAsDataURL(file);
+    }
+    //--------
 }

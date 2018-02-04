@@ -15,6 +15,7 @@ import { FavoritesComponent } from './favoritesComponent.component';
 import { DislikesComponent } from './dislikesComponent.component';
 import { HomeComponent } from './homeComponent.component';
 import { EventsComponent } from './eventsComponent.component';
+import { EventDetailsComponent}from './eventDetails.component';
 
 
 const rutas: Routes = [
@@ -24,6 +25,7 @@ const rutas: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignUpComponent },
     { path: 'vineta/:id', component: vinetasDetalleComponent },
+    { path: 'event/:title/:date', component: EventDetailsComponent },
     { path: 'tag/:nombre', component: TagViewComponent },
     { path: 'perfil/:id', component: PerfilComponent },
     { path: 'likes', component: LikesComponent },

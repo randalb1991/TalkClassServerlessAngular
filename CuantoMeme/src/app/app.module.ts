@@ -3,14 +3,23 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule }   from '@angular/router';
+//---------
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+//import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
-//import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+//------
+
 import { AppComponent } from './app.component';
 import { IndexComponent } from './IndexComponent.component';
 import { BusquedaComponent } from './busquedaComponent.component';
 import { LoginComponent } from './login.component';
 import { SignUpComponent } from './signup.component';
 import { listaVinetasComponent } from './listaVinetas.component';
+
+import { EventsListComponent } from './eventsList.component';
+
+import { NgbdModalBasicComponent } from './modal-ng/modal-basic.component';
+
 import { vinetasDetalleComponent } from './vinetasDetalle.component';
 import { VinetasService } from './services/vinetas.service';
 import { UsuarioService } from './services/usuarios.service';
@@ -31,11 +40,13 @@ import { DislikesComponent } from './dislikesComponent.component';
 import { FavoritesComponent } from './favoritesComponent.component';
 import { HomeComponent } from './homeComponent.component';
 import { EventsComponent } from './eventsComponent.component';
+import { EventDetailsComponent}from './eventDetails.component';
 
 
 
 @NgModule({
   declarations: [
+    EventsListComponent,
     AppComponent,
     IndexComponent,
     BusquedaComponent,
@@ -50,10 +61,12 @@ import { EventsComponent } from './eventsComponent.component';
     FavoritesComponent,
     DislikesComponent,
     HomeComponent,
-    EventsComponent
+    EventDetailsComponent,
+    EventsComponent,
+    NgbdModalBasicComponent
   ],
   imports: [
-  //  NgbModule,
+    NgbModule.forRoot(),
     AngularMultiSelectModule,
     BrowserModule,
     FormsModule,

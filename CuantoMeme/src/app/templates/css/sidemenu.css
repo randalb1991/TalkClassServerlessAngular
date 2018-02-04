@@ -1,7 +1,7 @@
 :host {
   background: white;
   color: black;
-  position: fixed;
+  position: inherit;
   left: auto;
   top: 0;
   right: 0;
@@ -24,4 +24,11 @@ ul {
 
 h2 {
     padding-top: 10px;
+}
+
+#sidebar{
+  background: white
+}
+#profile-image-sidebar{
+  width: 80%;
 }

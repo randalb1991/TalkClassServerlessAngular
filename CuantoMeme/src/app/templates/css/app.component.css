@@ -1,3 +1,16 @@
 #menutoggle {
     margin-right: 30px;
 }
+#nbar{
+    background: black;
+    width: inherit;
+    text-align: center;
+}
+#nbar #brand{
+    background: black;
+    width: 100%;
+    text-align: center; 
+}
+#nbar #brand a{
+    color: white
+}
