@@ -14,6 +14,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
 import { Classroom } from '../classes/Classroom.class';
 import { error } from 'selenium-webdriver';
+import { User } from '../classes/User.class';
+
 
 const BASE_URL = 'https://15psp95at5.execute-api.us-east-1.amazonaws.com/dev/talkclass/users'
 
@@ -55,6 +57,23 @@ export class UsersService {
             },
             error => {console.error(error)}
         );
+    }
+
+    get_users(){
+        return this.http.get(BASE_URL).map(
+            response=>this.generate_users(response.json())
+        )
+    }
+    generate_users(users: any[]){
+        var lu: User[] = [];
+        for (let user of users) {
+            lu.push(this.generate_user(user));
+           }
+        return lu;
+      }
+    generate_user(user: any){
+        return new User(user['Username'], user['First Name'], user['Last Name'],user['Classroom'],
+        user['Email'], user['Phone'], user['Address'],user['Postal Code'], user['Role'], user['Birthday'],user['Folder']);
     }
     //--------------
   

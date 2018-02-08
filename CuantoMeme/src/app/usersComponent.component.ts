@@ -14,7 +14,7 @@ import { LoginService } from './services/login.service';
 import { UsersService } from './services/users.service';
 import { ClassroomsService } from './services/classrooms.service';
 
-
+import {User} from './classes/User.class';
 import { Classroom } from './classes/Classroom.class';
 import { Response } from '@angular/http/src/static_response';
 import { error } from 'selenium-webdriver';
@@ -28,7 +28,7 @@ import { toBase64String } from '@angular/compiler/src/output/source_map';
 
 export class UsersComponent implements OnInit {
     opcion: string = 'crear';
-    events: Event[] = [];
+    users: User[] = [];
 
 
     //Crear Evento
@@ -109,6 +109,12 @@ export class UsersComponent implements OnInit {
               },
               error => console.log(error)
               
+            )
+            this.ServicioUsers.get_users().subscribe(
+              response => {
+                this.users = response
+                console.log(response)},
+              error => console.log(error)
             )
           }      
         }
