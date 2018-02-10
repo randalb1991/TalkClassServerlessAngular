@@ -16,10 +16,10 @@
                 <ul  *ngFor="let level of levels">
                         <div  *ngIf="level">
                             <li class="dropdown" >
-                                <a routerLink="/login" (click)="get_classrooms_by_level(level)"><i class="dropdown-toggle" aria-hidden="true"></i> {{level}}</a>
+                                <a class="fa fa-star" (click)="get_classrooms_by_level(level)"><i class="dropdown-toggle" aria-hidden="true"></i> {{level}}</a>
                                 <ul  *ngFor="let classroom of classrooms_to_list">
                                     <div *ngIf="classroom.level == level">
-                                        <li>{{classroom.classs}}</li>
+                                        <li><a routerLink="/">{{classroom.classs}}</a></li>
                                     </div>
                                 </ul>
                             </li>

@@ -54,7 +54,8 @@ export class UsersComponent implements OnInit {
     
 
     //MultiSelect Dropdown variables
-    itemList = []
+    parentitemList = []
+    teacheritemList = []
     selectedItems = [];
     settings = {};
 
@@ -103,9 +104,15 @@ export class UsersComponent implements OnInit {
                   id++
                   // Tener atributos id e itemName es obligatorio(tal cual)
                   var c = {"id": id,"itemName": classroom.name, "category": classroom.level}
-                  this.itemList.push(c)
+                  this.parentitemList.push(c)
+                  if (classroom['tutor'].length == 0){
+                    this.teacheritemList.push(c)
+                  }
                 }
-                console.log(this.itemList)
+                console.log("parent list")
+                console.log (this.parentitemList)
+                console.log("teacher list")
+                console.log(this.teacheritemList)
               },
               error => console.log(error)
               

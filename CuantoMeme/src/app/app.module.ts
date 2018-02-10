@@ -29,7 +29,6 @@ import { TagService } from './services/tag.service';
 import { sideMenuComponent } from './side-menu.component';
 import { LoginService } from './services/login.service';
 import { ComentariosService } from './services/comentario.service';
-import { ClassroomsService } from './services/classrooms.service';
 
 import { PerfilComponent } from './perfilComponent.component';
 import { TabsetComponent } from 'ngx-bootstrap';
@@ -46,6 +45,9 @@ import { EventsService } from './services/events.service';
 import { UsersComponent } from './usersComponent.component';
 import { UserDetailsComponent}from './userDetails.component';
 import { UsersService } from './services/users.service';
+
+import { ClassroomsService } from './services/classrooms.service';
+import { ClassroomsComponent } from './classroomsComponent.component';
 
 
 
@@ -70,7 +72,8 @@ import { UsersService } from './services/users.service';
     EventsComponent,
     NgbdModalBasicComponent,
     UsersComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    ClassroomsComponent
   ],
   imports: [
     NgbModule.forRoot(),

@@ -93,11 +93,11 @@
                                             (onDeSelectAll)="onDeSelectAll($event)">
                                         </angular2-multiselect>
                                      </div>
-                                  <div *ngIf="itemList" class="form-group">
+                                  <div *ngIf="parentitemList" class="form-group">
                                           <div *ngIf='selectedRole[0]'>
                                               <div *ngIf='selectedRole[0].itemName=="Teacher"'>
                                                     <label for="dateinput">Tutor de:</label>
-                                                    <angular2-multiselect [data]="itemList" 
+                                                    <angular2-multiselect [data]="teacheritemList" 
                                                     [(ngModel)]="selectedItems" name= "something4"
                                                     [settings]="settings" 
                                                     (onSelect)="onItemSelect($event)"
@@ -111,7 +111,7 @@
                                           <div *ngIf='selectedRole[0]'>
                                                 <div *ngIf='selectedRole[0].itemName=="Parent"'>
                                                       <label for="dateinput">Clase</label>
-                                                      <angular2-multiselect [data]="itemList" 
+                                                      <angular2-multiselect [data]="parentitemList" 
                                                       [(ngModel)]="selectedItems" name= "something4"
                                                       [settings]="settings" 
                                                       (onSelect)="onItemSelect($event)"

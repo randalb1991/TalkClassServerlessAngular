@@ -20,11 +20,13 @@ export class sideMenuComponent{
     public classrooms = [];
     public classrooms_to_list = []
     public levels = []
-    constructor(public servicioLogin: LoginService, public servicioevent: EventsService,public servicioClassrooms:ClassroomsService) {
+    constructor(public servicioLogin: LoginService, public servicioevent: EventsService,public servicioClassrooms:ClassroomsService, private router: Router) {
     }
 
     ngOnInit(){
-      if (true){
+      if(!this.servicioLogin.isLogged) {
+        this.router.navigateByUrl('/');
+      }else{
         this.servicioClassrooms.getClassrooms().subscribe(
           classrooms => {
             console.log("parseado")
@@ -33,12 +35,6 @@ export class sideMenuComponent{
             console.log(this.levels)
           },
           error =>{ console.log(error)}
-        );
-        this.servicioevent.getEvents().subscribe(
-          events =>{
-              console.log("juuuas")
-              console.log(events)
-          }
         )
       }
     }
