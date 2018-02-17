@@ -58,5 +58,8 @@ export class User {
         console.log("isTeacher: "+isTeacher)
         return (this.role == "teacher")
     }
+    get_session_token():string{
+        return this.session_token
+    }
    
 }

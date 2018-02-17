@@ -1,3 +1,4 @@
+// https://github.com/pfernandom/aws-api-client
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -49,7 +50,7 @@ import { UsersService } from './services/users.service';
 import { ClassroomsService } from './services/classrooms.service';
 import { ClassroomsComponent } from './classroomsComponent.component';
 
-
+import { MultimediaService } from './services/multimedia.service';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,7 @@ import { ClassroomsComponent } from './classroomsComponent.component';
     HttpModule,
     routing
   ],
-  providers: [VinetasService, EventsService,ClassroomsService,UsuarioService, TagService, LoginService, loggedUserService, ComentariosService, UsersService],
+  providers: [VinetasService,MultimediaService, EventsService,ClassroomsService,UsuarioService, TagService, LoginService, loggedUserService, ComentariosService, UsersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

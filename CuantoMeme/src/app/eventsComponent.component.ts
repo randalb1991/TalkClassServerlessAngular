@@ -116,7 +116,7 @@ export class EventsComponent implements OnInit {
     crearEvento() {
       //var pieces = this.date.split('-')
       console.log(this.date)
-      var date = this.date["day"]+'/'+this.date["month"]+'/'+this.date["year"]
+      var date = this.date["day"]+'-'+this.date["month"]+'-'+this.date["year"]
       var classrooms = []
       for (let classroom of this.selectedItems){
         classrooms.push(classroom["itemName"])
