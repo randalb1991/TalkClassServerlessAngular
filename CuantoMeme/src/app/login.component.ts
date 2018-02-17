@@ -4,9 +4,20 @@ import { LoginService } from './services/login.service';
 import { loggedUserService } from './services/logged-user.service';
 import { Router } from '@angular/router';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
-//import {apigClientFactory} from './scripts/apigClient.js'
-//import {apigClientFactory} from './scripts/apigClient.js'
+//import apiGateway  from 'scripts/lib/apiGatewayCore/apiGatewayClient.js'
+//import apigClientFactory  from 'scripts/apigClient.js'
 
+//import {apigClientFactory} from './scripts/apigClient.js'
+//import {apigClientFactory} from './scripts/apigClient.js'
+// https://github.com/angular/angular/issues/21080
+// https://github.com/angular/angular/issues/21971))
+
+/**
+ * https://github.com/pfernandom/aws-api-client
+ * https://github.com/pfernandom/aws-api-client
+ * npm install aws-api-gateway-client
+
+ */
 @Component({
   selector: 'login-component',
   templateUrl: './templates/login.template.html',
@@ -27,6 +38,28 @@ export class LoginComponent implements OnInit{
   //@Output() loggedUser = new EventEmitter<Usuario>();
   //Comentario
   ngOnInit(){
+    var params = {}
+    var additionalParams = {}
+    var body = {
+                  "username": "profesor",
+                  "password": "profesor",
+                  "role": "teacher"
+                }
+    //var apigClientFactory = require('aws-api-gateway-client').default;
+    //var config = {}
+    //var apigClient = apigClientFactory.newClient(config);
+    //apigClientFactory.newClient()
+    /*
+    var apigClient = apigClientFactory.newClient()
+    apigClient.talkclassAuthenticationPost(params,body,additionalParams).then(
+      function(result){
+        console.log('jjjjjjjjjiiioo')
+        console.log(result)
+      }).catch(function(result){
+        console.log('jooope')
+        console.log(result)
+      })
+      */
     //var apigClient = aws.apigClientFactory.newClient()
     console.log()
     this.itemList = [
@@ -36,7 +69,7 @@ export class LoginComponent implements OnInit{
     ];
     this.selectedItems = [
           {"id":1,"itemName":"Teacher"}];
-    this.settings = {singleSelection: true, text:"Select Country"};
+    this.settings = {singleSelection: true, text:"Select your role"};
     }
   
   login() {

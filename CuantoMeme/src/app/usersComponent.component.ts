@@ -11,37 +11,42 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 
 import { LoginService } from './services/login.service';
-import { EventsService } from './services/events.service';
+import { UsersService } from './services/users.service';
 import { ClassroomsService } from './services/classrooms.service';
 
-
+import {User} from './classes/User.class';
 import { Classroom } from './classes/Classroom.class';
-import { Event } from './classes/Evento.class';
 import { Response } from '@angular/http/src/static_response';
 import { error } from 'selenium-webdriver';
 import { toBase64String } from '@angular/compiler/src/output/source_map';
 
 @Component({
-  selector: 'events-component',
-  templateUrl: './templates/events.template.html',
+  selector: 'users-component',
+  templateUrl: './templates/users.template.html',
   styleUrls: ['./templates/css/sidemenu.css','./templates/css/perfil.css',  './templates/font-awesome/css/font-awesome.css']
 })
 
-export class EventsComponent implements OnInit {
+export class UsersComponent implements OnInit {
     opcion: string = 'crear';
-    events: Event[] = [];
+    users: User[] = [];
 
 
     //Crear Evento
+    error_message_password = "Las contraseñas no coinciden"
     message_to_show = ""
-    classrooms: Classroom[] = [];
-    title: string = '';
-    description: string = '';
-    place: string = ''
-    date= {};
-    plane: string = '';
-    photo_event: string;
-    photo_event_name : string;
+    classrooms: Classroom[];
+    firstname: string = '';
+    lastname: string = '';
+    username: string = '';
+    email: string = ''
+    phone: number;
+    password: string = ''
+    confirmpassword: string = ''
+    address: string = ''
+    postalcode: number;
+    birthday= {};
+    photo_profile: string;
+    photo_profile_name : string;
 
     //Cambiar avatar
     optionsModel: number[];
@@ -49,22 +54,36 @@ export class EventsComponent implements OnInit {
     
 
     //MultiSelect Dropdown variables
-    itemList = []
+    parentitemList = []
+    teacheritemList = []
     selectedItems = [];
     settings = {};
+
+    //MultiSelect Dropdown variables - Users
+    rolesList = []
+    selectedRole = [];
+    roleSettings = {};
 
     // test
     private fileReader: FileReader;
     private base64Encoded: string;
 
-    constructor(private ServicioLogin: LoginService,private ServicioClassroom: ClassroomsService ,private ServicioEventos :EventsService, private Ruta: ActivatedRoute, private router: Router) {
+    constructor(private ServicioLogin: LoginService,private ServicioClassroom: ClassroomsService ,private ServicioUsers :UsersService, private Ruta: ActivatedRoute, private router: Router) {
     }
 
     ngOnInit() {
-        //---- Necesario para multiselect dropdown
+        //---- Necesario para multiselect dropdown role
+        this.rolesList = [      
+          {"id":1,"itemName":"Teacher"},
+          {"id":2,"itemName":"Parent"}]
+        this.roleSettings = {singleSelection: true, text:"Select your role"};
+        console.log('role list')
+        console.log(this.rolesList)
+        //---- Necesario para multiselect dropdown classrooms
         this.selectedItems = [];
         this.settings = {
-          text: "Seleecciona clases participantes",
+          singleSelection: true,
+          text: "Seleecciona la clase",
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
           classes: "myclass custom-class"
@@ -85,12 +104,24 @@ export class EventsComponent implements OnInit {
                   id++
                   // Tener atributos id e itemName es obligatorio(tal cual)
                   var c = {"id": id,"itemName": classroom.name, "category": classroom.level}
-                  this.itemList.push(c)
+                  this.parentitemList.push(c)
+                  if (classroom['tutor'].length == 0){
+                    this.teacheritemList.push(c)
+                  }
                 }
-                console.log(this.itemList)
+                console.log("parent list")
+                console.log (this.parentitemList)
+                console.log("teacher list")
+                console.log(this.teacheritemList)
               },
               error => console.log(error)
               
+            )
+            this.ServicioUsers.get_users().subscribe(
+              response => {
+                this.users = response
+                console.log(response)},
+              error => console.log(error)
             )
           }      
         }
@@ -113,26 +144,31 @@ export class EventsComponent implements OnInit {
       this.opcion = opción;
     }
     //-----MultiSelect Dropdown ---
-    crearEvento() {
+    createUser() {
       //var pieces = this.date.split('-')
-      console.log(this.date)
-      var date = this.date["day"]+'-'+this.date["month"]+'-'+this.date["year"]
-      var classrooms = []
-      for (let classroom of this.selectedItems){
-        classrooms.push(classroom["itemName"])
-      }
-      console.log(this.place)
-      console.log(date)
-      console.log(classrooms)
-      this.ServicioEventos.createEvent(this.title, this.description, this.place, date,classrooms, this.photo_event, this.photo_event_name).subscribe(
+      console.log(this.birthday)
+      var birthday = this.birthday["day"]+'/'+this.birthday["month"]+'/'+this.birthday["year"]
+      var classroom = this.selectedItems[0]['itemName']
+      var role = this.selectedRole[0]['itemName'].toLowerCase()
+      this.ServicioUsers.createUser(this.username, this.firstname, role, this.lastname, this.password, 
+        birthday, this.email, this.address, this.postalcode, this.phone, classroom, this.photo_profile, this.photo_profile_name).subscribe(
         response => {
           this.message_to_show = "Created correctly"
           // Limpiamos formulario
           this.selectedItems = []
-          this.date = ""
-          this.title = ""
-          this.description = ""
-          this.place = ""
+          this.selectedRole = []
+          this.username = ""
+          this.firstname = ""
+          this.lastname = ""
+          this.email = ""
+          this.address = ""
+          this.birthday = {}
+          this.postalcode = null
+          this.phone = null
+          this.password = ""
+          this.confirmpassword = ""
+          this.photo_profile = ""
+          this.photo_profile_name = ""
           console.log(response)
         },
         error=>{
@@ -157,10 +193,10 @@ export class EventsComponent implements OnInit {
     
       myReader.onloadend = (e) => {
         console.log(e)
-        this.photo_event = myReader.result.split(';base64,')[1];
-        this.photo_event_name = file.name
+        this.photo_profile = myReader.result.split(';base64,')[1];
+        this.photo_profile_name = file.name
         console.log("Juuuuas")
-        console.log(this.photo_event)
+        console.log(this.photo_profile)
       }
       myReader.readAsDataURL(file);
     }

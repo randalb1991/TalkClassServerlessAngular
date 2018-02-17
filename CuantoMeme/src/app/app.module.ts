@@ -1,3 +1,4 @@
+// https://github.com/pfernandom/aws-api-client
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -29,8 +30,6 @@ import { TagService } from './services/tag.service';
 import { sideMenuComponent } from './side-menu.component';
 import { LoginService } from './services/login.service';
 import { ComentariosService } from './services/comentario.service';
-import { ClassroomsService } from './services/classrooms.service';
-import { EventsService } from './services/events.service';
 
 import { PerfilComponent } from './perfilComponent.component';
 import { TabsetComponent } from 'ngx-bootstrap';
@@ -39,10 +38,19 @@ import { LikesComponent } from './likesComponent.component';
 import { DislikesComponent } from './dislikesComponent.component';
 import { FavoritesComponent } from './favoritesComponent.component';
 import { HomeComponent } from './homeComponent.component';
+
 import { EventsComponent } from './eventsComponent.component';
 import { EventDetailsComponent}from './eventDetails.component';
+import { EventsService } from './services/events.service';
 
+import { UsersComponent } from './usersComponent.component';
+import { UserDetailsComponent}from './userDetails.component';
+import { UsersService } from './services/users.service';
 
+import { ClassroomsService } from './services/classrooms.service';
+import { ClassroomsComponent } from './classroomsComponent.component';
+
+import { MultimediaService } from './services/multimedia.service';
 
 @NgModule({
   declarations: [
@@ -63,7 +71,10 @@ import { EventDetailsComponent}from './eventDetails.component';
     HomeComponent,
     EventDetailsComponent,
     EventsComponent,
-    NgbdModalBasicComponent
+    NgbdModalBasicComponent,
+    UsersComponent,
+    UserDetailsComponent,
+    ClassroomsComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -73,7 +84,7 @@ import { EventDetailsComponent}from './eventDetails.component';
     HttpModule,
     routing
   ],
-  providers: [VinetasService, EventsService,ClassroomsService,UsuarioService, TagService, LoginService, loggedUserService, ComentariosService],
+  providers: [VinetasService,MultimediaService, EventsService,ClassroomsService,UsuarioService, TagService, LoginService, loggedUserService, ComentariosService, UsersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

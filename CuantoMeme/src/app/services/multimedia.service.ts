@@ -12,63 +12,60 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
-import { Classroom } from '../classes/Classroom.class';
-import { error } from 'selenium-webdriver';
+import { Multimedia } from '../classes/Multimedia.class';
 
-const BASE_URL = 'https://15psp95at5.execute-api.us-east-1.amazonaws.com/dev/talkclass/events/'
+const BASE_URL = 'https://15psp95at5.execute-api.us-east-1.amazonaws.com/dev/talkclass/multimedia/'
 
 
 @Injectable()
-export class EventsService {
+export class MultimediaService {
     const
     constructor(private http: Http, private router: Router){}
     //---------------------
-    getEvents(){
+    get_multimedias(){
         console.log(BASE_URL)
         return this.http.get(BASE_URL)
-            .map(response => this.generateEvents(response.json()))
+            .map(response => this.generate_multimedias(response.json()))
             .catch(error => this.handleError(error))
     }
-
-    getevent(title: string, date:string){
+/*
+    get_multimedia(title: string, date:string){
         var url = BASE_URL+'?title='+title
         console.log('requesting url: ' +url)
         return this.http.get(url)
             .map(response => this.generateEvents(response.json()))
             .catch(error => this.handleError(error))
     }
-    
+ */   
 
-    generateEvents(events:any[]){
-        var lu: Event[] = []
-        for (let event of events){
-            lu.push(this.generateEvent(event))
+    generate_multimedias(multimedias:any[]){
+        var lu: Multimedia[] = []
+        for (let multimedia of multimedias){
+            lu.push(this.generate_multimedia(multimedia))
         }
         return lu
     }
 
-    generateEvent(event: Event){
-        return new Event(event['Title'],event['Description'],event['Date'],event['Classrooms'],event['Place'], event['Picture'], event['Tags'])
+    generate_multimedia(multimedia: Multimedia){
+        return new Multimedia(multimedia['Picture Key'],multimedia['Event'],multimedia['Date'], multimedia['Tags'],multimedia['Title'],multimedia['Username'])
     }
-    createEvent(title:string, description: string, place:string, date:string, classrooms:string[], photo_event:string, photo_event_name:string){
+    post_multimedia(session_token:string, event_title:string, event_date: string, title:string, file:string){
         let body = {
+            session_token: session_token,
+            event: event_title,
+            event_date: event_date,
             title: title,
-            description: description,
-            date: date,
-            place: place,
-            classrooms: classrooms,
-            photo_event:photo_event,
-            photo_name: photo_event_name
+            file: file
         }
         return this.http.post(BASE_URL,body).map(
             response => {
-                console.log("status creacion evento: "+response.status)
+                console.log("status uploading picture: "+response.status)
             },
             error => {console.error(error)}
         );
     }
 
-    modify_event(new_classrooms: string[], event:Event){
+    put_multimedia(new_classrooms: string[], event:Event){
         var date = event.date.split('/')
         var event_date = date[0]+'-'+date[1]+'-'+date[2]
         console.log('date: '+event_date)

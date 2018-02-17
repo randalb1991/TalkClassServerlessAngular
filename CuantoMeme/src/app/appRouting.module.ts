@@ -14,9 +14,12 @@ import { LikesComponent } from './likesComponent.component';
 import { FavoritesComponent } from './favoritesComponent.component';
 import { DislikesComponent } from './dislikesComponent.component';
 import { HomeComponent } from './homeComponent.component';
+
 import { EventsComponent } from './eventsComponent.component';
 import { EventDetailsComponent}from './eventDetails.component';
-
+import { UsersComponent } from './usersComponent.component';
+import { UserDetailsComponent}from './userDetails.component';
+import { ClassroomsComponent } from './classroomsComponent.component';
 
 const rutas: Routes = [
     { path: '', redirectTo: '/index', pathMatch: 'full' },
@@ -25,13 +28,17 @@ const rutas: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignUpComponent },
     { path: 'vineta/:id', component: vinetasDetalleComponent },
-    { path: 'event/:title/:date', component: EventDetailsComponent },
     { path: 'tag/:nombre', component: TagViewComponent },
     { path: 'perfil/:id', component: PerfilComponent },
     { path: 'likes', component: LikesComponent },
     { path: 'favorites', component: FavoritesComponent },
     { path: 'dislikes', component: DislikesComponent },
+    //----------------Talkclass
     { path: 'events', component: EventsComponent },
+    { path: 'event/:title/:date', component: EventDetailsComponent },
+    { path: 'users', component: UsersComponent },
+    { path: 'classrooms', component: ClassroomsComponent },
+    { path: 'users/:username', component: UserDetailsComponent },
     //{ path: 'users', component: UsersComponent },
     //{ path: 'classrooms', component: ClassroomsComponent },
     { path: 'home', component: HomeComponent }
