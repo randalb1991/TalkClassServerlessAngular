@@ -1,10 +1,19 @@
-import { Injectable, OnInit } from '@angular/core';
-import { Http, RequestOptions, Headers } from '@angular/http';
-import { User } from '../classes/User.class';
+import {
+    Injectable,
+    OnInit
+} from '@angular/core';
+import {
+    Http,
+    RequestOptions,
+    Headers
+} from '@angular/http';
+import {
+    User
+} from '../classes/User.class';
 
 @Injectable()
 export class loggedUserService {
-    
+
     UsuarioLogeado: User;
 
     constructor() {
