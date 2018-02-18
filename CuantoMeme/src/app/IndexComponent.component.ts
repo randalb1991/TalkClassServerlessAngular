@@ -1,11 +1,7 @@
+
 import { Component } from '@angular/core';
-import { Vineta } from './classes/Vineta.class';
-import { listaVinetasComponent } from './listaVinetas.component';
-import { VinetasService } from './services/vinetas.service';
-import { UsuarioService } from './services/usuarios.service';
 import { LoginService } from './services/login.service';
 import { loggedUserService } from './services/logged-user.service';
-import { Usuario } from './classes/Usuario.class';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -18,9 +14,7 @@ export class IndexComponent {
   title = '¡Welcome to TalkClass!';
   classrooms = [];
   currentPage = 0;
-  loggedUser: Usuario;
-
-  constructor(private servicioVinetas: VinetasService, private serviciologin: LoginService, private Ruta: ActivatedRoute, private router: Router) {
+  constructor(private serviciologin: LoginService, private Ruta: ActivatedRoute, private router: Router) {
     //etc
   }
 
@@ -33,18 +27,5 @@ export class IndexComponent {
     }
 
   }
-
-  /*
-  masVinetas(): void {
-    this.currentPage = this.currentPage + 1;
-    this.servicioVinetas.getVinetas(this.currentPage).subscribe(
-      vinetas => {
-        for(let viñeta of vinetas) {
-          this.listaVinetas.push(viñeta);
-        }
-      },
-      error => console.error(error)
-    );
-  }*/
 
 }

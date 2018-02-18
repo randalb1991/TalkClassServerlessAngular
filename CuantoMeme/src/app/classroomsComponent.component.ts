@@ -65,10 +65,11 @@ export class ClassroomsComponent implements OnInit {
               classes: "myclass custom-class"
           };
             // Conseguimos las clases
-            this.ServicioClassroom.getClassrooms().subscribe(
+            this.ServicioClassroom.get_Classrooms().then(
               response => {
                 this.classrooms = response
-              },
+              })
+              .catch(
               error => console.log(error)
               
             )
@@ -79,21 +80,22 @@ export class ClassroomsComponent implements OnInit {
     createClassroom() {
       //var pieces = this.date.split('-')
       console.log(this.selectedItems)
-      this.ServicioClassroom.create_classroom(this.classroom, this.selectedItems[0]['itemName']).subscribe(
-        response => {
+      this.ServicioClassroom.create_classroom(this.classroom, this.selectedItems[0]['itemName'])
+      .then(
+        result => {
           this.message_to_show = "Created correctly"
           this.classroom = ""
           this.level = ""
-          console.log(response)
-        },
-        error=>{
-          console.log(error)
-          var status_code = error.status
-          var message = error._body
-          this.message_to_show = message
+          console.log(result)}
+      )
+      .catch(
+        result =>{ 
+          console.log('error')
+          console.log(result)
         }
       )
-
     }
-
+    eleccion(opción: string): void {
+      this.opcion = opción;
+    }
 }

@@ -73,13 +73,9 @@ export class EventsComponent implements OnInit {
             this.router.navigateByUrl('/');
           }else{
             // Conseguimos las clases
-            this.ServicioClassroom.getClassrooms().subscribe(
-              response => {
-                this.classrooms = response
-                /* 
-                Contruimos los diccionarios para introducirlo en el array para 
-                mostrar las listas de clases. Necesario para multiselec dropdown
-                */
+            this.ServicioClassroom.get_Classrooms().then(
+              result => {
+                this.classrooms = result
                 var id = 0;
                 for (let classroom of this.classrooms){
                   id++
@@ -87,10 +83,13 @@ export class EventsComponent implements OnInit {
                   var c = {"id": id,"itemName": classroom.name, "category": classroom.level}
                   this.itemList.push(c)
                 }
-                console.log(this.itemList)
-              },
-              error => console.log(error)
-              
+              }
+             
+            )
+            .catch(
+              result =>{ 
+              console.log('error')
+              console.log(result)}
             )
           }      
         }
@@ -124,7 +123,7 @@ export class EventsComponent implements OnInit {
       console.log(this.place)
       console.log(date)
       console.log(classrooms)
-      this.ServicioEventos.createEvent(this.title, this.description, this.place, date,classrooms, this.photo_event, this.photo_event_name).subscribe(
+      this.ServicioEventos.create_event(this.title, this.description, this.place, date,classrooms, this.photo_event, this.photo_event_name).then(
         response => {
           this.message_to_show = "Created correctly"
           // Limpiamos formulario
@@ -134,7 +133,9 @@ export class EventsComponent implements OnInit {
           this.description = ""
           this.place = ""
           console.log(response)
-        },
+        }
+      )
+      .catch(
         error=>{
           console.log(error)
           var status_code = error.status

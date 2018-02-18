@@ -1,7 +1,4 @@
 import { Event } from '../classes/Evento.class';
-import { Usuario } from '../classes/Usuario.class';
-import { Comentario } from '../classes/Comentario.class';
-import { Tag } from '../classes/Tag.class';
 
 import { Injectable } from '@angular/core';
 import { Http, Response, JsonpModule, RequestOptions, Headers } from '@angular/http';
@@ -15,43 +12,75 @@ import 'rxjs/Rx';
 import { Classroom } from '../classes/Classroom.class';
 import { error } from 'selenium-webdriver';
 
-const BASE_URL = 'https://15psp95at5.execute-api.us-east-1.amazonaws.com/dev/talkclass/events/'
-
-
 @Injectable()
 export class EventsService {
-    const
-    constructor(private http: Http, private router: Router){}
-    //---------------------
-    getEvents(){
-        console.log(BASE_URL)
-        return this.http.get(BASE_URL)
-            .map(response => this.generateEvents(response.json()))
-            .catch(error => this.handleError(error))
+    apigClientFactory = require('aws-api-gateway-client').default;
+    config = {
+        accessKey: this.ServicioLogin.user_logged.get_access_key(),
+        secretKey: this.ServicioLogin.user_logged.get_secret_key(),
+        sessionToken: this.ServicioLogin.user_logged.get_session_token(), //OPTIONAL: If you are using temporary credentials you must include the session token
+        region: 'us-east-1',
+        invokeUrl: 'https://15psp95at5.execute-api.us-east-1.amazonaws.com'
     }
+    apigClient = this.apigClientFactory.newClient(this.config);
 
-    getevent(title: string, date:string){
-        var url = BASE_URL+'?title='+title
-        console.log('requesting url: ' +url)
-        return this.http.get(url)
-            .map(response => this.generateEvents(response.json()))
-            .catch(error => this.handleError(error))
+    constructor(private http: Http, private router: Router, private ServicioLogin: LoginService){}
+    //---------------------
+    get_events(){
+        var params = {};
+        var pathTemplate = '/dev/talkclass/events'
+        var method = 'GET';
+        var additionalParams = {};
+        var body = {};
+
+        return this.apigClient.invokeApi(params, pathTemplate, method, additionalParams, body)
+            .then(
+                result => {
+                    return this.generate_events(result['data'])
+                }
+            ).catch(function(result) {
+                console.log('Hubo un error usando invokeApi')
+                console.log(result)
+            });
     }
     
 
-    generateEvents(events:any[]){
+    get_event(title: string, date:string){
+        var params = {};
+        // Template syntax follows url-template https://www.npmjs.com/package/url-template
+        var pathTemplate = '/dev/talkclass/events/?title='+title
+        var method = 'GET';
+        var additionalParams = {};
+        var body = {};
+
+        return this.apigClient.invokeApi(params, pathTemplate, method, additionalParams, body)
+            .then(
+                result => {
+                    return this.generate_events(result['data'])
+                }
+            ).catch(function(result) {
+                console.log('Hubo un error usando invokeApi')
+                console.log(result)
+            });
+    }
+    
+    generate_events(events:any[]){
         var lu: Event[] = []
         for (let event of events){
-            lu.push(this.generateEvent(event))
+            lu.push(this.generate_event(event))
         }
         return lu
     }
 
-    generateEvent(event: Event){
+    generate_event(event: Event){
         return new Event(event['Title'],event['Description'],event['Date'],event['Classrooms'],event['Place'], event['Picture'], event['Tags'])
     }
-    createEvent(title:string, description: string, place:string, date:string, classrooms:string[], photo_event:string, photo_event_name:string){
-        let body = {
+    create_event(title:string, description: string, place:string, date:string, classrooms:string[], photo_event:string, photo_event_name:string){     
+        var params = {};
+        var pathTemplate = '/dev/talkclass/events'
+        var method = 'POST';
+        var additionalParams = {};
+        var body = {
             title: title,
             description: description,
             date: date,
@@ -60,22 +89,24 @@ export class EventsService {
             photo_event:photo_event,
             photo_name: photo_event_name
         }
-        return this.http.post(BASE_URL,body).map(
-            response => {
-                console.log("status creacion evento: "+response.status)
-            },
-            error => {console.error(error)}
-        );
+        return this.apigClient.invokeApi(params, pathTemplate, method, additionalParams, body)
+            .then(
+                result => {
+                    return result.status
+                }
+            ).catch(function(result) {
+                console.log('Hubo un error usando invokeApi')
+                console.log(result)
+            });
     }
 
     modify_event(new_classrooms: string[], event:Event){
         var date = event.date.split('/')
         var event_date = date[0]+'-'+date[1]+'-'+date[2]
-        console.log('date: '+event_date)
-        console.log('date replaced: '+event_date)
-
-        var url = BASE_URL+event_date+'/'+event.title
-        console.log('la url es : '+url)
+        var params = {};
+        var pathTemplate = '/dev/talkclass/events/'+event_date+'/'+event.title
+        var method = 'PUT';
+        var additionalParams = {};
         let body = {
             title: event.title,
             date: event_date,
@@ -83,12 +114,15 @@ export class EventsService {
             classrooms: new_classrooms,
             description: event.description
         }
-        return this.http.put(url , body).map(
-            response=> {
-                console.log("status modification event: "+response.status)
-            },
-            error => {console.error(error)}
-        )
+        return this.apigClient.invokeApi(params, pathTemplate, method, additionalParams, body)
+            .then(
+                result => {
+                    return result.status
+                }
+            ).catch(function(result) {
+                console.log('Hubo un error usando invokeApi')
+                console.log(result)
+            });
     }
     //--------------
   

@@ -1,9 +1,7 @@
 import { Injectable, OnInit, EventEmitter } from '@angular/core';
 import { Http, Response, JsonpModule, RequestOptions, Headers, URLSearchParams } from '@angular/http';
-import { Usuario } from '../classes/Usuario.class';
 import {User} from '../classes/User.class';
-import {VinetasService} from './vinetas.service'
-import {UsuarioService} from './usuarios.service'
+//import {UsuarioService} from './usuarios.service'
 import 'rxjs/Rx';
 const BASE_URL = "https://15psp95at5.execute-api.us-east-1.amazonaws.com/dev/talkclass/authentication"
 
@@ -11,11 +9,10 @@ const BASE_URL = "https://15psp95at5.execute-api.us-east-1.amazonaws.com/dev/tal
 export class LoginService {
 	
 	isLogged = false;
-    user : Usuario;
     user_logged: User;
 	userUpdated:EventEmitter<User> = new EventEmitter<User>();
 
-	constructor(private http: Http, private  vinetaservice: VinetasService, private usuarioservice: UsuarioService){
+	constructor(private http: Http){
 		this.reqIsLogged();
 	}
 	
@@ -95,7 +92,7 @@ export class LoginService {
         return this.http.get(BASE_URL + 'logOut', { withCredentials: true }).map(
             response => {
                 this.isLogged = false;
-                this.user = null;
+                this.user_logged = null;
                 return response;
             }
         );

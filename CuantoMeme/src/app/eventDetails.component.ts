@@ -2,9 +2,7 @@ import {
   Router,
   ActivatedRoute
 } from '@angular/router';
-import {
-  Vineta
-} from './classes/Vineta.class';
+
 import {
   Component,
   Input,
@@ -75,12 +73,12 @@ export class EventDetailsComponent implements OnInit {
           this.date = this.route.snapshot.params['date']
           console.log(this.route.snapshot.params['title'])
           console.log(this.route.snapshot.params['date'])
-          this.ServicioEventos.getevent(this.title, this.date).subscribe(
+          this.ServicioEventos.get_event(this.title, this.date).subscribe(
               response => {
                   console.log(response)
                   this.event = response[0]
                   console.log('el evento que estas viendo es ' + event)
-                  this.ServicioClassroom.getClassrooms().subscribe(
+                  this.ServicioClassroom.get_Classrooms().subscribe(
                       response => {
                           this.classrooms = response
                           /* 

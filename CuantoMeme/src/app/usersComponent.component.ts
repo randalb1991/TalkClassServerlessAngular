@@ -92,7 +92,7 @@ export class UsersComponent implements OnInit {
             this.router.navigateByUrl('/');
           }else{
             // Conseguimos las clases
-            this.ServicioClassroom.getClassrooms().subscribe(
+            this.ServicioClassroom.get_Classrooms().then(
               response => {
                 this.classrooms = response
                 /* 
@@ -109,18 +109,18 @@ export class UsersComponent implements OnInit {
                     this.teacheritemList.push(c)
                   }
                 }
-                console.log("parent list")
-                console.log (this.parentitemList)
-                console.log("teacher list")
-                console.log(this.teacheritemList)
-              },
-              error => console.log(error)
-              
+              }             
             )
-            this.ServicioUsers.get_users().subscribe(
+            .catch(
+              error => console.log(error)
+            )
+            this.ServicioUsers.get_users().then(
               response => {
                 this.users = response
-                console.log(response)},
+              },
+              
+            )
+            .catch(
               error => console.log(error)
             )
           }      
@@ -150,8 +150,8 @@ export class UsersComponent implements OnInit {
       var birthday = this.birthday["day"]+'/'+this.birthday["month"]+'/'+this.birthday["year"]
       var classroom = this.selectedItems[0]['itemName']
       var role = this.selectedRole[0]['itemName'].toLowerCase()
-      this.ServicioUsers.createUser(this.username, this.firstname, role, this.lastname, this.password, 
-        birthday, this.email, this.address, this.postalcode, this.phone, classroom, this.photo_profile, this.photo_profile_name).subscribe(
+      this.ServicioUsers.create_user(this.username, this.firstname, role, this.lastname, this.password, 
+        birthday, this.email, this.address, this.postalcode, this.phone, classroom, this.photo_profile, this.photo_profile_name).then(
         response => {
           this.message_to_show = "Created correctly"
           // Limpiamos formulario
@@ -170,8 +170,11 @@ export class UsersComponent implements OnInit {
           this.photo_profile = ""
           this.photo_profile_name = ""
           console.log(response)
-        },
+        }
+      )
+      .catch(
         error=>{
+          console.log('error elevado')
           console.log(error)
           var status_code = error.status
           var message = error._body

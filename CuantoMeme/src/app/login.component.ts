@@ -1,5 +1,4 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { Usuario } from './classes/Usuario.class';
 import { LoginService } from './services/login.service';
 import { loggedUserService } from './services/logged-user.service';
 import { Router } from '@angular/router';
@@ -79,7 +78,7 @@ export class LoginComponent implements OnInit{
     this.ServicioLogin.login_talkclass(this.username, this.pass, this.role).subscribe(
       user =>  {
         this.ServicioLogin.setLoggedUser(user);
-        console.log(this.ServicioLogin.user);
+        console.log(this.ServicioLogin.user_logged);
         this.redireccion.navigateByUrl("/events");
       },
       error => {                

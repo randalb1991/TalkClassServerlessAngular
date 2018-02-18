@@ -22,7 +22,7 @@ export class EventsListComponent implements OnInit {
     if(!this.ServicioLogin.isLogged) {
       this.router.navigateByUrl('/');
     }else{
-      this.ServicioEventos.getEvents().subscribe(
+      this.ServicioEventos.get_events().subscribe(
         events =>{
           console.log(events)
           this.listaEventos = events
