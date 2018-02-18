@@ -1,10 +1,7 @@
-import { Vineta } from './Vineta.class';
-import { Comentario } from './Comentario.class';
-
 export class User {
-    private access_key: string;
-    private secret_key: string;
-    private session_token: string;
+    private access_key: string = '';
+    private secret_key: string= '';
+    private session_token: string = '';
     public username: string;
     public first_name: string;
     public last_name: string;
@@ -57,6 +54,12 @@ export class User {
         var isTeacher = this.role == "teacher"
         console.log("isTeacher: "+isTeacher)
         return (this.role == "teacher")
+    }
+    get_secret_key():string{
+        return this.secret_key
+    }
+    get_access_key():string{
+        return this.access_key
     }
     get_session_token():string{
         return this.session_token

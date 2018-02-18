@@ -1,7 +1,5 @@
 import { Event } from '../classes/Evento.class';
-import { Usuario } from '../classes/Usuario.class';
-import { Comentario } from '../classes/Comentario.class';
-import { Tag } from '../classes/Tag.class';
+
 
 import { Injectable } from '@angular/core';
 import { Http, Response, JsonpModule, RequestOptions, Headers } from '@angular/http';
@@ -14,19 +12,37 @@ import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
 import { Multimedia } from '../classes/Multimedia.class';
 
-const BASE_URL = 'https://15psp95at5.execute-api.us-east-1.amazonaws.com/dev/talkclass/multimedia/'
-
 
 @Injectable()
 export class MultimediaService {
-    const
-    constructor(private http: Http, private router: Router){}
+    apigClientFactory = require('aws-api-gateway-client').default;
+    config = {
+        accessKey: this.ServicioLogin.user_logged.get_access_key(),
+        secretKey: this.ServicioLogin.user_logged.get_secret_key(),
+        sessionToken: this.ServicioLogin.user_logged.get_session_token(), //OPTIONAL: If you are using temporary credentials you must include the session token
+        region: 'us-east-1',
+        invokeUrl: 'https://15psp95at5.execute-api.us-east-1.amazonaws.com'
+    }
+    apigClient = this.apigClientFactory.newClient(this.config);
+
+    constructor(private http: Http, private router: Router, private ServicioLogin: LoginService){}
     //---------------------
     get_multimedias(){
-        console.log(BASE_URL)
-        return this.http.get(BASE_URL)
-            .map(response => this.generate_multimedias(response.json()))
-            .catch(error => this.handleError(error))
+        var params = {};
+        var pathTemplate = '/dev/talkclass/multimedia'
+        var method = 'GET';
+        var additionalParams = {};
+        var body = {};
+
+        return this.apigClient.invokeApi(params, pathTemplate, method, additionalParams, body)
+            .then(
+                result => {
+                    return this.generate_multimedias(result['data'])
+                }
+            ).catch(function(result) {
+                console.log('Hubo un error usando invokeApi')
+                console.log(result)
+            });
     }
 /*
     get_multimedia(title: string, date:string){
@@ -50,43 +66,28 @@ export class MultimediaService {
         return new Multimedia(multimedia['Picture Key'],multimedia['Event'],multimedia['Date'], multimedia['Tags'],multimedia['Title'],multimedia['Username'])
     }
     post_multimedia(session_token:string, event_title:string, event_date: string, title:string, file:string){
-        let body = {
+        var params = {};
+        var pathTemplate = '/dev/talkclass/multimedia'
+        var method = 'POST';
+        var additionalParams = {};
+        var body = {
             session_token: session_token,
             event: event_title,
             event_date: event_date,
             title: title,
             file: file
         }
-        return this.http.post(BASE_URL,body).map(
-            response => {
-                console.log("status uploading picture: "+response.status)
-            },
-            error => {console.error(error)}
-        );
+        return this.apigClient.invokeApi(params, pathTemplate, method, additionalParams, body)
+            .then(
+                result => {
+                    return result.status
+                }
+            ).catch(function(result) {
+                console.log('Hubo un error usando invokeApi')
+                console.log(result)
+            });
     }
 
-    put_multimedia(new_classrooms: string[], event:Event){
-        var date = event.date.split('/')
-        var event_date = date[0]+'-'+date[1]+'-'+date[2]
-        console.log('date: '+event_date)
-        console.log('date replaced: '+event_date)
-
-        var url = BASE_URL+event_date+'/'+event.title
-        console.log('la url es : '+url)
-        let body = {
-            title: event.title,
-            date: event_date,
-            place: event.place,
-            classrooms: new_classrooms,
-            description: event.description
-        }
-        return this.http.put(url , body).map(
-            response=> {
-                console.log("status modification event: "+response.status)
-            },
-            error => {console.error(error)}
-        )
-    }
     //--------------
   
     private handleError(error: any) {

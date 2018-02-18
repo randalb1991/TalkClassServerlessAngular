@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute} from '@angular/router';
-import { Usuario } from './classes/Usuario.class';
 import { Classroom } from './classes/Classroom.class';
 import { Event } from './classes/Evento.class';
 
@@ -27,15 +26,16 @@ export class sideMenuComponent{
       if(!this.servicioLogin.isLogged) {
         this.router.navigateByUrl('/');
       }else{
-        this.servicioClassrooms.getClassrooms().subscribe(
+        this.servicioClassrooms.get_Classrooms().then(
           classrooms => {
-            console.log("parseado")
             this.classrooms = classrooms
             this.levels = this.get_levels_from_classrooms()
             console.log(this.levels)
-          },
-          error =>{ console.log(error)}
-        )
+          })
+          .catch(
+            error =>{ console.log(error)}
+
+          )
       }
     }
 
@@ -49,7 +49,6 @@ export class sideMenuComponent{
       return levels
     }
     get_classrooms_by_level(level:string){
-      console.log("llegando a cbl")
       var classrooms_to_list = []
       for (let classroom of this.classrooms) {
         if (classroom.level == level){

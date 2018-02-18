@@ -1,48 +1,100 @@
-import { Classroom } from '../classes/Classroom.class';
-import { Injectable } from '@angular/core';
-import { Http, Response, JsonpModule, RequestOptions, Headers } from '@angular/http';
+import {
+    Classroom
+} from '../classes/Classroom.class';
+import {
+    Injectable
+} from '@angular/core';
+import {
+    Http,
+    Response,
+    JsonpModule,
+    RequestOptions,
+    Headers
+} from '@angular/http';
+import {
+    LoginService
+} from '../services/login.service';
 
-import { Observable } from 'rxjs/Observable';
+import {
+    Observable
+} from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-const BASE_URL = "https://15psp95at5.execute-api.us-east-1.amazonaws.com/dev/talkclass/classrooms"
+/*------test aws---
+https://www.npmjs.com/package/aws-api-gateway-client
+----------------*/
+
 
 @Injectable()
 export class ClassroomsService {
-    
-    constructor(private http: Http){}
+    apigClientFactory = require('aws-api-gateway-client').default;
+    config = {
+        accessKey: this.ServicioLogin.user_logged.get_access_key(),
+        secretKey: this.ServicioLogin.user_logged.get_secret_key(),
+        sessionToken: this.ServicioLogin.user_logged.get_session_token(), //OPTIONAL: If you are using temporary credentials you must include the session token
+        region: 'us-east-1',
+        invokeUrl: 'https://15psp95at5.execute-api.us-east-1.amazonaws.com'
+    }
+    apigClient = this.apigClientFactory.newClient(this.config);
 
-    getClassrooms(){
-        return this.http.get(BASE_URL).map(
-            response => this.generateClassrooms(response.json())//console.log(response.json())//this.generateClassrooms(response.json())//this.extractVinetas(response)
-        )
-    }    
-    generateClassrooms(classrooms: any[]){
+    constructor(private http: Http, private ServicioLogin: LoginService) {}
+
+    get_Classrooms() {
+        var params = {};
+        // Template syntax follows url-template https://www.npmjs.com/package/url-template
+        var pathTemplate = '/dev/talkclass/classrooms'
+        var method = 'GET';
+        var additionalParams = {};
+        var body = {};
+
+        return this.apigClient.invokeApi(params, pathTemplate, method, additionalParams, body)
+            .then(
+                result => {
+                    return this.generateClassrooms(result['data'])
+                }
+            ).catch(function(result) {
+                console.log('Hubo un error usando invokeApi')
+                console.log(result)
+            });
+    }
+
+
+    generateClassrooms(classrooms: any[]) {
         var lu: Classroom[] = [];
         for (let classroom of classrooms) {
             lu.push(this.generateclass(classroom));
-           }
-        return lu;
-      }
-    generateclass(classroom: any){
-        if (classroom['Tutor']){
-            return new Classroom(classroom['Class'], classroom['Level'], classroom['Folder'],classroom['Topic'], classroom['Tutor']);
         }
-        else{
-            return new Classroom(classroom['Class'], classroom['Level'], classroom['Folder'],classroom['Topic'], '');
+        console.log(lu)
+        return lu;
+    }
+    generateclass(classroom: any) {
+        if (classroom['Tutor']) {
+            return new Classroom(classroom['Class'], classroom['Level'], classroom['Folder'], classroom['Topic'], classroom['Tutor']);
+        } else {
+            return new Classroom(classroom['Class'], classroom['Level'], classroom['Folder'], classroom['Topic'], '');
         }
     }
-    create_classroom(classroom:string, level: string){
+    create_classroom(classroom: string, level: string) {
+        var params = {};
+        // Template syntax follows url-template https://www.npmjs.com/package/url-template
+        var pathTemplate = '/dev/talkclass/classrooms'
+        var method = 'POST';
+        var additionalParams = {};
         let body = {
             class: classroom,
             level: level,
         }
-        return this.http.post(BASE_URL,body).map(
-            response => {
-                console.log("status creacion classroom: "+response.status)
-            },
-            error => {console.error(error)}
-        );
+        return this.apigClient.invokeApi(params, pathTemplate, method, additionalParams, body)
+            .then(
+                result => {
+                    console.log('post result')
+                    console.log(result)
+                    return result.status
+                }
+            ).catch(function(result) {
+                console.log('Hubo un error usando invokeApi')
+                console.log(result)
+            });
     }
 }

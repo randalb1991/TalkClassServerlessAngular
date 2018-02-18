@@ -1,5 +1,4 @@
 import { Router, ActivatedRoute} from '@angular/router';
-import { Vineta } from './classes/Vineta.class';
 import { Component, Input, OnInit } from '@angular/core';
 //import { VinetasService } from './services/vinetas.service';
 //import { UsuarioService } from './services/usuarios.service';
@@ -43,7 +42,7 @@ export class UserDetailsComponent implements OnInit {
       this.date = this.route.snapshot.params['date']
       console.log(this.route.snapshot.params['title'])
       console.log(this.route.snapshot.params['date'])
-      this.ServicioEventos.getevent(this.title, this.date).subscribe(
+      this.ServicioEventos.get_event(this.title, this.date).subscribe(
         response => {
           console.log(response)
           this.event = response[0]
@@ -52,7 +51,7 @@ export class UserDetailsComponent implements OnInit {
         error => console.log(error)
         
       )
-      this.ServicioClassroom.getClassrooms().subscribe(
+      this.ServicioClassroom.get_Classrooms().subscribe(
         response => {
           this.classrooms = response
           /* 

@@ -21,11 +21,11 @@
                           <hr>
               
                           <div *ngIf="opcion == 'obtener'">
-                            <ul *ngIf="users"class="list-unstyled">
-                                <li class="media" *ngFor="let user of users">
-                                    <img width="100px" class="d-flex mr-3 rounded-circle" [src]="user.avatar" alt="Generic placeholder image">
+                            <ul *ngIf="classrooms"class="list-unstyled">
+                                <li class="media" *ngFor="let classroom of classrooms">
+                                    <img width="100px" class="d-flex mr-3 rounded-circle" [src]="" alt="Generic placeholder image">
                                     <div class="media-body">
-                                        <h4 class="mt-0 mb-1 display-4">{{user.username}}</h4>
+                                        <h4 class="mt-0 mb-1 display-4">{{classroom.name}}</h4>
                                     </div>
                                 </li>
                             </ul>

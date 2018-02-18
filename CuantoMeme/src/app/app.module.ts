@@ -11,33 +11,20 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2
 //------
 
 import { AppComponent } from './app.component';
-import { IndexComponent } from './IndexComponent.component';
-import { BusquedaComponent } from './busquedaComponent.component';
 import { LoginComponent } from './login.component';
 import { SignUpComponent } from './signup.component';
-import { listaVinetasComponent } from './listaVinetas.component';
+import { IndexComponent } from './IndexComponent.component';
 
 import { EventsListComponent } from './eventsList.component';
 
 import { NgbdModalBasicComponent } from './modal-ng/modal-basic.component';
 
-import { vinetasDetalleComponent } from './vinetasDetalle.component';
-import { VinetasService } from './services/vinetas.service';
-import { UsuarioService } from './services/usuarios.service';
-import { TagViewComponent } from './TagViewComponent.component';
 import { routing }  from './appRouting.module';
-import { TagService } from './services/tag.service';
 import { sideMenuComponent } from './side-menu.component';
 import { LoginService } from './services/login.service';
-import { ComentariosService } from './services/comentario.service';
 
-import { PerfilComponent } from './perfilComponent.component';
 import { TabsetComponent } from 'ngx-bootstrap';
 import { loggedUserService } from './services/logged-user.service';
-import { LikesComponent } from './likesComponent.component';
-import { DislikesComponent } from './dislikesComponent.component';
-import { FavoritesComponent } from './favoritesComponent.component';
-import { HomeComponent } from './homeComponent.component';
 
 import { EventsComponent } from './eventsComponent.component';
 import { EventDetailsComponent}from './eventDetails.component';
@@ -56,25 +43,15 @@ import { MultimediaService } from './services/multimedia.service';
   declarations: [
     EventsListComponent,
     AppComponent,
-    IndexComponent,
-    BusquedaComponent,
     LoginComponent,
     SignUpComponent,
-    listaVinetasComponent,
-    vinetasDetalleComponent,
-    TagViewComponent,
     sideMenuComponent,
-    PerfilComponent,
-    LikesComponent,
-    FavoritesComponent,
-    DislikesComponent,
-    HomeComponent,
     EventDetailsComponent,
     EventsComponent,
     NgbdModalBasicComponent,
     UsersComponent,
     UserDetailsComponent,
-    ClassroomsComponent
+    ClassroomsComponent,IndexComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -84,7 +61,7 @@ import { MultimediaService } from './services/multimedia.service';
     HttpModule,
     routing
   ],
-  providers: [VinetasService,MultimediaService, EventsService,ClassroomsService,UsuarioService, TagService, LoginService, loggedUserService, ComentariosService, UsersService],
+  providers: [MultimediaService, EventsService,ClassroomsService, LoginService, loggedUserService, UsersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
