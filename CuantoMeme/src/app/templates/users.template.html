@@ -1,0 +1,143 @@
+<div id="total-container" *ngIf="this.ServicioLogin.isLogged">
+    <div class="row">
+        <div class="col-md-2" id="sidebar" >
+                <side-menu [@slideInOut]="toggled"></side-menu>
+            <!--
+            <img id="user-avatar" [src]="ServicioLogin.user_logged.avatar" width="300px" class="rounded img-fluid mx-auto d-block">
+            <h1 class="display-4 text-center">{{this.ServicioLogin.user_logged.username}}</h1>
+            <p class="lead text-center"><i class="fa fa-envelope" aria-hidden="true"></i> Email: {{this.ServicioLogin.user_logged.email}}</p>
+            <hr>
+            -->
+        </div>
+        <div class="col-md-10">
+            <div id="content">
+                    <div class="btn-group" role="group" aria-label="aaa">
+                            <div id="tabs">
+                                  <button type="button" [ngClass]="{'active': opcion == 'obtener'}" (click)="eleccion('obtener')"  class="btn btn-select btn-lg btn-link">Listar Usuarios</button>
+                                  <button type="button" [ngClass]="{'active': opcion == 'crear'}" (click)="eleccion('crear')"  class="btn btn-select btn-lg btn-link">Crear Usuario</button>
+                            </div>
+              
+                          </div>
+                          <hr>
+              
+                          <div *ngIf="opcion == 'obtener'">
+                            <ul *ngIf="users"class="list-unstyled">
+                                <li class="media" *ngFor="let user of users">
+                                    <img width="100px" class="d-flex mr-3 rounded-circle" [src]="user.avatar" alt="Generic placeholder image">
+                                    <div class="media-body">
+                                        <h4 class="mt-0 mb-1 display-4">{{user.username}}</h4>
+                                    </div>
+                                </li>
+                            </ul>
+                          </div>
+                          <div *ngIf="opcion == 'crear'">
+                             <div>
+                                  <form>
+                                      <div class="form-group">
+                                          <label for="firstnameinput">Nombre</label>
+                                          <input [(ngModel)]="firstname" type="text" class="form-control" id="firstnameinput" aria-describedby="firstnameHelp" placeholder="First name" name="firstname" ng-required="true">
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="lastnameinput">Apellidos</label>
+                                        <input [(ngModel)]="lastname" type="text" class="form-control" id="lastname" aria-describedby="lastnameHelp" placeholder="Last Name" name="lastname" required>
+                                     </div>
+                                     <div class="form-group">
+                                            <label for="usernameinput">Username</label>
+                                            <input [(ngModel)]="username" type="text" class="form-control" id="username" aria-describedby="usernameHelp" placeholder="myusername" name="username" required>
+                                         </div>
+                                     <div class="form-group">
+                                        <label for="emailinput">Email</label>
+                                        <input [(ngModel)]="email" type="email" class="form-control" id="emailname" aria-describedby="emailHelp" placeholder="myemail@example.com" name="email" required>
+                                     </div>
+                                     <div class="form-group">
+                                        <label for="phoneinput">Teléfono</label>
+                                        <input [(ngModel)]="phone" type="number" class="form-control" id="phonename" aria-describedby="phoneHelp" placeholder="0034654654654" name="phonename" required>
+                                     </div>
+                                     <div class="form-group">
+                                        <label for="passwordinput">Contraseña</label>
+                                        <input [(ngModel)]="password" type="password" class="form-control" id="passwordname" aria-describedby="passwordHelp" placeholder="mypassword" name="passwordname" required>
+                                     </div>
+                                     <div class="form-group">
+                                        <label for="confirmpasswordinput">Confirma Contraseña</label>
+                                        <input [(ngModel)]="confirmpassword" type="password" class="form-control" id="confirmpasswordname" aria-describedby="confirmpasswordHelp" placeholder="mypassword" name="confirmpasswordname" required>
+                                     </div>
+                                     <div *ngIf="password!=confirmpassword">
+                                            <ngb-alert type= "danger">{{error_message_password}}</ngb-alert>
+                                    </div>   
+                                      <div class="form-group">
+                                              <label for="addressinput">Dirección</label>
+                                              <input [(ngModel)]="address" type="text" class="form-control" id="addressinput" aria-describedby="addressHelp" placeholder="C:/ Alcantara 34 5B" name="address" required>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="postalcodeinput">Código Postal</label>
+                                        <input [(ngModel)]="postalcode" type="number" class="form-control" id="postalcodename" aria-describedby="postalcodeHelp" placeholder="28006" name="postalcodename" required>
+                                     </div>
+                                      <div class="form-group">
+                                          <label for="birthdayinput">Cumpleaños</label>
+                                          <div class="input-group">
+                                            <input class="form-control" placeholder="yyyy-mm-dd"
+                                                   name="dp"  [(ngModel)]="birthday"  ngbDatepicker #d="ngbDatepicker" required>
+                                            <button class="input-group-addon" (click)="d.toggle()" type="button">
+                                              <img src="../../assets/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                                            </button>
+                                          </div>
+                                      </div>
+                                      <div *ngIf="rolesList" class="form-group">
+                                        <label for="dateinput">Rol</label>
+                                        <angular2-multiselect [data]="rolesList" 
+                                            [(ngModel)]="selectedRole" name= "something5"
+                                            [settings]="roleSettings" 
+                                            (onSelect)="onItemSelect($event)"
+                                            (onDeSelect)="OnItemDeSelect($event)" 
+                                            (onSelectAll)="onSelectAll($event)" 
+                                            (onDeSelectAll)="onDeSelectAll($event)">
+                                        </angular2-multiselect>
+                                     </div>
+                                  <div *ngIf="parentitemList" class="form-group">
+                                          <div *ngIf='selectedRole[0]'>
+                                              <div *ngIf='selectedRole[0].itemName=="Teacher"'>
+                                                    <label for="dateinput">Tutor de:</label>
+                                                    <angular2-multiselect [data]="teacheritemList" 
+                                                    [(ngModel)]="selectedItems" name= "something4"
+                                                    [settings]="settings" 
+                                                    (onSelect)="onItemSelect($event)"
+                                                    (onDeSelect)="OnItemDeSelect($event)" 
+                                                    (onSelectAll)="onSelectAll($event)" 
+                                                    (onDeSelectAll)="onDeSelectAll($event)">
+                                                  </angular2-multiselect>
+                                              </div>
+
+                                          </div>
+                                          <div *ngIf='selectedRole[0]'>
+                                                <div *ngIf='selectedRole[0].itemName=="Parent"'>
+                                                      <label for="dateinput">Clase</label>
+                                                      <angular2-multiselect [data]="parentitemList" 
+                                                      [(ngModel)]="selectedItems" name= "something4"
+                                                      [settings]="settings" 
+                                                      (onSelect)="onItemSelect($event)"
+                                                      (onDeSelect)="OnItemDeSelect($event)" 
+                                                      (onSelectAll)="onSelectAll($event)" 
+                                                      (onDeSelectAll)="onDeSelectAll($event)">
+                                                    </angular2-multiselect>
+                                                </div>
+  
+                                            </div>
+
+                                  </div>
+                                  <div class="form-group">
+                                        <label for="imageninput">Imagen de Perfil</label>
+                                        <input type="file" accept="image/*" class="form-control" id="imageninput" name="file" (change)="fileChange($event)">
+                                        <small>¡No más de 1mb!</small>
+                                    </div>
+                                  <button class="btn btn-info" type="button" (click)="createUser()">Crear Usuario!</button>
+                                  </form>
+                                  <p  style="color:rgb(248, 53, 53)" value="">{{message_to_show }}</p>
+              
+                             </div>
+                          </div>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
