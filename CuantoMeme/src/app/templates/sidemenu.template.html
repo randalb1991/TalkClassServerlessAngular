@@ -1,5 +1,5 @@
 <div *ngIf="servicioLogin.user_logged">
-        <img id="profile-image-sidebar" [src]="servicioLogin.user_logged.avatar" class="rounded-circle img-responsive mx-auto d-block">
+        <img id="profile-image-sidebar" [src]="servicioLogin.user_logged.avatar" class="rounded-circle img-responsive mx-auto d-block" alt='Picture not found'>
         <h2 class="text-center">{{servicioLogin.user_logged.username}}</h2>
         <ul *ngIf="servicioLogin.user_logged">
             <li><a routerLink='/home'><i class="fa fa-user" aria-hidden="true"></i> Perfil</a></li>

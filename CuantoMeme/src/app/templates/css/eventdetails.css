@@ -90,3 +90,9 @@ small {
     padding-left: 35px !important;
     padding-right: 35px !important;
 }
+.badge[_ngcontent-c6] {
+    border-radius: 50px;
+    background-color: #42a3b8;
+    color: #fbfbfb;
+    font-size: 0.8em;
+}

@@ -18,11 +18,13 @@
                                                 <ng-template ngbSlide>
                                                     <img [src]="multimedia.picture_url" alt="Random first slide">
                                                     <div class="carousel-caption">
-                                                        <li *ngFor="let tag of multimedia.tags">
-                                                            <p>{{tag}}</p>
-                                                        </li>
-                                                        <h3>First slide label</h3>
-                                                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+
+                                                        <h3>{{multimedia.picture_name}}</h3>
+                                                        <ul class="list-inline" >
+                                                                <li *ngFor="let tag of multimedia.tags" class="list-inline-item" >
+                                                                    <span class="badge badge-info">{{tag}}</span>
+                                                                </li>
+                                                        </ul>
                                                     </div>
                                                     <!--
                                                                                         <img src="https://media.cntraveler.com/photos/5715168e3658675c4f784750/master/w_1440,c_limit/skylines-nyc-cr-getty-110397100.jpg" alt="Random first slide">
@@ -100,7 +102,7 @@
                             <p id="comentarP">Comentar</p>
                             <hr id="comentarHR">
                             <div class="input-group">
-                                ****
+                                <!-- **** -->
                             </div>
                         </div>
                     </div>
