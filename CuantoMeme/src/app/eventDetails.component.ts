@@ -112,20 +112,20 @@ export class EventDetailsComponent implements OnInit {
                       ).catch(
                           error => console.log(error)
                       )
-
+                      this.ServicioMultimedia.get_multimedia_for_event(this.event.title, this.event.date).then(
+                        response => {
+                            this.multimedias = response
+                            console.log(this.multimedias)
+                        }
+                    )
+                    .catch(
+                        error => console.log(error)
+                    )
                   })
               .catch(
                   error => console.log(error)
               )
-          this.ServicioMultimedia.get_multimedias().then(
-                  response => {
-                      this.multimedias = response
-                      console.log(this.multimedias)
-                  }
-              )
-              .catch(
-                  error => console.log(error)
-              )
+
 
 
       }

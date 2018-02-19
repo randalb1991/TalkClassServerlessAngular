@@ -67,9 +67,12 @@ export class EventsService {
 
 
     get_event(title: string, date: string) {
-        var params = {};
+        var params = {
+            date:date,
+            title: title
+        };
         // Template syntax follows url-template https://www.npmjs.com/package/url-template
-        var pathTemplate = '/dev/talkclass/events/?title=' + title
+        var pathTemplate = '/dev/talkclass/events/{date}/{title}'
         var method = 'GET';
         var additionalParams = {};
         var body = {};
@@ -94,7 +97,10 @@ export class EventsService {
     }
 
     generate_event(event: Event) {
-        return new Event(event['Title'], event['Description'], event['Date'], event['Classrooms'], event['Place'], event['Picture'], event['Tags'])
+        var event =  new Event(event['Title'], event['Description'], event['Date'], event['Classrooms'], event['Place'], event['Picture'], event['Tags'])
+        event.generate_event_image_url(this.ServicioLogin.user_logged.get_access_key(), this.ServicioLogin.user_logged.get_secret_key(),
+        this.ServicioLogin.user_logged.get_session_token())
+        return event
     }
     create_event(title: string, description: string, place: string, date: string, classrooms: string[], photo_event: string, photo_event_name: string) {
         var params = {};
@@ -122,15 +128,17 @@ export class EventsService {
     }
 
     modify_event(new_classrooms: string[], event: Event) {
-        var date = event.date.split('/')
-        var event_date = date[0] + '-' + date[1] + '-' + date[2]
-        var params = {};
-        var pathTemplate = '/dev/talkclass/events/' + event_date + '/' + event.title
+        console.log(event)
+        var params = {
+            date:event.date,
+            title: event.title
+        };
+        var pathTemplate = '/dev/talkclass/events/{date}/{title}' //+ event.date + '/' + event.title
         var method = 'PUT';
         var additionalParams = {};
         let body = {
             title: event.title,
-            date: event_date,
+            date: event.date,
             place: event.place,
             classrooms: new_classrooms,
             description: event.description

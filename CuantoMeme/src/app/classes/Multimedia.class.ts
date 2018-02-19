@@ -4,6 +4,7 @@ export class Multimedia {
     public event_date: string;
     public picture_key: string;
     public picture_name: string;
+    public picture_url: string;
     public owner: string;
     public tags: string[];
 
@@ -15,5 +16,17 @@ export class Multimedia {
         this.picture_name = picture_name
         this.owner = owner
     }
-
+    generate_multimedia_url(access_key, secret_key, session_token){
+        var AWS = require('aws-sdk');
+        var s3 = new AWS.S3({
+            apiVersion: '2006-03-01',
+            region: 'us-east-1',
+            accessKeyId: access_key,
+            secretAccessKey: secret_key,
+            sessionToken: session_token
+          })
+        var params = {Bucket: 'talkclass-tcbucket3332', Key: this.picture_key};
+        this.picture_url = s3.getSignedUrl('getObject', params);
+        console.log('The URL for the key '+this.picture_key+' is '+ this.picture_url)
+    }
 }

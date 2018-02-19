@@ -121,7 +121,7 @@ export class ClassroomsComponent implements OnInit {
           )
           .catch(
               result => {
-                  console.log('error')
+                  console.log('error creating')
                   console.log(result)
               }
           )
