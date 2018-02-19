@@ -53,10 +53,11 @@ export class ClassroomsService {
                 result => {
                     return this.generateClassrooms(result['data'])
                 }
-            ).catch(function(result) {
-                console.log('Hubo un error usando invokeApi')
-                console.log(result)
-            });
+            ).catch(
+                error => {
+                console.log('Invoke API Error => Creating classroom')
+                return error}
+            );
     }
 
 
@@ -88,13 +89,12 @@ export class ClassroomsService {
         return this.apigClient.invokeApi(params, pathTemplate, method, additionalParams, body)
             .then(
                 result => {
-                    console.log('post result')
-                    console.log(result)
-                    return result.status
+                    return result
                 }
-            ).catch(function(result) {
-                console.log('Hubo un error usando invokeApi')
-                console.log(result)
-            });
+            ).catch(
+                error => {
+                console.log('Invoke API Error => Creating classroom')
+                return error}
+            );
     }
 }

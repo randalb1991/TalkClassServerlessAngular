@@ -71,10 +71,11 @@ export class MultimediaService {
                 result => {
                     return this.generate_multimedias(result['data'])
                 }
-            ).catch(function(result) {
-                console.log('Hubo un error usando invokeApi')
-                console.log(result)
-            });
+            ).catch(
+                error => {
+                console.log('Invoke API Error => Get Multimedia')
+                return error}
+            );
     }
     
     get_multimedia_for_event(title: string, date:string){
@@ -96,10 +97,11 @@ export class MultimediaService {
                 result => {
                     return this.generate_multimedias(result['data'])
                 }
-            ).catch(function(result) {
-                console.log('Hubo un error usando invokeApi')
-                console.log(result)
-            });
+            ).catch(
+                error => {
+                console.log('Invoke API Error => Gettin Multimedia for event')
+                return error}
+            );
     }
      
 
@@ -132,12 +134,14 @@ export class MultimediaService {
         return this.apigClient.invokeApi(params, pathTemplate, method, additionalParams, body)
             .then(
                 result => {
-                    return result.status
+                    return result
                 }
-            ).catch(function(result) {
-                console.log('Hubo un error usando invokeApi')
-                console.log(result)
-            });
+            ).catch(
+                error => {
+                console.log('Invoke API Error => Creating Multimedia')
+                return error
+            }
+            );
     }
 
     //--------------

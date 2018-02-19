@@ -82,13 +82,12 @@ export class UsersService {
         return this.apigClient.invokeApi(params, pathTemplate, method, additionalParams, body)
             .then(
                 result => {
-                    return result.status
-                }
-            ).catch(
-                result => {
-                    console.log(result)
                     return result
                 }
+            ).catch(
+                error => {
+                console.log('Invoke API Error => Creating User')
+                return error}
             );
     }
 
@@ -104,10 +103,11 @@ export class UsersService {
                 result => {
                     return this.generate_users(result['data'])
                 }
-            ).catch(function(result) {
-                console.log('Hubo un error usando invokeApi')
-                console.log(result)
-            });
+            ).catch(
+                error => {
+                console.log('Invoke API Error => Getting Users')
+                return error}
+            );
     }
     generate_users(users: any[]) {
         var lu: User[] = [];
@@ -117,9 +117,12 @@ export class UsersService {
         return lu;
     }
     generate_user(user: any) {
-        return new User(user['Username'], user['First Name'], user['Last Name'], user['Classroom'],
+        var u = new User(user['Username'], user['First Name'], user['Last Name'], user['Classroom'],
             user['Email'], user['Phone'], user['Address'], user['Postal Code'], user['Role'], user['Birthday'], user['Folder']);
-    }
+        u.generate_avatar_url(this.ServicioLogin.user_logged.get_access_key(), this.ServicioLogin.user_logged.get_secret_key(),
+                              this.ServicioLogin.user_logged.get_session_token())
+        return u
+        }
     //--------------
 
     private handleError(error: any) {

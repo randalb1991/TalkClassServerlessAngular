@@ -82,10 +82,11 @@ export class EventsService {
                 result => {
                     return this.generate_events(result['data'])
                 }
-            ).catch(function(result) {
-                console.log('Hubo un error usando invokeApi')
-                console.log(result)
-            });
+            ).catch(
+                error => {
+                console.log('Invoke API Error => Creating classroom')
+                return error}
+            );
     }
 
     generate_events(events: any[]) {
@@ -119,12 +120,13 @@ export class EventsService {
         return this.apigClient.invokeApi(params, pathTemplate, method, additionalParams, body)
             .then(
                 result => {
-                    return result.status
+                    return result
                 }
-            ).catch(function(result) {
-                console.log('Hubo un error usando invokeApi')
-                console.log(result)
-            });
+            ).catch(
+                error => {
+                console.log('Invoke API Error => Creating classroom')
+                return error}
+            );
     }
 
     modify_event(new_classrooms: string[], event: Event) {
@@ -146,12 +148,13 @@ export class EventsService {
         return this.apigClient.invokeApi(params, pathTemplate, method, additionalParams, body)
             .then(
                 result => {
-                    return result.status
+                    return result
                 }
-            ).catch(function(result) {
-                console.log('Hubo un error usando invokeApi')
-                console.log(result)
-            });
+            ).catch(
+                error => {
+                console.log('Invoke API Error => Creating classroom')
+                return error}
+            );
     }
     //--------------
 

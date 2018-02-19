@@ -23,10 +23,28 @@
                               <div *ngIf="opcion == 'obtener'">
                                 <ul *ngIf="users"class="list-unstyled">
                                     <li class="media" *ngFor="let user of users">
-                                        <img width="100px" class="d-flex mr-3 rounded-circle" [src]="user.avatar" alt="Generic placeholder image">
-                                        <div class="media-body">
-                                            <h4 class="mt-0 mb-1 display-4">{{user.username}}</h4>
-                                        </div>
+                                            <div class="media">
+                                                    <div class="row" id ='row-list-user'>
+                                                        <div class="col-md-2">
+                                                            <div class="media-left">
+                                                            <img [src]="user.avatar" alt="Generic placeholder image" class="media-object img-responsive mx-auto d-block" style="width:100%" id='img-user-list'>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-10">
+                                                            <div class="media-body" id='preview-list-user'>
+                                                            <ul>
+                                                                <li>
+                                                                    <span class="media-heading" style="color:black;font-weight:bold">Username: </span>{{user.username}}
+                                                                </li>
+                                                                <li>
+                                                                    <span class="media-heading" style="color:black;font-weight:bold">Email: </span>{{user.email}}
+                                                                </li>
+                                                            </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                            </div>
                                     </li>
                                 </ul>
                               </div>

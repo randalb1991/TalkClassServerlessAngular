@@ -70,7 +70,6 @@ export class EventsComponent implements OnInit {
   optionsModel: number[];
   imgAvatar: FileList;
 
-
   //MultiSelect Dropdown variables
   itemList = []
   selectedItems = [];
@@ -164,26 +163,24 @@ export class EventsComponent implements OnInit {
       console.log(this.place)
       console.log(date)
       console.log(classrooms)
-      this.ServicioEventos.create_event(this.title, this.description, this.place, date, classrooms, this.photo_event, this.photo_event_name).then(
-              response => {
-                  this.message_to_show = "Created correctly"
-                  // Limpiamos formulario
-                  this.selectedItems = []
-                  this.date = ""
-                  this.title = ""
-                  this.description = ""
-                  this.place = ""
-                  console.log(response)
-              }
-          )
-          .catch(
-              error => {
-                  console.log(error)
-                  var status_code = error.status
-                  var message = error._body
-                  this.message_to_show = message
-              }
-          )
+      this.ServicioEventos.create_event(this.title, this.description, this.place, date, classrooms, this.photo_event, this.photo_event_name)
+        .then(
+            result => {
+                if (result.status == 200){
+                    this.message_to_show = "Created correctly"
+                    // Limpiamos formulario
+                    this.selectedItems = []
+                    this.date = ""
+                    this.title = ""
+                    this.description = ""
+                    this.place = ""
+                    console.log(result)
+                }else{
+                    console.log('Error creating the classroom')
+                    this.message_to_show = result.response.data
+                }
+            }
+        )
 
   }
 
