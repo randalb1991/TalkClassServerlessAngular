@@ -1,15 +1,14 @@
 <div *ngIf="event">
-                <div id="body-details">
-                    <!-- -->
-                    <div class="row">
+    <div id="body-details">
+            <!-- -->
+                <div class="row">
                         <div class="col-md-2" id="sidebar">
-                            <side-menu></side-menu>
+                                <side-menu [@slideInOut]="toggled"></side-menu>
                         </div>
                         <!-- -->
                         <div id="viñeta" class="col-md-10">
-                            <!-- -->
-                            <div class="row">
                                 <!-- -->
+<<<<<<< HEAD
                                 <div class="col-md-10">
                                     <h2 class="display-3 text-center">{{event.title}}</h2>
                                     <div id="event-details-carousel">
@@ -50,66 +49,124 @@
                                                 <div class="form-group">
                                                     <label for="title_picture_to_upload_input">Título imagen</label>
                                                     <input [(ngModel)]="input_title_picture_to_upload" type="text" class="form-control" id="title_picture_to_upload_input" aria-describedby="title_picture_to_upload_Help" placeholder="Ponle título" name="title_picture_to_upload">
+=======
+                                <div class="row">
+                                        <!-- -->
+                                        <div class="col-md-10"> 
+                                                <h2 class="display-3 text-center">{{event.title}}</h2>
+                                                <div id="event-details-carousel">
+                                                        <ngb-carousel id="event-details-carousel-slide">
+                                                                <ng-template ngbSlide>
+                                                                        <img src="https://lorempixel.com/900/500?r=1" alt="Random first slide">
+                                                                        <div class="carousel-caption">
+                                                                        <li *ngFor="let tag of event.tags_event_picture">
+                                                                                        <p>{{tag}}</p>
+                                                                        </li>
+                                                                        <h3>First slide label</h3>
+                                                                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                                                                        </div>
+                                                                        <!--
+                                                                        <img src="https://media.cntraveler.com/photos/5715168e3658675c4f784750/master/w_1440,c_limit/skylines-nyc-cr-getty-110397100.jpg" alt="Random first slide">
+                                                                        <div class="carousel-caption">
+                                                                        <h3>First slide label</h3>
+                                                                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                                                                        </div>
+                                                                        -->
+                                                                </ng-template>
+                                                                </ngb-carousel>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="descinput">Descripción</label>
-                                                    <input [(ngModel)]="description" type="text" class="form-control" id="descinput" aria-describedby="emailHelp" placeholder="Dale una descripción corta" name="description">
+                                                <p class="text-center lead">{{event.description}}</p>
+                                                <h4 class="text-center lead">- Detalles -</h4>
+                                                <div id='ToogleUploadPictureForm'>
+                                                        <p>
+                                                                <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed"
+                                                                        [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+                                                                        Subir una imagen
+                                                                </button>
+                                                        </p>
+                                                        <div id="collapseExample" [ngbCollapse]="isCollapsed">
+                                                                <form>
+                                                                        <div class="form-group">
+                                                                                <label for="title_picture_to_upload_input">Título imagen</label>
+                                                                                <input [(ngModel)]="input_title_picture_to_upload" type="text" class="form-control" id="title_picture_to_upload_input" aria-describedby="title_picture_to_upload_Help" placeholder="Ponle título" name="title_picture_to_upload">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                                <label for="descinput">Descripción</label>
+                                                                                <input [(ngModel)]="description" type="text" class="form-control" id="descinput" aria-describedby="emailHelp" placeholder="Dale una descripción corta" name="description">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                                        <label for="imageninput">Imagen de evento</label>
+                                                                                        <input type="file" accept="image/*" class="form-control" id="imageninput" name="file" (change)="fileChange($event)">
+                                                                                        <small>¡No más de 1mb!</small>
+                                                                        </div>
+                                                                        <button class="btn btn-info" type="button" (click)="upload_picture()">Subir Imagen!</button>
+                                                                </form>
+                                                                <p  style="color:rgb(248, 53, 53)" value="">{{message_to_show }}</p>
+                                                        </div>
+>>>>>>> origin/AgregadonSDKApiGateway
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="imageninput">Imagen de evento</label>
-                                                    <input type="file" accept="image/*" class="form-control" id="imageninput" name="file" (change)="fileChange($event)">
-                                                    <small>¡No más de 1mb!</small>
-                                                </div>
-                                                <button class="btn btn-info" type="button" (click)="upload_picture()">Subir Imagen!</button>
-                                            </form>
-                                            <p style="color:rgb(248, 53, 53)" value="">{{message_to_show }}</p>
                                         </div>
-                                    </div>
+                                        <!-- -->
+                                        <!-- -->
+                                        <div class="col-md-2" id="event-detail-classrooms-list">
+                                                <div id="event-detail-classrooms-list-container">
+                                                        <h5 class="lead">Classrooms invited</h5>
+                                                        <ul class="list-group" >
+                                                        <div *ngFor="let classroom of event.classrooms">
+                                                                <li class="list-group-item">{{classroom}}</li>
+                                                        </div>
+                                                        </ul>
+                                                        <hr>
+                                                        <form>
+                                                                <div *ngIf="itemList" class="form-group">
+                                                                        <label for="dateinput">Add Classrooms</label>
+                                                                        <angular2-multiselect [data]="itemList" 
+                                                                        [(ngModel)]="selectedItems" name= "something4"
+                                                                        [settings]="settings" 
+                                                                        (onSelect)="onItemSelect($event)"
+                                                                        (onDeSelect)="OnItemDeSelect($event)" 
+                                                                        (onSelectAll)="onSelectAll($event)" 
+                                                                        (onDeSelectAll)="onDeSelectAll($event)">
+                                                                </angular2-multiselect>
+                                                                </div>
+                                                                <button class="btn btn-info" type="button" (click)="modify_event()">Invitar a evento!</button>
+                
+                                                        </form>
+                                                </div>
+                                                <p  style="color:rgb(248, 53, 53)" value="">{{message_to_show }}</p>
+
+                                        </div>
+                                        <!-- -->
                                 </div>
                                 <!-- -->
-                                <!-- -->
-                                <div class="col-md-2" id="event-detail-classrooms-list">
-                                    <div id="event-detail-classrooms-list-container">
-                                        <h5 class="lead">Classrooms invited</h5>
-                                        <ul class="list-group">
-                                            <div *ngFor="let classroom of event.classrooms">
-                                                <li class="list-group-item">{{classroom}}</li>
-                                            </div>
-                                        </ul>
-                                        <hr>
-                                        <form>
-                                            <div *ngIf="itemList" class="form-group">
-                                                <label for="dateinput">Add Classrooms</label>
-                                                <angular2-multiselect [data]="itemList" [(ngModel)]="selectedItems" name="something4" [settings]="settings" (onSelect)="onItemSelect($event)" (onDeSelect)="OnItemDeSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)">
-                                                </angular2-multiselect>
-                                            </div>
-                                            <button class="btn btn-info" type="button" (click)="modify_event()">Invitar a evento!</button>
-            
-                                        </form>
-                                    </div>
-                                    <p style="color:rgb(248, 53, 53)" value="">{{message_to_show }}</p>
-            
-                                </div>
-                                <!-- -->
-                            </div>
-                            <!-- -->
                         </div>
                         <!-- -->
-                    </div>
-                    <!-- -->
-                    <div id="comentarB" class="row">
+                </div>
+            <!-- -->
+                <div id="comentarB" class="row">
                         <div class="container text-center">
+<<<<<<< HEAD
                             <p id="comentarP">Comentar</p>
                             <hr id="comentarHR">
                             <div class="input-group">
                                 <!-- **** -->
                             </div>
+=======
+                        <p id="comentarP">Comentar</p>
+                        <hr id="comentarHR">
+                        <div class="input-group">
+                                ****
+>>>>>>> origin/AgregadonSDKApiGateway
                         </div>
-                    </div>
-                    <!-- -->
-                    <div class="row">
-                        ****
-                    </div>
-                    <!-- -->
+                        </div>
                 </div>
+            <!-- -->
+                <div class="row">
+                        ****
+                </div>
+<<<<<<< HEAD
+=======
+            <!-- -->
+    </div>
+>>>>>>> origin/AgregadonSDKApiGateway
 </div>

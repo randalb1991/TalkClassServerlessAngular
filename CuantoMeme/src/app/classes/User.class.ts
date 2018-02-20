@@ -1,6 +1,6 @@
 export class User {
     private access_key: string = '';
-    private secret_key: string = '';
+    private secret_key: string= '';
     private session_token: string = '';
     public username: string;
     public first_name: string;
@@ -16,9 +16,10 @@ export class User {
     private isLogged: Boolean;
     private avatar: string = 'http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png'
 
-    constructor(username: string, first_name: string, last_name: string, classroom: string, email: string,
-        phone: number, address: string, postal_code: string, role: string, birthday: string,
-        profile_picture: string) {
+
+    constructor(username: string, first_name: string, last_name: string, classroom: string, email: string, 
+                phone: number, address: string, postal_code: string , role: string, birthday: string, 
+                profile_picture: string) {
         this.username = username;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -41,26 +42,26 @@ export class User {
     getEmail(): string {
         return this.email;
     }
-    setLogged(isLogged: Boolean) {
+    setLogged(isLogged: Boolean){
         this.isLogged = isLogged
     }
-    setCredentials(access_key: string, secret_key: string, session_token: string) {
+    setCredentials(access_key: string, secret_key: string, session_token: string){
         this.access_key = access_key;
         this.secret_key = secret_key;
         this.session_token = session_token;
     }
-    isTeacher(): Boolean {
+    isTeacher(): Boolean{
         var isTeacher = this.role == "teacher"
-        console.log("isTeacher: " + isTeacher)
+        console.log("isTeacher: "+isTeacher)
         return (this.role == "teacher")
     }
-    get_secret_key(): string {
+    get_secret_key():string{
         return this.secret_key
     }
-    get_access_key(): string {
+    get_access_key():string{
         return this.access_key
     }
-    get_session_token(): string {
+    get_session_token():string{
         return this.session_token
     }
     generate_avatar_url(access_key, secret_key, session_token){
@@ -76,4 +77,5 @@ export class User {
         this.avatar = s3.getSignedUrl('getObject', params);
             console.log('The URL for tenant '+this.username+' is '+ this.avatar)
     }
+
 }

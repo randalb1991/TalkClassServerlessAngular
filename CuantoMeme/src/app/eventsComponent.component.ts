@@ -6,48 +6,25 @@ https://github.com/CuppaLabs/angular2-multiselect-dropdown
 Varios diseños 
 https://github.com/mdbootstrap/Angular-Bootstrap-with-Material-Design
 */
-import {
-  Component,
-  OnInit,
-  ViewChild
-} from '@angular/core';
-import {
-  Router,
-  ActivatedRoute
-} from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
-import {
-  LoginService
-} from './services/login.service';
-import {
-  EventsService
-} from './services/events.service';
-import {
-  ClassroomsService
-} from './services/classrooms.service';
+import { LoginService } from './services/login.service';
+import { EventsService } from './services/events.service';
+import { ClassroomsService } from './services/classrooms.service';
 
 
-import {
-  Classroom
-} from './classes/Classroom.class';
-import {
-  Event
-} from './classes/Evento.class';
-import {
-  Response
-} from '@angular/http/src/static_response';
-import {
-  error
-} from 'selenium-webdriver';
-import {
-  toBase64String
-} from '@angular/compiler/src/output/source_map';
+import { Classroom } from './classes/Classroom.class';
+import { Event } from './classes/Evento.class';
+import { Response } from '@angular/http/src/static_response';
+import { error } from 'selenium-webdriver';
+import { toBase64String } from '@angular/compiler/src/output/source_map';
 
 @Component({
   selector: 'events-component',
   templateUrl: './templates/events.template.html',
-  styleUrls: ['./templates/css/sidemenu.css', './templates/css/perfil.css', './templates/font-awesome/css/font-awesome.css']
+  styleUrls: ['./templates/css/sidemenu.css','./templates/css/perfil.css',  './templates/font-awesome/css/font-awesome.css']
 })
 
 export class EventsComponent implements OnInit {
@@ -90,75 +67,56 @@ export class EventsComponent implements OnInit {
           unSelectAllText: 'UnSelect All',
           classes: "myclass custom-class"
       };
-      if (!this.ServicioLogin.isLogged) {
-          this.router.navigateByUrl('/');
-      } else {
-          // Conseguimos las clases
-          this.ServicioClassroom.get_Classrooms().then(
-                  result => {
-                      this.classrooms = result
-                      var id = 0;
-                      for (let classroom of this.classrooms) {
-                          id++
-                          // Tener atributos id e itemName es obligatorio(tal cual)
-                          var c = {
-                              "id": id,
-                              "itemName": classroom.name,
-                              "category": classroom.level
-                          }
-                          this.itemList.push(c)
-                      }
-                  }
-
-              )
-              .catch(
-                  result => {
-                      console.log('error')
-                      console.log(result)
-                  }
-              )
-
-          this.ServicioEventos.get_events().then(
+          if(!this.ServicioLogin.isLogged) {
+            this.router.navigateByUrl('/');
+          }else{
+            // Conseguimos las clases
+            this.ServicioClassroom.get_Classrooms().then(
               result => {
-                  console.log('events results')
-                  console.log(result)
-                  this.events = result
+                this.classrooms = result
+                var id = 0;
+                for (let classroom of this.classrooms){
+                  id++
+                  // Tener atributos id e itemName es obligatorio(tal cual)
+                  var c = {"id": id,"itemName": classroom.name, "category": classroom.level}
+                  this.itemList.push(c)
+                }
               }
-
-          ).catch(
-              result => {
-                  console.log('error')
-                  console.log(result)
-              }
-          )
-      }
-  }
-  // MultiSelect Dropdown 
-  onItemSelect(item: any) {
+             
+            )
+            .catch(
+              result =>{ 
+              console.log('error')
+              console.log(result)}
+            )
+          }      
+        }
+    // MultiSelect Dropdown 
+    onItemSelect(item: any) {
       console.log(item);
       console.log(this.selectedItems);
-  }
-  OnItemDeSelect(item: any) {
-      console.log(item);
-      console.log(this.selectedItems);
-  }
-  onSelectAll(items: any) {
-      console.log(items);
-  }
-  onDeSelectAll(items: any) {
-      console.log(items);
-  }
-  eleccion(opción: string): void {
+    }
+    OnItemDeSelect(item: any) {
+        console.log(item);
+        console.log(this.selectedItems);
+    }
+    onSelectAll(items: any) {
+        console.log(items);
+    }
+    onDeSelectAll(items: any) {
+        console.log(items);
+    }
+    eleccion(opción: string): void {
       this.opcion = opción;
-  }
-  //-----MultiSelect Dropdown ---
-  crearEvento() {
+    }
+    //-----MultiSelect Dropdown ---
+    crearEvento() {
       //var pieces = this.date.split('-')
       console.log(this.date)
-      var date = this.date["day"] + '-' + this.date["month"] + '-' + this.date["year"]
+      var date = this.date["day"]+'-'+this.date["month"]+'-'+this.date["year"]
       var classrooms = []
-      for (let classroom of this.selectedItems) {
-          classrooms.push(classroom["itemName"])
+      for (let classroom of this.selectedItems){
+        classrooms.push(classroom["itemName"])
       }
       console.log(this.place)
       console.log(date)
@@ -188,20 +146,20 @@ export class EventsComponent implements OnInit {
 
   fileChange($event) {
       this.readThis($event.target);
-  }
-  readThis(inputValue: any): void {
-      var file: File = inputValue.files[0];
+    }
+    readThis(inputValue: any): void {
+      var file:File = inputValue.files[0];
       console.log(file.name)
-      var myReader: FileReader = new FileReader();
-
+      var myReader:FileReader = new FileReader();
+    
       myReader.onloadend = (e) => {
-          console.log(e)
-          this.photo_event = myReader.result.split(';base64,')[1];
-          this.photo_event_name = file.name
-          console.log("Juuuuas")
-          console.log(this.photo_event)
+        console.log(e)
+        this.photo_event = myReader.result.split(';base64,')[1];
+        this.photo_event_name = file.name
+        console.log("Juuuuas")
+        console.log(this.photo_event)
       }
       myReader.readAsDataURL(file);
-  }
-  //--------
+    }
+    //--------
 }

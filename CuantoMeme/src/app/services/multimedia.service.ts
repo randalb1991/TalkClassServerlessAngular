@@ -1,35 +1,16 @@
-import {
-    Event
-} from '../classes/Evento.class';
+import { Event } from '../classes/Evento.class';
 
 
-import {
-    Injectable
-} from '@angular/core';
-import {
-    Http,
-    Response,
-    JsonpModule,
-    RequestOptions,
-    Headers
-} from '@angular/http';
-import {
-    LoginService
-} from './login.service';
-import {
-    Router,
-    ActivatedRoute
-} from '@angular/router';
+import { Injectable } from '@angular/core';
+import { Http, Response, JsonpModule, RequestOptions, Headers } from '@angular/http';
+import { LoginService } from './login.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
-import {
-    Observable
-} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
-import {
-    Multimedia
-} from '../classes/Multimedia.class';
+import { Multimedia } from '../classes/Multimedia.class';
 
 
 @Injectable()
@@ -59,7 +40,7 @@ export class MultimediaService {
             console.log('The URL is', url);
     }
     //---------------------
-    get_multimedias() {
+    get_multimedias(){
         var params = {};
         var pathTemplate = '/dev/talkclass/multimedia'
         var method = 'GET';
@@ -105,9 +86,9 @@ export class MultimediaService {
     }
      
 
-    generate_multimedias(multimedias: any[]) {
+    generate_multimedias(multimedias:any[]){
         var lu: Multimedia[] = []
-        for (let multimedia of multimedias) {
+        for (let multimedia of multimedias){
             lu.push(this.generate_multimedia(multimedia))
         }
         return lu
@@ -119,7 +100,7 @@ export class MultimediaService {
           this.ServicioLogin.user_logged.get_session_token())
         return multimedia
     }
-    post_multimedia(session_token: string, event_title: string, event_date: string, title: string, file: string) {
+    post_multimedia(session_token:string, event_title:string, event_date: string, title:string, file:string){
         var params = {};
         var pathTemplate = '/dev/talkclass/multimedia'
         var method = 'POST';
@@ -145,9 +126,9 @@ export class MultimediaService {
     }
 
     //--------------
-
+  
     private handleError(error: any) {
-        console.error(error);
-        return Observable.throw("Server error (" + error.status + "): " + error.text());
-    }
+		console.error(error);
+		return Observable.throw("Server error (" + error.status + "): " + error.text());
+	}
 }

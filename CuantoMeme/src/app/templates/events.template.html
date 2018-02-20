@@ -1,72 +1,79 @@
 <div id="total-container" *ngIf="this.ServicioLogin.isLogged">
-        <div class="row">
-            <div class="col-md-2" id="sidebar">
-                <side-menu></side-menu>
-                <!--
-                <img id="user-avatar" [src]="ServicioLogin.user_logged.avatar" width="300px" class="rounded img-fluid mx-auto d-block">
-                <h1 class="display-4 text-center">{{this.ServicioLogin.user_logged.username}}</h1>
-                <p class="lead text-center"><i class="fa fa-envelope" aria-hidden="true"></i> Email: {{this.ServicioLogin.user_logged.email}}</p>
-                <hr>
-                -->
-            </div>
-            <div class="col-md-10">
-                <div id="content">
+    <div class="row">
+        <div class="col-md-2" id="sidebar" >
+                <side-menu [@slideInOut]="toggled"></side-menu>
+            <!--
+            <img id="user-avatar" [src]="ServicioLogin.user_logged.avatar" width="300px" class="rounded img-fluid mx-auto d-block">
+            <h1 class="display-4 text-center">{{this.ServicioLogin.user_logged.username}}</h1>
+            <p class="lead text-center"><i class="fa fa-envelope" aria-hidden="true"></i> Email: {{this.ServicioLogin.user_logged.email}}</p>
+            <hr>
+            -->
+        </div>
+        <div class="col-md-10">
+            <div id="content">
                     <div class="btn-group" role="group" aria-label="aaa">
-                        <div id="tabs">
-                            <button type="button" [ngClass]="{'active': opcion == 'obtener'}" (click)="eleccion('obtener')" class="btn btn-select btn-lg btn-link">Listar eventos</button>
-                            <button type="button" [ngClass]="{'active': opcion == 'crear'}" (click)="eleccion('crear')" class="btn btn-select btn-lg btn-link">Crear Evento</button>
-                        </div>
-    
-                    </div>
-                    <hr>
-    
-                    <div *ngIf="opcion == 'obtener'">
-                        <lista-eventos></lista-eventos>
-                    </div>
-                    <div *ngIf="opcion == 'crear'">
-                        <div>
-                            <form>
-                                <div class="form-group">
-                                    <label for="titleinput">Título</label>
-                                    <input [(ngModel)]="title" type="text" class="form-control" id="titleinput" aria-describedby="emailHelp" placeholder="Ponle título" name="titulo">
-                                </div>
-                                <div class="form-group">
-                                    <label for="descinput">Descripción</label>
-                                    <input [(ngModel)]="description" type="text" class="form-control" id="descinput" aria-describedby="emailHelp" placeholder="Dale una descripción corta" name="description">
-                                </div>
-                                <div class="form-group">
-                                    <label for="placeinput">Lugar</label>
-                                    <input [(ngModel)]="place" type="text" class="form-control" id="placeinput" aria-describedby="emailHelp" placeholder="¿Dónde será el evento?" name="place">
-                                </div>
-    
-                                <div class="form-group">
-                                    <label for="dateinput">Fecha</label>
-                                    <div class="input-group">
-                                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="date" ngbDatepicker #d="ngbDatepicker">
-                                        <button class="input-group-addon" (click)="d.toggle()" type="button">
-                                                  <img src="../../assets/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-                                                </button>
+                            <div id="tabs">
+                                  <button type="button" [ngClass]="{'active': opcion == 'obtener'}" (click)="eleccion('obtener')"  class="btn btn-select btn-lg btn-link">Listar eventos</button>
+                                  <button type="button" [ngClass]="{'active': opcion == 'crear'}" (click)="eleccion('crear')"  class="btn btn-select btn-lg btn-link">Crear Evento</button>
+                            </div>
+              
+                          </div>
+                          <hr>
+              
+                          <div *ngIf="opcion == 'obtener'">
+                              <lista-eventos></lista-eventos>
+                          </div>
+                          <div *ngIf="opcion == 'crear'">
+                             <div>
+                                  <form>
+                                      <div class="form-group">
+                                          <label for="titleinput">Título</label>
+                                          <input [(ngModel)]="title" type="text" class="form-control" id="titleinput" aria-describedby="emailHelp" placeholder="Ponle título" name="titulo">
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="descinput">Descripción</label>
+                                          <input [(ngModel)]="description" type="text" class="form-control" id="descinput" aria-describedby="emailHelp" placeholder="Dale una descripción corta" name="description">
+                                      </div>
+                                      <div class="form-group">
+                                              <label for="placeinput">Lugar</label>
+                                              <input [(ngModel)]="place" type="text" class="form-control" id="placeinput" aria-describedby="emailHelp" placeholder="¿Dónde será el evento?" name="place">
+                                      </div>
+              
+                                      <div class="form-group">
+                                          <label for="dateinput">Fecha</label>
+                                          <div class="input-group">
+                                            <input class="form-control" placeholder="yyyy-mm-dd"
+                                                   name="dp"  [(ngModel)]="date"  ngbDatepicker #d="ngbDatepicker">
+                                            <button class="input-group-addon" (click)="d.toggle()" type="button">
+                                              <img src="../../assets/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                                            </button>
+                                          </div>
+                                      </div>
+                                  <div *ngIf="itemList" class="form-group">
+                                          <label for="dateinput">Clases participantes</label>
+                                          <angular2-multiselect [data]="itemList" 
+                                          [(ngModel)]="selectedItems" name= "something4"
+                                          [settings]="settings" 
+                                          (onSelect)="onItemSelect($event)"
+                                          (onDeSelect)="OnItemDeSelect($event)" 
+                                          (onSelectAll)="onSelectAll($event)" 
+                                          (onDeSelectAll)="onDeSelectAll($event)">
+                                        </angular2-multiselect>
+                                  </div>
+                                  <div class="form-group">
+                                        <label for="imageninput">Imagen de evento</label>
+                                        <input type="file" accept="image/*" class="form-control" id="imageninput" name="file" (change)="fileChange($event)">
+                                        <small>¡No más de 1mb!</small>
                                     </div>
-                                </div>
-                                <div *ngIf="itemList" class="form-group">
-                                    <label for="dateinput">Clases participantes</label>
-                                    <angular2-multiselect [data]="itemList" [(ngModel)]="selectedItems" name="something4" [settings]="settings" (onSelect)="onItemSelect($event)" (onDeSelect)="OnItemDeSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)">
-                                    </angular2-multiselect>
-                                </div>
-                                <div class="form-group">
-                                    <label for="imageninput">Imagen de evento</label>
-                                    <input type="file" accept="image/*" class="form-control" id="imageninput" name="file" (change)="fileChange($event)">
-                                    <small>¡No más de 1mb!</small>
-                                </div>
-                                <button class="btn btn-info" type="button" (click)="crearEvento()">Crear evento!</button>
-                            </form>
-                            <p style="color:rgb(248, 53, 53)" value="">{{message_to_show }}</p>
-    
-                        </div>
-                    </div>
-    
-                </div>
-    
+                                  <button class="btn btn-info" type="button" (click)="crearEvento()">Crear evento!</button>
+                                  </form>
+                                  <p  style="color:rgb(248, 53, 53)" value="">{{message_to_show }}</p>
+              
+                             </div>
+                          </div>
+
             </div>
+            
         </div>
     </div>
+</div>

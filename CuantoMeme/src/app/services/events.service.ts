@@ -1,37 +1,16 @@
-import {
-    Event
-} from '../classes/Evento.class';
+import { Event } from '../classes/Evento.class';
 
-import {
-    Injectable
-} from '@angular/core';
-import {
-    Http,
-    Response,
-    JsonpModule,
-    RequestOptions,
-    Headers
-} from '@angular/http';
-import {
-    LoginService
-} from './login.service';
-import {
-    Router,
-    ActivatedRoute
-} from '@angular/router';
+import { Injectable } from '@angular/core';
+import { Http, Response, JsonpModule, RequestOptions, Headers } from '@angular/http';
+import { LoginService } from './login.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
-import {
-    Observable
-} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
-import {
-    Classroom
-} from '../classes/Classroom.class';
-import {
-    error
-} from 'selenium-webdriver';
+import { Classroom } from '../classes/Classroom.class';
+import { error } from 'selenium-webdriver';
 
 @Injectable()
 export class EventsService {
@@ -45,9 +24,9 @@ export class EventsService {
     }
     apigClient = this.apigClientFactory.newClient(this.config);
 
-    constructor(private http: Http, private router: Router, private ServicioLogin: LoginService) {}
+    constructor(private http: Http, private router: Router, private ServicioLogin: LoginService){}
     //---------------------
-    get_events() {
+    get_events(){
         var params = {};
         var pathTemplate = '/dev/talkclass/events'
         var method = 'GET';
@@ -64,6 +43,7 @@ export class EventsService {
                 console.log(result)
             });
     }
+    
 
 
     get_event(title: string, date: string) {
@@ -88,10 +68,10 @@ export class EventsService {
                 return error}
             );
     }
-
-    generate_events(events: any[]) {
+    
+    generate_events(events:any[]){
         var lu: Event[] = []
-        for (let event of events) {
+        for (let event of events){
             lu.push(this.generate_event(event))
         }
         return lu
@@ -103,7 +83,7 @@ export class EventsService {
         this.ServicioLogin.user_logged.get_session_token())
         return event
     }
-    create_event(title: string, description: string, place: string, date: string, classrooms: string[], photo_event: string, photo_event_name: string) {
+    create_event(title:string, description: string, place:string, date:string, classrooms:string[], photo_event:string, photo_event_name:string){     
         var params = {};
         var pathTemplate = '/dev/talkclass/events'
         var method = 'POST';
@@ -114,7 +94,7 @@ export class EventsService {
             date: date,
             place: place,
             classrooms: classrooms,
-            photo_event: photo_event,
+            photo_event:photo_event,
             photo_name: photo_event_name
         }
         return this.apigClient.invokeApi(params, pathTemplate, method, additionalParams, body)
@@ -157,9 +137,9 @@ export class EventsService {
             );
     }
     //--------------
-
+  
     private handleError(error: any) {
-        console.error(error);
-        return Observable.throw("Server error (" + error.status + "): " + error.text());
-    }
+		console.error(error);
+		return Observable.throw("Server error (" + error.status + "): " + error.text());
+	}
 }
