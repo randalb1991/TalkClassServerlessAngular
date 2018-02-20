@@ -81,21 +81,37 @@ export class ClassroomsComponent implements OnInit {
       //var pieces = this.date.split('-')
       console.log(this.selectedItems)
       this.ServicioClassroom.create_classroom(this.classroom, this.selectedItems[0]['itemName'])
-      .then(
-        result => {
-          this.message_to_show = "Created correctly"
-          this.classroom = ""
-          this.level = ""
-          console.log(result)}
-      )
-      .catch(
-        result =>{ 
-          console.log('error')
-          console.log(result)
-        }
-      )
-    }
-    eleccion(opción: string): void {
+          .then(
+              result => {
+                  if (result.status == 200){
+                    this.message_to_show = "Created correctly"
+                    this.classroom = ""
+                    this.level = ""
+                    console.log(result)
+                  }else{
+                      console.log('Error creating the classroom')
+                      this.message_to_show = result.response.data
+                  }
+              }
+          )
+ }
+eleccion(opción: string): void {
       this.opcion = opción;
-    }
+  }
+  // MultiSelect Dropdown 
+  onItemSelect(item: any) {
+    console.log(item);
+    console.log(this.selectedItems);
+}
+OnItemDeSelect(item: any) {
+    console.log(item);
+    console.log(this.selectedItems);
+}
+onSelectAll(items: any) {
+    console.log(items);
+}
+onDeSelectAll(items: any) {
+    console.log(items);
+}
+
 }

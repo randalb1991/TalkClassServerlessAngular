@@ -13,7 +13,7 @@ export class LoginService {
 	userUpdated:EventEmitter<User> = new EventEmitter<User>();
 
 	constructor(private http: Http){
-		this.reqIsLogged();
+		//this.reqIsLogged();
 	}
 	
 	reqIsLogged() {
@@ -41,9 +41,9 @@ export class LoginService {
         var profile = response. profile
         console.log("****")
         console.log(credentials)
-        var user = new User(profile['Username'], profile['First Name'], profile['Last Name'], profile['Classroom'], profile['Email']
-        ,profile['Phone'], profile['Address'], profile['Postcal Code'], profile['Role'], profile['Birthday'], profile['Folder'])
-        user.setCredentials(credentials['access_key'],credentials['secret_key'],credentials['session_token'])
+        var user = new User(profile['Username'], profile['First Name'], profile['Last Name'], profile['Classroom'], profile['Email'], profile['Phone'], profile['Address'], profile['Postcal Code'], profile['Role'], profile['Birthday'], profile['Folder'])
+        user.setCredentials(credentials['access_key'], credentials['secret_key'], credentials['session_token'])
+        user.generate_avatar_url(credentials['access_key'], credentials['secret_key'], credentials['session_token'])
         this.user_logged = user
 
     }

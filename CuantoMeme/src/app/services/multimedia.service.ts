@@ -15,6 +15,7 @@ import { Multimedia } from '../classes/Multimedia.class';
 
 @Injectable()
 export class MultimediaService {
+
     apigClientFactory = require('aws-api-gateway-client').default;
     config = {
         accessKey: this.ServicioLogin.user_logged.get_access_key(),
@@ -24,8 +25,20 @@ export class MultimediaService {
         invokeUrl: 'https://15psp95at5.execute-api.us-east-1.amazonaws.com'
     }
     apigClient = this.apigClientFactory.newClient(this.config);
-
-    constructor(private http: Http, private router: Router, private ServicioLogin: LoginService){}
+    s3 = null;
+    constructor(private http: Http, private router: Router, private ServicioLogin: LoginService) {
+        var AWS = require('aws-sdk');
+        this.s3 = new AWS.S3({
+            apiVersion: '2006-03-01',
+            region: 'us-east-1',
+            accessKeyId: this.ServicioLogin.user_logged.get_access_key(),
+            secretAccessKey: this.ServicioLogin.user_logged.get_secret_key(),
+            sessionToken: this.ServicioLogin.user_logged.get_session_token()
+          })
+           var params2 = {Bucket: 'talkclass-tcbucket3332', Key: 'skater.jpg'};
+            var url = this.s3.getSignedUrl('getObject', params2);
+            console.log('The URL is', url);
+    }
     //---------------------
     get_multimedias(){
         var params = {};
@@ -39,20 +52,39 @@ export class MultimediaService {
                 result => {
                     return this.generate_multimedias(result['data'])
                 }
-            ).catch(function(result) {
-                console.log('Hubo un error usando invokeApi')
-                console.log(result)
-            });
+            ).catch(
+                error => {
+                console.log('Invoke API Error => Get Multimedia')
+                return error}
+            );
     }
-/*
-    get_multimedia(title: string, date:string){
-        var url = BASE_URL+'?title='+title
-        console.log('requesting url: ' +url)
-        return this.http.get(url)
-            .map(response => this.generateEvents(response.json()))
-            .catch(error => this.handleError(error))
+    
+    get_multimedia_for_event(title: string, date:string){
+        var params = {
+
+        };
+        var pathTemplate = '/dev/talkclass/multimedia'
+        var method = 'GET';
+        var additionalParams = {
+            queryParams: {
+                date:date,
+                title: title
+            }
+        };
+        var body = {};
+
+        return this.apigClient.invokeApi(params, pathTemplate, method, additionalParams, body)
+            .then(
+                result => {
+                    return this.generate_multimedias(result['data'])
+                }
+            ).catch(
+                error => {
+                console.log('Invoke API Error => Gettin Multimedia for event')
+                return error}
+            );
     }
- */   
+     
 
     generate_multimedias(multimedias:any[]){
         var lu: Multimedia[] = []
@@ -62,8 +94,11 @@ export class MultimediaService {
         return lu
     }
 
-    generate_multimedia(multimedia: Multimedia){
-        return new Multimedia(multimedia['Picture Key'],multimedia['Event'],multimedia['Date'], multimedia['Tags'],multimedia['Title'],multimedia['Username'])
+    generate_multimedia(multimedia: Multimedia) {
+        var multimedia =  new Multimedia(multimedia['Picture Key'], multimedia['Event'], multimedia['Date'], multimedia['Tags'], multimedia['Title'], multimedia['Username'])
+        multimedia.generate_multimedia_url(this.ServicioLogin.user_logged.get_access_key(), this.ServicioLogin.user_logged.get_secret_key(),
+          this.ServicioLogin.user_logged.get_session_token())
+        return multimedia
     }
     post_multimedia(session_token:string, event_title:string, event_date: string, title:string, file:string){
         var params = {};
@@ -80,12 +115,14 @@ export class MultimediaService {
         return this.apigClient.invokeApi(params, pathTemplate, method, additionalParams, body)
             .then(
                 result => {
-                    return result.status
+                    return result
                 }
-            ).catch(function(result) {
-                console.log('Hubo un error usando invokeApi')
-                console.log(result)
-            });
+            ).catch(
+                error => {
+                console.log('Invoke API Error => Creating Multimedia')
+                return error
+            }
+            );
     }
 
     //--------------

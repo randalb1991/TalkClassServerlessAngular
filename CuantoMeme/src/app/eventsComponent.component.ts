@@ -28,42 +28,40 @@ import { toBase64String } from '@angular/compiler/src/output/source_map';
 })
 
 export class EventsComponent implements OnInit {
-    opcion: string = 'crear';
-    events: Event[] = [];
+  opcion: string = 'crear';
+  events: Event[] = [];
 
 
-    //Crear Evento
-    message_to_show = ""
-    classrooms: Classroom[] = [];
-    title: string = '';
-    description: string = '';
-    place: string = ''
-    date= {};
-    plane: string = '';
-    photo_event: string;
-    photo_event_name : string;
+  //Crear Evento
+  message_to_show = ""
+  classrooms: Classroom[] = [];
+  title: string = '';
+  description: string = '';
+  place: string = ''
+  date = {};
+  plane: string = '';
+  photo_event: string;
+  photo_event_name: string;
 
-    //Cambiar avatar
-    optionsModel: number[];
-    imgAvatar: FileList;
-    
+  //Cambiar avatar
+  optionsModel: number[];
+  imgAvatar: FileList;
 
-    //MultiSelect Dropdown variables
-    itemList = []
-    selectedItems = [];
-    settings = {};
+  //MultiSelect Dropdown variables
+  itemList = []
+  selectedItems = [];
+  settings = {};
 
-    // test
-    private fileReader: FileReader;
-    private base64Encoded: string;
+  // test
+  private fileReader: FileReader;
+  private base64Encoded: string;
 
-    constructor(private ServicioLogin: LoginService,private ServicioClassroom: ClassroomsService ,private ServicioEventos :EventsService, private Ruta: ActivatedRoute, private router: Router) {
-    }
+  constructor(private ServicioLogin: LoginService, private ServicioClassroom: ClassroomsService, private ServicioEventos: EventsService, private Ruta: ActivatedRoute, private router: Router) {}
 
-    ngOnInit() {
-        //---- Necesario para multiselect dropdown
-        this.selectedItems = [];
-        this.settings = {
+  ngOnInit() {
+      //---- Necesario para multiselect dropdown
+      this.selectedItems = [];
+      this.settings = {
           text: "Seleecciona clases participantes",
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
@@ -91,6 +89,16 @@ export class EventsComponent implements OnInit {
               console.log('error')
               console.log(result)}
             )
+          this.ServicioEventos.get_events().then(
+            result => {
+              this.events = result
+            }
+          )
+          .catch(
+            result =>{ 
+            console.log('error')
+            console.log(result)}
+          )
           }      
         }
     // MultiSelect Dropdown 
@@ -123,32 +131,30 @@ export class EventsComponent implements OnInit {
       console.log(this.place)
       console.log(date)
       console.log(classrooms)
-      this.ServicioEventos.create_event(this.title, this.description, this.place, date,classrooms, this.photo_event, this.photo_event_name).then(
-        response => {
-          this.message_to_show = "Created correctly"
-          // Limpiamos formulario
-          this.selectedItems = []
-          this.date = ""
-          this.title = ""
-          this.description = ""
-          this.place = ""
-          console.log(response)
-        }
-      )
-      .catch(
-        error=>{
-          console.log(error)
-          var status_code = error.status
-          var message = error._body
-          this.message_to_show = message
-        }
-      )
+      this.ServicioEventos.create_event(this.title, this.description, this.place, date, classrooms, this.photo_event, this.photo_event_name)
+        .then(
+            result => {
+                if (result.status == 200){
+                    this.message_to_show = "Created correctly"
+                    // Limpiamos formulario
+                    this.selectedItems = []
+                    this.date = ""
+                    this.title = ""
+                    this.description = ""
+                    this.place = ""
+                    console.log(result)
+                }else{
+                    console.log('Error creating the classroom')
+                    this.message_to_show = result.response.data
+                }
+            }
+        )
 
-    }
+  }
 
-    //--------Subida de imagen
+  //--------Subida de imagen
 
-    fileChange($event) {
+  fileChange($event) {
       this.readThis($event.target);
     }
     readThis(inputValue: any): void {

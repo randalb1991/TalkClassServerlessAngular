@@ -23,7 +23,7 @@ import { toBase64String } from '@angular/compiler/src/output/source_map';
 @Component({
   selector: 'users-component',
   templateUrl: './templates/users.template.html',
-  styleUrls: ['./templates/css/sidemenu.css','./templates/css/perfil.css',  './templates/font-awesome/css/font-awesome.css']
+  styleUrls: ['./templates/css/listausuarios.css', './templates/font-awesome/css/font-awesome.css']
 })
 
 export class UsersComponent implements OnInit {
@@ -147,59 +147,52 @@ export class UsersComponent implements OnInit {
     createUser() {
       //var pieces = this.date.split('-')
       console.log(this.birthday)
-      var birthday = this.birthday["day"]+'/'+this.birthday["month"]+'/'+this.birthday["year"]
+      var birthday = this.birthday["day"] + '-' + this.birthday["month"] + '-' + this.birthday["year"]
       var classroom = this.selectedItems[0]['itemName']
       var role = this.selectedRole[0]['itemName'].toLowerCase()
-      this.ServicioUsers.create_user(this.username, this.firstname, role, this.lastname, this.password, 
-        birthday, this.email, this.address, this.postalcode, this.phone, classroom, this.photo_profile, this.photo_profile_name).then(
-        response => {
-          this.message_to_show = "Created correctly"
-          // Limpiamos formulario
-          this.selectedItems = []
-          this.selectedRole = []
-          this.username = ""
-          this.firstname = ""
-          this.lastname = ""
-          this.email = ""
-          this.address = ""
-          this.birthday = {}
-          this.postalcode = null
-          this.phone = null
-          this.password = ""
-          this.confirmpassword = ""
-          this.photo_profile = ""
-          this.photo_profile_name = ""
-          console.log(response)
-        }
-      )
-      .catch(
-        error=>{
-          console.log('error elevado')
-          console.log(error)
-          var status_code = error.status
-          var message = error._body
-          this.message_to_show = message
-        }
-      )
+      this.ServicioUsers.create_user(this.username, this.firstname, role, this.lastname, this.password,
+              birthday, this.email, this.address, this.postalcode, this.phone, classroom, this.photo_profile, this.photo_profile_name)
+          .then(
+            result => {
+                if (result.status == 200){
+                    this.message_to_show = "User created correctly"
+                    // Limpiamos formulario
+                    this.selectedItems = []
+                    this.selectedRole = []
+                    this.username = ""
+                    this.firstname = ""
+                    this.lastname = ""
+                    this.email = ""
+                    this.address = ""
+                    this.birthday = {}
+                    this.postalcode = null
+                    this.phone = null
+                    this.password = ""
+                    this.confirmpassword = ""
+                    this.photo_profile = ""
+                    this.photo_profile_name = ""
+                    console.log(result)
+                }else{
+                    console.log('Error creating the User')
+                    this.message_to_show = result.response.data
+                }
+            }
+        )
 
-    }
+  }
 
-    //--------Subida de imagen
+  //--------Subida de imagen
 
-    fileChange($event) {
+  fileChange($event) {
       this.readThis($event.target);
-    }
-    readThis(inputValue: any): void {
-      var file:File = inputValue.files[0];
-      console.log(file.name)
-      var myReader:FileReader = new FileReader();
-    
+  }
+  readThis(inputValue: any): void {
+      var file: File = inputValue.files[0];
+      var myReader: FileReader = new FileReader();
+
       myReader.onloadend = (e) => {
-        console.log(e)
-        this.photo_profile = myReader.result.split(';base64,')[1];
-        this.photo_profile_name = file.name
-        console.log("Juuuuas")
-        console.log(this.photo_profile)
+          this.photo_profile = myReader.result.split(';base64,')[1];
+          this.photo_profile_name = file.name
       }
       myReader.readAsDataURL(file);
     }

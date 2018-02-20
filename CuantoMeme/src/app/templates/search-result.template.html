@@ -1,0 +1,22 @@
+<div id="total-container" *ngIf="this.ServicioLogin.isLogged">
+        <div class="row">
+            <div class="col-md-2" id="sidebar" >
+                    <side-menu></side-menu>
+            </div>
+            <div class="col-md-10">
+                <div id="content">
+                        <div id="tabs">
+                                <button type="button" class="btn btn-select btn-lg btn-link">Resultado</button>
+                        </div>
+                        <hr>                  
+                        <div *ngIf="type == 'Usuarios'">
+                            <user-lists [userlist]='users'></user-lists>
+                        </div>
+                        <div *ngIf="type == 'Eventos'">
+                                <lista-eventos [listaEventos]='events'></lista-eventos>
+                        </div>
+                </div>
+            
+        </div>
+    </div>
+</div>

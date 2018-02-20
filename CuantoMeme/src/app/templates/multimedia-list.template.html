@@ -1,0 +1,23 @@
+<div *ngIf='listamultimedia'>
+    <div>
+        <h2 class="display-3 text-center">{{event.title}}</h2>
+    </div>
+    <div id="event-details-carousel">
+
+    <ngb-carousel id="event-details-carousel-slide">
+                <div *ngFor="let multimedia of listamultimedia">
+                    <ng-template ngbSlide>
+                        <img [src]="multimedia.picture_url" alt="Random first slide">
+                        <div class="carousel-caption">
+                            <h3>{{multimedia.picture_name}}</h3>
+                            <ul class="list-inline">
+                                <li *ngFor="let tag of multimedia.tags" class="list-inline-item">
+                                    <span class="badge badge-info">{{tag}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </ng-template>
+                </div>
+        </ngb-carousel>
+    </div>>
+</div>

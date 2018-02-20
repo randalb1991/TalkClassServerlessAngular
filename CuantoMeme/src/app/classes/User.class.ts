@@ -14,7 +14,7 @@ export class User {
     public birthday: string;
     public profile_picture: string;
     private isLogged: Boolean;
-    private avatar: string;
+    private avatar: string = 'http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png'
 
 
     constructor(username: string, first_name: string, last_name: string, classroom: string, email: string, 
@@ -64,5 +64,18 @@ export class User {
     get_session_token():string{
         return this.session_token
     }
-   
+    generate_avatar_url(access_key, secret_key, session_token){
+        var AWS = require('aws-sdk');
+        var s3 = new AWS.S3({
+            apiVersion: '2006-03-01',
+            region: 'us-east-1',
+            accessKeyId: access_key,
+            secretAccessKey: secret_key,
+            sessionToken: session_token
+          })
+        var params = {Bucket: 'talkclass-tcbucket3332', Key: this.profile_picture};
+        this.avatar = s3.getSignedUrl('getObject', params);
+            console.log('The URL for tenant '+this.username+' is '+ this.avatar)
+    }
+
 }

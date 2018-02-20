@@ -73,12 +73,12 @@ export class EventDetailsComponent implements OnInit {
           this.date = this.route.snapshot.params['date']
           console.log(this.route.snapshot.params['title'])
           console.log(this.route.snapshot.params['date'])
-          this.ServicioEventos.get_event(this.title, this.date).subscribe(
+          this.ServicioEventos.get_event(this.title, this.date).then(
               response => {
                   console.log(response)
                   this.event = response[0]
                   console.log('el evento que estas viendo es ' + event)
-                  this.ServicioClassroom.get_Classrooms().subscribe(
+                  this.ServicioClassroom.get_Classrooms().then(
                       response => {
                           this.classrooms = response
                           /* 
@@ -99,23 +99,27 @@ export class EventDetailsComponent implements OnInit {
                                   }
                                   this.itemList.push(c)
                               }
-
+                              console.log(this.itemList)
                           }
-                          console.log(this.itemList)
-                      },
+
+                        }
+                      ).catch(
+                          error => console.log(error)
+                      )
+                  this.ServicioMultimedia.get_multimedia_for_event(this.event.title, this.event.date).then(
+                      response => {
+                          this.multimedias = response
+                          console.log(this.multimedias)
+                      }
+                  )
+                  .catch(
                       error => console.log(error)
                   )
+                  })
+              .catch(
+                  error => console.log(error)
+              )
 
-              },
-              error => console.log(error)
-          )
-          this.ServicioMultimedia.get_multimedias().subscribe(
-              response => {
-                  this.multimedias = response
-                  console.log(this.multimedias)
-              },
-              error => console.log(error)
-          )
       }
 
   }
@@ -128,45 +132,55 @@ export class EventDetailsComponent implements OnInit {
       }
       console.log('new classrooms')
       console.log(newclassrooms)
-      this.ServicioEventos.modify_event(newclassrooms, this.event).subscribe(
-          response => {
-              this.message_to_show = "Created correctly"
-              // Limpiamos formulario
-              this.selectedItems = []
-              console.log(response)
-          },
-          error => {
-              console.log(error)
-              var status_code = error.status
-              var message = error._body
-              this.message_to_show = message
-          }
-      )
+      this.ServicioEventos.modify_event(newclassrooms, this.event)
+        .then(
+            result => {
+                if (result.status == 200){
+                  this.message_to_show = "Created correctly"
+                  // Limpiamos formulario
+                  this.selectedItems = []
+                  console.log(result)
+                }else{
+                    console.log('Error creating the classroom')
+                    this.message_to_show = result.response.data
+                }
+            }
+        )
   }
 
   upload_picture() {
-    var title_picture = this.input_title_picture_to_upload+'_'+this.ServicioLogin.user_logged.username+'.'+this.extension
-    console.log('title to upload '+title_picture)
-    var date = this.date["day"]+'-'+this.date["month"]+'-'+this.date["year"]
-    this.ServicioMultimedia.post_multimedia(this.ServicioLogin.user_logged.get_session_token(), this.event.title, this.event.date, title_picture,this.picture_to_upload).subscribe(
-      response => {
-        this.message_to_show = "Created correctly"
-        // Limpiamos formulario
-        this.selectedItems = []
-        this.date = ""
-        this.input_title_picture_to_upload = ""
-        this.extension = ''
-        this.picture_to_upload_name= ''
-        this.picture_to_upload = ""
-        console.log(response)
-      },
-      error=>{
-        console.log(error)
-        var status_code = error.status
-        var message = error._body
-        this.message_to_show = message
-      }
-    )
+      var title_picture = this.input_title_picture_to_upload + '_' + this.ServicioLogin.user_logged.username + '.' + this.extension
+      console.log('title to upload ' + title_picture)
+      var date = this.date["day"] + '-' + this.date["month"] + '-' + this.date["year"]
+      this.ServicioMultimedia.post_multimedia(this.ServicioLogin.user_logged.get_session_token(), this.event.title, this.event.date, title_picture, this.picture_to_upload)
+          .then(
+            result => {
+                if (result.status == 200){
+                  this.message_to_show = "Picture Uploaded correctly"
+                  // Limpiamos formulario
+                  this.selectedItems = []
+                  this.date = ""
+                  this.input_title_picture_to_upload = ""
+                  this.extension = ''
+                  this.picture_to_upload_name = ''
+                  this.picture_to_upload = ""
+                  console.log(result)
+                  this.ServicioMultimedia.get_multimedia_for_event(this.event.title, this.event.date)
+                  .then(
+                    response => {
+                        this.multimedias = response
+                        console.log(this.multimedias)
+                    }
+                  )
+                  .catch(
+                      error => console.log(error)
+                  )
+                }else{
+                    console.log('Error creating the classroom')
+                    this.message_to_show = result.response.data
+                }
+            }
+        )
   }
   fileChange($event) {
       this.readThis($event.target);
