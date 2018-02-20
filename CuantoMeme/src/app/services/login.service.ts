@@ -13,7 +13,7 @@ export class LoginService {
 	userUpdated:EventEmitter<User> = new EventEmitter<User>();
 
 	constructor(private http: Http){
-		this.reqIsLogged();
+		//this.reqIsLogged();
 	}
 	
 	reqIsLogged() {
