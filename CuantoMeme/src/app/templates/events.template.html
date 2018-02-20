@@ -1,7 +1,7 @@
 <div id="total-container" *ngIf="this.ServicioLogin.isLogged">
     <div class="row">
         <div class="col-md-2" id="sidebar" >
-                <side-menu [@slideInOut]="toggled"></side-menu>
+                <side-menu></side-menu>
             <!--
             <img id="user-avatar" [src]="ServicioLogin.user_logged.avatar" width="300px" class="rounded img-fluid mx-auto d-block">
             <h1 class="display-4 text-center">{{this.ServicioLogin.user_logged.username}}</h1>
@@ -21,7 +21,7 @@
                           <hr>
               
                           <div *ngIf="opcion == 'obtener'">
-                              <lista-eventos></lista-eventos>
+                              <lista-eventos [listaEventos]='events'></lista-eventos>
                           </div>
                           <div *ngIf="opcion == 'crear'">
                              <div>

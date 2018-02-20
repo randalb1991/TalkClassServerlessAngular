@@ -16,6 +16,12 @@ import { error } from 'selenium-webdriver';
 })
 
 export class sideMenuComponent{
+    // Select component
+    public optionsSearchList = []
+    public selectedOptionSearch = [{"id":1,"itemName":"Eventos"}];
+    public settingSearch = {}
+    public keytosearch = ''
+    //---
     public classrooms = [];
     public classrooms_to_list = []
     public levels = []
@@ -27,6 +33,12 @@ export class sideMenuComponent{
       if(!this.servicioLogin.isLogged) {
         this.router.navigateByUrl('/');
       }else{
+        this.optionsSearchList = [      
+          {"id":1,"itemName":"Eventos"},
+          {"id":2,"itemName":"Usuarios"}]
+        this.settingSearch = {
+          singleSelection: true, 
+          text:"Select your option"};
         this.servicioClassrooms.get_Classrooms().then(
           classrooms => {
             this.classrooms = classrooms
@@ -68,5 +80,24 @@ export class sideMenuComponent{
     issearching(){
       console.log('cambio searching')
       this.searching = !this.searching
+    }
+
+    search(){
+      this.router.navigate(['/search'], { queryParams: { type: this.selectedOptionSearch[0]['itemName'], 'value': this.keytosearch} });
+    }
+
+    onItemSelect(item: any) {
+      console.log(item);
+      console.log(this.selectedOptionSearch);
+    }
+    OnItemDeSelect(item: any) {
+        console.log(item);
+        console.log(this.selectedOptionSearch);
+    }
+    onSelectAll(items: any) {
+        console.log(items);
+    }
+    onDeSelectAll(items: any) {
+        console.log(items);
     }
 }

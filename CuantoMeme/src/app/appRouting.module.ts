@@ -11,6 +11,7 @@ import { EventDetailsComponent}from './eventDetails.component';
 import { UsersComponent } from './usersComponent.component';
 import { UserDetailsComponent}from './userDetails.component';
 import { ClassroomsComponent } from './classroomsComponent.component';
+import { SearchResultComponent } from './search-result.component';
 
 const rutas: Routes = [
     { path: '', redirectTo: '/index', pathMatch: 'full' },
@@ -22,6 +23,7 @@ const rutas: Routes = [
     { path: 'users', component: UsersComponent },
     { path: 'classrooms', component: ClassroomsComponent },
     { path: 'users/:username', component: UserDetailsComponent },
+    { path: 'search', component: SearchResultComponent}
     //{ path: 'users', component: UsersComponent },
     //{ path: 'classrooms', component: ClassroomsComponent },
     //{ path: 'home', component: HomeComponent }

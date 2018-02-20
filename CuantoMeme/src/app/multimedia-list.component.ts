@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { LoginService } from './services/login.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Multimedia } from './classes/multimedia.class';
+import { Event } from './classes/evento.class';
 
 @Component({
   selector: 'multimedia-lists',
@@ -11,6 +12,7 @@ import { Multimedia } from './classes/multimedia.class';
 
 export class MultimediaListComponent implements OnInit{
   @Input() listamultimedia: Multimedia[];
+  @Input() event:Event;
   constructor(private login: LoginService, private router: Router) {
     //etc
   }

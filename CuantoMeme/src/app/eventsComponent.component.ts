@@ -89,6 +89,16 @@ export class EventsComponent implements OnInit {
               console.log('error')
               console.log(result)}
             )
+          this.ServicioEventos.get_events().then(
+            result => {
+              this.events = result
+            }
+          )
+          .catch(
+            result =>{ 
+            console.log('error')
+            console.log(result)}
+          )
           }      
         }
     // MultiSelect Dropdown 

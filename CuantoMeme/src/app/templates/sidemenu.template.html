@@ -5,9 +5,20 @@
                 <li>
                     <form>
                             <div class="form-group">
-                                <input (click)="issearching(); $event.stopPropagation();" [(ngModel)]="search_field" type="text" class="form-control" id="search_field_input" aria-describedby="search_field_Help" placeholder="Search..." name="search_field">
+                                <input (click)="issearching(); $event.stopPropagation();" [(ngModel)]="keytosearch" type="text" class="form-control" id="search_field_input" aria-describedby="search_field_Help" placeholder="Search..." name="search_field">
+                                <hr>
                                 <div *ngIf='searching'>
-                                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+                                    <div *ngIf="optionsSearchList" class="form-group">
+                                            <angular2-multiselect [data]="optionsSearchList" 
+                                            [(ngModel)]="selectedOptionSearch" name= "something4"
+                                            [settings]="settingSearch" 
+                                            (onSelect)="onItemSelect($event)"
+                                            (onDeSelect)="OnItemDeSelect($event)" 
+                                            (onSelectAll)="onSelectAll($event)" 
+                                            (onDeSelectAll)="onDeSelectAll($event)">
+                                            </angular2-multiselect>
+                                    </div>
+                                    <button (click)='search()' class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
                                 </div>
                             </div>
                     </form>

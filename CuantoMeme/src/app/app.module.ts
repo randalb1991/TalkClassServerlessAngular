@@ -37,8 +37,10 @@ import { ClassroomsService } from './services/classrooms.service';
 import { ClassroomsComponent } from './classroomsComponent.component';
 import { MultimediaListComponent } from './multimedia-list.component';
 import { UserListComponent } from './user-list.component';
+import { SearchResultComponent } from './search-result.component';
 
 import { MultimediaService} from './services/multimedia.service';
+
 
 @NgModule({
   declarations: [
@@ -54,7 +56,8 @@ import { MultimediaService} from './services/multimedia.service';
     ClassroomsComponent,
     IndexComponent,
     MultimediaListComponent,
-    UserListComponent
+    UserListComponent,
+    SearchResultComponent
   ],
   imports: [
     NgbModule.forRoot(),
