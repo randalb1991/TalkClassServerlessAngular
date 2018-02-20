@@ -1,9 +1,5 @@
 <div *ngIf="servicioLogin.user_logged">
-<<<<<<< HEAD
         <img id="profile-image-sidebar" [src]="servicioLogin.user_logged.avatar" class="rounded-circle img-responsive mx-auto d-block" alt='Picture not found'>
-=======
-        <img id= "profile-image-sidebar" src="https://i.pinimg.com/736x/c6/a4/64/c6a4645d9f9af45a9c9d7b094c18a47a--portrait-ideas-girl-photos.jpg" class="rounded-circle img-responsive mx-auto d-block">
->>>>>>> origin/AgregadonSDKApiGateway
         <h2 class="text-center">{{servicioLogin.user_logged.username}}</h2>
         <ul *ngIf="servicioLogin.user_logged">
                 <li><a routerLink='/home'><i class="fa fa-user" aria-hidden="true"></i> Perfil</a></li>
