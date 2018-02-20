@@ -35,8 +35,10 @@ import { UsersService } from './services/users.service';
 
 import { ClassroomsService } from './services/classrooms.service';
 import { ClassroomsComponent } from './classroomsComponent.component';
+import { MultimediaListComponent } from './multimedia-list.component';
+import { UserListComponent } from './user-list.component';
 
-import { MultimediaService } from './services/multimedia.service';
+import { MultimediaService} from './services/multimedia.service';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,10 @@ import { MultimediaService } from './services/multimedia.service';
     NgbdModalBasicComponent,
     UsersComponent,
     UserDetailsComponent,
-    ClassroomsComponent,IndexComponent
+    ClassroomsComponent,
+    IndexComponent,
+    MultimediaListComponent,
+    UserListComponent
   ],
   imports: [
     NgbModule.forRoot(),

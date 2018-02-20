@@ -2,8 +2,19 @@
         <img id="profile-image-sidebar" [src]="servicioLogin.user_logged.avatar" class="rounded-circle img-responsive mx-auto d-block" alt='Picture not found'>
         <h2 class="text-center">{{servicioLogin.user_logged.username}}</h2>
         <ul *ngIf="servicioLogin.user_logged">
+                <li>
+                    <form>
+                            <div class="form-group">
+                                <input (click)="issearching(); $event.stopPropagation();" [(ngModel)]="search_field" type="text" class="form-control" id="search_field_input" aria-describedby="search_field_Help" placeholder="Search..." name="search_field">
+                                <div *ngIf='searching'>
+                                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+                                </div>
+                            </div>
+                    </form>
+                </li>
                 <li><a routerLink='/home'><i class="fa fa-user" aria-hidden="true"></i> Perfil</a></li>
         </ul>
+
         <div *ngIf="servicioLogin.user_logged.role == 'teacher'">
             <ul>
                     <li><a routerLink="/users"><i class="fa fa-star" aria-hidden="true"></i> Usuarios</a></li>

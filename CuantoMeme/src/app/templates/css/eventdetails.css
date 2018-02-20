@@ -96,3 +96,9 @@ small {
     color: #fbfbfb;
     font-size: 0.8em;
 }
+.badge[_ngcontent-c7] {
+    border-radius: 50px;
+    background-color: #42a3b8;
+    color: #fbfbfb;
+    font-size: 0.8em;
+}

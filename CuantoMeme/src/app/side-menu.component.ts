@@ -19,6 +19,7 @@ export class sideMenuComponent{
     public classrooms = [];
     public classrooms_to_list = []
     public levels = []
+    public searching = false
     constructor(public servicioLogin: LoginService, public servicioevent: EventsService,public servicioClassrooms:ClassroomsService, private router: Router) {
     }
 
@@ -63,5 +64,9 @@ export class sideMenuComponent{
         response => {
           console.log(response)}, 
           error => console.log(error));
+    }
+    issearching(){
+      console.log('cambio searching')
+      this.searching = !this.searching
     }
 }

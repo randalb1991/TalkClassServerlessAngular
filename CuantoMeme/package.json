@@ -30,11 +30,8 @@
     "angular2-in-memory-web-api": "0.0.21",
     "angular2-multiselect-dropdown": "2.2.1",
     "animate.css": "^3.5.2",
-<<<<<<< HEAD
     "aws-sdk": "^2.197.0",
-=======
     "aws-api-gateway-client": "^0.2.10",
->>>>>>> origin/AgregadonSDKApiGateway
     "bootstrap": "4.0.0-beta.2",
     "codelyzer": "^2.1.1",
     "core-js": "^2.5.3",
