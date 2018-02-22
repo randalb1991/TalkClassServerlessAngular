@@ -1,8 +1,6 @@
-import { Classroom } from './Classroom.class';
-
+var config = require('../configuration-app/config-app')
 
 export class Event {
-    
     public title: string;
     public date: string;
     public event_url_picture: string;
@@ -39,12 +37,12 @@ export class Event {
         var AWS = require('aws-sdk');
         var s3 = new AWS.S3({
             apiVersion: '2006-03-01',
-            region: 'us-east-1',
+            region: config.aws.region,
             accessKeyId: access_key,
             secretAccessKey: secret_key,
             sessionToken: session_token
           })
-        var params = {Bucket: 'talkclass-tcbucket3332', Key: this.event_picture_path};
+        var params = {Bucket: config.aws.s3.bucketresized , Key: this.event_picture_path};
         this.event_url_picture = s3.getSignedUrl('getObject', params);
         console.log('The URL for event '+this.title+' is '+ this.event_url_picture)
     }

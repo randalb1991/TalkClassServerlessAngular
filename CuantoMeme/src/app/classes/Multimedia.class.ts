@@ -1,3 +1,4 @@
+var config = require('../configuration-app/config-app')
 export class Multimedia {
     
     public event_title: string;
@@ -21,12 +22,12 @@ export class Multimedia {
         var AWS = require('aws-sdk');
         var s3 = new AWS.S3({
             apiVersion: '2006-03-01',
-            region: 'us-east-1',
+            region: config.aws.region,
             accessKeyId: access_key,
             secretAccessKey: secret_key,
             sessionToken: session_token
           })
-        var params = {Bucket: 'talkclass-tcbucket3332', Key: this.picture_key};
+        var params = {Bucket: config.aws.s3.bucketresized , Key: this.picture_key};
         this.picture_url = s3.getSignedUrl('getObject', params);
         console.log('The URL for the key '+this.picture_key+' is '+ this.picture_url)
     }

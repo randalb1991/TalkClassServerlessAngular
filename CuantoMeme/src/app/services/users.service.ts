@@ -14,6 +14,7 @@ import { Classroom } from '../classes/Classroom.class';
 import { error } from 'selenium-webdriver';
 import { User } from '../classes/User.class';
 
+var config = require('../configuration-app/config-app')
 
 @Injectable()
 export class UsersService {
@@ -22,8 +23,8 @@ export class UsersService {
         accessKey: this.ServicioLogin.user_logged.get_access_key(),
         secretKey: this.ServicioLogin.user_logged.get_secret_key(),
         sessionToken: this.ServicioLogin.user_logged.get_session_token(), //OPTIONAL: If you are using temporary credentials you must include the session token
-        region: 'us-east-1',
-        invokeUrl: 'https://15psp95at5.execute-api.us-east-1.amazonaws.com'
+        region: config.aws.region,
+        invokeUrl: config.aws.apigateway.endpoint
     }
     apigClient = this.apigClientFactory.newClient(this.config);
     
@@ -33,7 +34,7 @@ export class UsersService {
         phone:number,classroom:string, photo_profile:string, photo_profile_name:string){
         var params = {};
         // Template syntax follows url-template https://www.npmjs.com/package/url-template
-        var pathTemplate = '/dev/talkclass/users'
+        var pathTemplate = config.aws.apigateway.stage+config.aws.apigateway.name+'/users'
         var method = 'POST';
         var additionalParams = {};
         let body = {
@@ -70,7 +71,7 @@ export class UsersService {
 
     get_users(){
         var params = {};
-        var pathTemplate = '/dev/talkclass/users'
+        var pathTemplate = config.aws.apigateway.stage+config.aws.apigateway.name+'/users'
         var method = 'GET';
         var additionalParams = {};
         var body = {};

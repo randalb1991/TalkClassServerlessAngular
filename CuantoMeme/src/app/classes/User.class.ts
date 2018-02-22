@@ -1,3 +1,4 @@
+var config = require('../configuration-app/config-app')
 export class User {
     private access_key: string = '';
     private secret_key: string= '';
@@ -68,12 +69,12 @@ export class User {
         var AWS = require('aws-sdk');
         var s3 = new AWS.S3({
             apiVersion: '2006-03-01',
-            region: 'us-east-1',
+            region: config.aws.region,
             accessKeyId: access_key,
             secretAccessKey: secret_key,
             sessionToken: session_token
           })
-        var params = {Bucket: 'talkclass-tcbucket3332', Key: this.profile_picture};
+        var params = {Bucket: config.aws.s3.bucketresized , Key: this.profile_picture};
         this.avatar = s3.getSignedUrl('getObject', params);
             console.log('The URL for tenant '+this.username+' is '+ this.avatar)
     }

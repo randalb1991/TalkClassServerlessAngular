@@ -12,6 +12,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
 import { Multimedia } from '../classes/Multimedia.class';
 
+var config = require('../configuration-app/config-app')
 
 @Injectable()
 export class MultimediaService {
@@ -21,28 +22,15 @@ export class MultimediaService {
         accessKey: this.ServicioLogin.user_logged.get_access_key(),
         secretKey: this.ServicioLogin.user_logged.get_secret_key(),
         sessionToken: this.ServicioLogin.user_logged.get_session_token(), //OPTIONAL: If you are using temporary credentials you must include the session token
-        region: 'us-east-1',
-        invokeUrl: 'https://15psp95at5.execute-api.us-east-1.amazonaws.com'
+        region: config.aws.region,
+        invokeUrl: config.aws.apigateway.endpoint
     }
     apigClient = this.apigClientFactory.newClient(this.config);
-    s3 = null;
-    constructor(private http: Http, private router: Router, private ServicioLogin: LoginService) {
-        var AWS = require('aws-sdk');
-        this.s3 = new AWS.S3({
-            apiVersion: '2006-03-01',
-            region: 'us-east-1',
-            accessKeyId: this.ServicioLogin.user_logged.get_access_key(),
-            secretAccessKey: this.ServicioLogin.user_logged.get_secret_key(),
-            sessionToken: this.ServicioLogin.user_logged.get_session_token()
-          })
-           var params2 = {Bucket: 'talkclass-tcbucket3332', Key: 'skater.jpg'};
-            var url = this.s3.getSignedUrl('getObject', params2);
-            console.log('The URL is', url);
-    }
+    constructor(private http: Http, private router: Router, private ServicioLogin: LoginService) {}
     //---------------------
     get_multimedias(){
         var params = {};
-        var pathTemplate = '/dev/talkclass/multimedia'
+        var pathTemplate = config.aws.apigateway.stage+config.aws.apigateway.name+'/multimedia'
         var method = 'GET';
         var additionalParams = {};
         var body = {};
@@ -63,7 +51,7 @@ export class MultimediaService {
         var params = {
 
         };
-        var pathTemplate = '/dev/talkclass/multimedia'
+        var pathTemplate = config.aws.apigateway.stage+config.aws.apigateway.name+'/multimedia'
         var method = 'GET';
         var additionalParams = {
             queryParams: {
@@ -102,7 +90,7 @@ export class MultimediaService {
     }
     post_multimedia(session_token:string, event_title:string, event_date: string, title:string, file:string){
         var params = {};
-        var pathTemplate = '/dev/talkclass/multimedia'
+        var pathTemplate = config.aws.apigateway.stage+config.aws.apigateway.name+'/multimedia'
         var method = 'POST';
         var additionalParams = {};
         var body = {

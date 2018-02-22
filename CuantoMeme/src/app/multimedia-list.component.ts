@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { LoginService } from './services/login.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Multimedia } from './classes/multimedia.class';
-import { Event } from './classes/evento.class';
+import { Multimedia } from './classes/Multimedia.class';
+import { Event } from './classes/Evento.class';
 
 @Component({
   selector: 'multimedia-lists',

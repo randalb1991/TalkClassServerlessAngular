@@ -25,6 +25,7 @@ import 'rxjs/add/operator/map';
 https://www.npmjs.com/package/aws-api-gateway-client
 ----------------*/
 
+var config = require('../configuration-app/config-app')
 
 @Injectable()
 export class ClassroomsService {
@@ -33,8 +34,8 @@ export class ClassroomsService {
         accessKey: this.ServicioLogin.user_logged.get_access_key(),
         secretKey: this.ServicioLogin.user_logged.get_secret_key(),
         sessionToken: this.ServicioLogin.user_logged.get_session_token(), //OPTIONAL: If you are using temporary credentials you must include the session token
-        region: 'us-east-1',
-        invokeUrl: 'https://15psp95at5.execute-api.us-east-1.amazonaws.com'
+        region: config.aws.region,
+        invokeUrl: config.aws.apigateway.endpoint
     }
     apigClient = this.apigClientFactory.newClient(this.config);
 
@@ -43,7 +44,7 @@ export class ClassroomsService {
     get_Classrooms() {
         var params = {};
         // Template syntax follows url-template https://www.npmjs.com/package/url-template
-        var pathTemplate = '/dev/talkclass/classrooms'
+        var pathTemplate = config.aws.apigateway.stage+config.aws.apigateway.name+'/classrooms'
         var method = 'GET';
         var additionalParams = {};
         var body = {};
@@ -79,7 +80,7 @@ export class ClassroomsService {
     create_classroom(classroom: string, level: string) {
         var params = {};
         // Template syntax follows url-template https://www.npmjs.com/package/url-template
-        var pathTemplate = '/dev/talkclass/classrooms'
+        var pathTemplate = config.aws.apigateway.stage+config.aws.apigateway.name+'/classrooms'
         var method = 'POST';
         var additionalParams = {};
         let body = {

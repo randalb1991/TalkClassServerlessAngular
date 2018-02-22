@@ -3,7 +3,7 @@ import { Http, Response, JsonpModule, RequestOptions, Headers, URLSearchParams }
 import {User} from '../classes/User.class';
 //import {UsuarioService} from './usuarios.service'
 import 'rxjs/Rx';
-const BASE_URL = "https://15psp95at5.execute-api.us-east-1.amazonaws.com/dev/talkclass/authentication"
+var config = require('../configuration-app/config-app')
 
 @Injectable()
 export class LoginService {
@@ -55,7 +55,7 @@ export class LoginService {
             password: password,
             role: role
         }
-        return this.http.post(BASE_URL, body).map(
+        return this.http.post(config.aws.apigateway.endpoint+config.aws.apigateway.stage+config.aws.apigateway.name+'/authentication', body).map(
             response => {
                         if (response.status){
                             this.parsing_login_response(response)
@@ -67,29 +67,9 @@ export class LoginService {
             error => {  console.error(error)}
         );
     }
-    signup(username: string, email: string, pass: string) {
-        const headers = new Headers({
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'X-Requested-With': 'XMLHttpRequest'
-        });
-        const params = new URLSearchParams();
-        params.append('username', username);
-        params.append('pass', pass);
-        params.append('email', email);
-        const options = new RequestOptions();
-        options.withCredentials = true;
-        options.search = params;
-        options.headers = headers;
-		var url = BASE_URL + 'signup';
-		console.log(url)
-        return this.http.post(url, null, options).map(
-            response => { return response.status},
-            error => console.error(error)
-        );
-    }
     logOut() {
 
-        return this.http.get(BASE_URL + 'logOut', { withCredentials: true }).map(
+        return this.http.get('pending' + 'logOut', { withCredentials: true }).map(
             response => {
                 this.isLogged = false;
                 this.user_logged = null;

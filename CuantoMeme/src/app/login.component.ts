@@ -3,6 +3,9 @@ import { LoginService } from './services/login.service';
 import { loggedUserService } from './services/logged-user.service';
 import { Router } from '@angular/router';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
+
+var config = require('./configuration-app/config-app')
+
 //import apiGateway  from 'scripts/lib/apiGatewayCore/apiGatewayClient.js'
 //import apigClientFactory  from 'scripts/apigClient.js'
 
@@ -24,7 +27,8 @@ import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 })
 export class LoginComponent implements OnInit{
 
-  constructor(private ServicioLogin: LoginService, private redireccion: Router) {}
+  constructor(private ServicioLogin: LoginService, private redireccion: Router) {
+  }
   itemList = [];
   selectedItems = [];
   settings = {};
@@ -62,8 +66,8 @@ export class LoginComponent implements OnInit{
     //var apigClient = aws.apigClientFactory.newClient()
     console.log()
     this.itemList = [
-      {"id":1,"itemName":"Teacher"},
-      {"id":2,"itemName":"Parent"},
+      {"id":1,"itemName":config.roles.teacher},
+      {"id":2,"itemName":config.roles.parent},
                    
     ];
     this.selectedItems = [
