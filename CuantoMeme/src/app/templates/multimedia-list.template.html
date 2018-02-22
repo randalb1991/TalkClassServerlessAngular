@@ -1,6 +1,8 @@
 <div *ngIf='listamultimedia'>
     <div>
-        <h2 class="display-3 text-center">{{event.title}}</h2>
+        <div *ngIf='listamultimedia[0]'>
+            <h2 class="display-3 text-center">{{listamultimedia[0].event_title}}</h2>
+        </div>
     </div>
     <div id="event-details-carousel">
 
@@ -12,12 +14,13 @@
                             <h3>{{multimedia.picture_name}}</h3>
                             <ul class="list-inline">
                                 <li *ngFor="let tag of multimedia.tags" class="list-inline-item">
-                                    <span class="badge badge-info">{{tag}}</span>
+                                    <button (click)="search_by_tag(tag)" type="button" class="btn btn-success btn-xs">{{tag}}</button>
+                                    <button (click)="download_imagen(multimedia)" class="btn btn-info">Descargar Imagen</button>
                                 </li>
                             </ul>
                         </div>
                     </ng-template>
                 </div>
         </ngb-carousel>
-    </div>>
+    </div>
 </div>

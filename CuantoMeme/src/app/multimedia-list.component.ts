@@ -12,7 +12,6 @@ import { Event } from './classes/Evento.class';
 
 export class MultimediaListComponent implements OnInit{
   @Input() listamultimedia: Multimedia[];
-  @Input() event:Event;
   constructor(private login: LoginService, private router: Router) {
     //etc
   }
@@ -22,5 +21,8 @@ export class MultimediaListComponent implements OnInit{
     } 
   }
   //El componente recibe una lista de multimedia y las muestra
-
+  search_by_tag(tag:string){
+    console.log('Buscando archivos  1 con el tag: '+tag)
+    this.router.navigate(['/search'], { queryParams: { type: 'Tag', 'value': tag} });
+  }
 }

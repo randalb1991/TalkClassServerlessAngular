@@ -14,6 +14,11 @@
                         </div>
                         <div *ngIf="type == 'Eventos'">
                                 <lista-eventos [listaEventos]='events'></lista-eventos>
+                        </div>                        
+                        <div *ngIf="type == 'Tag'">
+                                <div *ngIf='multimedias'> 
+                                        <multimedia-lists [listamultimedia]='multimedias'></multimedia-lists>
+                                </div>
                         </div>
                 </div>
             

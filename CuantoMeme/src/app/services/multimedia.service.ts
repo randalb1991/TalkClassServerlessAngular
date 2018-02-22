@@ -46,7 +46,32 @@ export class MultimediaService {
                 return error}
             );
     }
-    
+    get_multimedia_for_tag(tag: string){
+        var converted_tag = tag
+        converted_tag = converted_tag.replace(converted_tag[0],converted_tag[0].toUpperCase())
+        var params = {
+
+        };
+        var pathTemplate = config.aws.apigateway.stage+config.aws.apigateway.name+'/multimedia'
+        var method = 'GET';
+        var additionalParams = {
+            queryParams: {
+                tag:converted_tag,
+            }
+        };
+        var body = {};
+
+        return this.apigClient.invokeApi(params, pathTemplate, method, additionalParams, body)
+            .then(
+                result => {
+                    return this.generate_multimedias(result['data'])
+                }
+            ).catch(
+                error => {
+                console.log('Invoke API Error => Gettin Multimedia for event')
+                return error}
+            );
+    }    
     get_multimedia_for_event(title: string, date:string){
         var params = {
 

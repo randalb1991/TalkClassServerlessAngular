@@ -2,11 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { LoginService } from './services/login.service';
 import { UsersService } from './services/users.service';
 import { EventsService } from './services/events.service';
-
+import { MultimediaService } from './services/multimedia.service';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from './classes/user.class';
 import { Event } from './classes/evento.class';
+import { Multimedia } from './classes/multimedia.class';
 
 @Component({
   selector: 'search-result',
@@ -20,11 +21,11 @@ export class SearchResultComponent implements OnInit{
   public type : string;
   public users: User[] = [];
   public events: Event[] = [];
-  constructor(private ServicioLogin: LoginService, private ServicioEventos: EventsService, private ServicioUsers: UsersService ,private router: ActivatedRoute, private route: Router) {
+  public multimedias: Multimedia[]=[]
+  constructor(private ServicioLogin: LoginService, private ServicioMultimedia: MultimediaService,private ServicioEventos: EventsService, private ServicioUsers: UsersService ,private router: ActivatedRoute, private route: Router) {
     //etc
   }
   ngOnInit(){
-    console.log('al menos entro')
     if(!this.ServicioLogin.isLogged){
       this.route.navigateByUrl("/login");
     } else{
@@ -38,6 +39,9 @@ export class SearchResultComponent implements OnInit{
         }
         if(this.type=='Usuarios'){
           this.filter_users()
+        }
+        if(this.type=='Tag'){
+          this.filter_multimedias()
         }
         console.log('Query param page: ', this.type, this.key);
       });
@@ -68,6 +72,14 @@ export class SearchResultComponent implements OnInit{
       }
     )
   }
+  filter_multimedias(){
+    this.ServicioMultimedia.get_multimedia_for_tag(this.key).then(
+      result =>{
+          this.multimedias = result
+      }
+    )
+  }
+  
   //El componente recibe una lista de multimedia y las muestra
 
 }
