@@ -28,13 +28,8 @@
                                                     <input [(ngModel)]="input_title_picture_to_upload" type="text" class="form-control" id="title_picture_to_upload_input" aria-describedby="title_picture_to_upload_Help" placeholder="Ponle título" name="title_picture_to_upload">
                                             </div>
                                             <div class="form-group">
-                                                    <label for="descinput">Descripción</label>
-                                                    <input [(ngModel)]="description" type="text" class="form-control" id="descinput" aria-describedby="emailHelp" placeholder="Dale una descripción corta" name="description">
-                                            </div>
-                                            <div class="form-group">
                                                             <label for="imageninput">Imagen de evento</label>
                                                             <input type="file" accept="image/*" class="form-control" id="imageninput" name="file" (change)="fileChange($event)">
-                                                            <small>¡No más de 1mb!</small>
                                             </div>
                                             <button class="btn btn-info" type="button" (click)="upload_picture()">Subir Imagen!</button>
                                     </form>
@@ -53,15 +48,17 @@
                                 </div>
                             </ul>
                             <hr>
-                            <form>
-                                <div *ngIf="itemList" class="form-group">
-                                    <label for="dateinput">Add Classrooms</label>
-                                    <angular2-multiselect [data]="itemList" [(ngModel)]="selectedItems" name="something4" [settings]="settings" (onSelect)="onItemSelect($event)" (onDeSelect)="OnItemDeSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)">
-                                    </angular2-multiselect>
-                                </div>
-                                <button class="btn btn-info" type="button" (click)="modify_event()">Invitar a evento!</button>
-    
-                            </form>
+                            <div  *ngIf="this.ServicioLogin.user_logged.role=='teacher'">
+                                <form>
+                                    <div *ngIf="itemList" class="form-group">
+                                        <label for="dateinput">Add Classrooms</label>
+                                        <angular2-multiselect [data]="itemList" [(ngModel)]="selectedItems" name="something4" [settings]="settings" (onSelect)="onItemSelect($event)" (onDeSelect)="OnItemDeSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)">
+                                        </angular2-multiselect>
+                                    </div>
+                                    <button class="btn btn-info" type="button" (click)="modify_event()">Invitar a evento!</button>
+        
+                                </form>
+                            </div>
                         </div>
                         <p style="color:rgb(248, 53, 53)" value="">{{message_to_show }}</p>
     

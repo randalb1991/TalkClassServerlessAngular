@@ -28,7 +28,7 @@ import { toBase64String } from '@angular/compiler/src/output/source_map';
 })
 
 export class EventsComponent implements OnInit {
-  opcion: string = 'crear';
+  opcion: string = 'obtener';
   events: Event[] = [];
 
 

@@ -27,7 +27,7 @@ import { toBase64String } from '@angular/compiler/src/output/source_map';
 })
 
 export class ClassroomsComponent implements OnInit {
-    opcion: string = 'crear';
+    opcion: string = 'obtener';
 
     //Crear Evento
     message_to_show = ""

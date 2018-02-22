@@ -13,8 +13,8 @@
                 <div id="content">
                         <div class="btn-group" role="group" aria-label="aaa">
                                 <div id="tabs">
-                                      <button type="button" [ngClass]="{'active': opcion == 'obtener'}" (click)="eleccion('obtener')"  class="btn btn-select btn-lg btn-link">Listar Usuarios</button>
-                                      <button type="button" [ngClass]="{'active': opcion == 'crear'}" (click)="eleccion('crear')"  class="btn btn-select btn-lg btn-link">Crear Usuario</button>
+                                    <button type="button" [ngClass]="{'active': opcion == 'obtener'}" (click)="eleccion('obtener')"  class="btn btn-select btn-lg btn-link">Listar Usuarios</button>
+                                    <button *ngIf="this.ServicioLogin.user_logged.role=='teacher'" type="button" [ngClass]="{'active': opcion == 'crear'}" (click)="eleccion('crear')"  class="btn btn-select btn-lg btn-link">Crear Usuario</button>
                                 </div>
                   
                               </div>
