@@ -35,7 +35,8 @@ export class sideMenuComponent{
       }else{
         this.optionsSearchList = [      
           {"id":1,"itemName":"Eventos"},
-          {"id":2,"itemName":"Usuarios"}]
+          {"id":2,"itemName":"Usuarios"},
+          {"id":3,"itemName":"Tag"}]
         this.settingSearch = {
           singleSelection: true, 
           text:"Select your option"};

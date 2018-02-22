@@ -3,20 +3,19 @@
             <li class="media" *ngFor="let user of userlist">
                     <div class="media">
                             <div class="row" id ='row-list-user'>
-                                <div class="col-md-2">
-                                    <div class="media-left">
+                                <div id='row-list-picture' class="col-md-4">
                                     <img [src]="user.avatar" alt="Generic placeholder image" class="media-object img-responsive mx-auto d-block" style="width:100%" id='img-user-list'>
-                                    </div>
                                 </div>
-                                <div class="col-md-10">
+                                <div class="col-md-8">
                                     <div class="media-body" id='preview-list-user'>
                                     <ul>
                                         <li>
                                             <span class="media-heading" style="color:black;font-weight:bold">Username: </span>{{user.username}}
                                         </li>
                                         <li>
-                                            <span class="media-heading" style="color:black;font-weight:bold">Email: </span>{{user.email}}
+                                            <span class="media-heading" style="color:black;font-weight:bold">Role: </span>{{user.role}}
                                         </li>
+
                                     </ul>
                                     </div>
                                 </div>
