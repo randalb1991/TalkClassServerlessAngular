@@ -15,9 +15,11 @@
                             <ul class="list-inline">
                                 <li *ngFor="let tag of multimedia.tags" class="list-inline-item">
                                     <button (click)="search_by_tag(tag)" type="button" class="btn btn-success btn-xs">{{tag}}</button>
-                                    <button (click)="download_imagen(multimedia)" class="btn btn-info">Descargar Imagen</button>
                                 </li>
-                            </ul>
+                            </ul>                            
+                            <button type="button" class="btn btn-info"><a [href]='original_file' (click)= 'generate_original_url(multimedia)'download="text.txt">
+                                    descarga
+                                </a></button>
                         </div>
                     </ng-template>
                 </div>

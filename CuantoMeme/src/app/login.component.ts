@@ -28,6 +28,7 @@ var config = require('./configuration-app/config-app')
 export class LoginComponent implements OnInit{
 
   constructor(private ServicioLogin: LoginService, private redireccion: Router) {
+
   }
   itemList = [];
   selectedItems = [];

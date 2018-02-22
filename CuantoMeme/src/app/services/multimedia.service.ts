@@ -97,6 +97,20 @@ export class MultimediaService {
                 return error}
             );
     }
+    generate_multimedia_original_url(key:string,access_key:string, secret_key:string, session_token:string){
+        console.log('downloading the file: '+key)
+        var AWS = require('aws-sdk');
+        var s3 = new AWS.S3({
+            apiVersion: '2006-03-01',
+            region: config.aws.region,
+            accessKeyId: access_key,
+            secretAccessKey: secret_key,
+            sessionToken: session_token
+          })
+        var params = {Bucket: config.aws.s3.bucket , Key: key};
+        var url = s3.getSignedUrl('getObject', params);
+        return url
+    }
      
 
     generate_multimedias(multimedias:any[]){
