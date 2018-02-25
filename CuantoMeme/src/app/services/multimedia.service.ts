@@ -80,8 +80,8 @@ export class MultimediaService {
         var method = 'GET';
         var additionalParams = {
             queryParams: {
-                date:date,
-                title: title
+                event_date:date,
+                event_title: title
             }
         };
         var body = {};
