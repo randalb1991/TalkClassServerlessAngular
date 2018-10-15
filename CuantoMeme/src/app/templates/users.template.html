@@ -16,10 +16,10 @@
                                     <button type="button" [ngClass]="{'active': opcion == 'obtener'}" (click)="eleccion('obtener')"  class="btn btn-select btn-lg btn-link">Listar Usuarios</button>
                                     <button *ngIf="this.ServicioLogin.user_logged.role=='teacher'" type="button" [ngClass]="{'active': opcion == 'crear'}" (click)="eleccion('crear')"  class="btn btn-select btn-lg btn-link">Crear Usuario</button>
                                 </div>
-                  
+
                               </div>
                               <hr>
-                  
+
                               <div *ngIf="opcion == 'obtener'">
                                     <user-lists [userlist]='users'></user-lists>
                               </div>
@@ -54,25 +54,10 @@
                                             <label for="confirmpasswordinput">Confirma Contraseña</label>
                                             <input [(ngModel)]="confirmpassword" type="password" class="form-control" id="confirmpasswordname" aria-describedby="confirmpasswordHelp" placeholder="mypassword" name="confirmpasswordname" required>
                                          </div>
-                                     <div class="form-group">
-                                        <label for="emailinput">Email</label>
-                                        <input [(ngModel)]="email" type="email" class="form-control" id="emailname" aria-describedby="emailHelp" placeholder="myemail@example.com" name="email" required>
-                                     </div>
-                                     <div class="form-group">
-                                        <label for="phoneinput">Teléfono</label>
-                                        <input [(ngModel)]="phone" type="number" class="form-control" id="phonename" aria-describedby="phoneHelp" placeholder="0034654654654" name="phonename" required>
-                                     </div>
-                                     <div class="form-group">
-                                        <label for="passwordinput">Contraseña</label>
-                                        <input [(ngModel)]="password" type="password" class="form-control" id="passwordname" aria-describedby="passwordHelp" placeholder="mypassword" name="passwordname" required>
-                                     </div>
-                                     <div class="form-group">
-                                        <label for="confirmpasswordinput">Confirma Contraseña</label>
-                                        <input [(ngModel)]="confirmpassword" type="password" class="form-control" id="confirmpasswordname" aria-describedby="confirmpasswordHelp" placeholder="mypassword" name="confirmpasswordname" required>
-                                     </div>
+
                                      <div *ngIf="password!=confirmpassword">
                                             <ngb-alert type= "danger">{{error_message_password}}</ngb-alert>
-                                    </div>   
+                                    </div>
                                       <div class="form-group">
                                               <label for="addressinput">Dirección</label>
                                               <input [(ngModel)]="address" type="text" class="form-control" id="addressinput" aria-describedby="addressHelp" placeholder="C:/ Alcantara 34 5B" name="address" required>
@@ -93,12 +78,12 @@
                                       </div>
                                       <div *ngIf="rolesList" class="form-group">
                                         <label for="dateinput">Rol</label>
-                                        <angular2-multiselect [data]="rolesList" 
+                                        <angular2-multiselect [data]="rolesList"
                                             [(ngModel)]="selectedRole" name= "something5"
-                                            [settings]="roleSettings" 
+                                            [settings]="roleSettings"
                                             (onSelect)="onItemSelect($event)"
-                                            (onDeSelect)="OnItemDeSelect($event)" 
-                                            (onSelectAll)="onSelectAll($event)" 
+                                            (onDeSelect)="OnItemDeSelect($event)"
+                                            (onSelectAll)="onSelectAll($event)"
                                             (onDeSelectAll)="onDeSelectAll($event)">
                                         </angular2-multiselect>
                                      </div>
@@ -106,12 +91,12 @@
                                           <div *ngIf='selectedRole[0]'>
                                               <div *ngIf='selectedRole[0].itemName=="Teacher"'>
                                                     <label for="dateinput">Tutor de:</label>
-                                                    <angular2-multiselect [data]="teacheritemList" 
+                                                    <angular2-multiselect [data]="teacheritemList"
                                                     [(ngModel)]="selectedItems" name= "something4"
-                                                    [settings]="settings" 
+                                                    [settings]="settings"
                                                     (onSelect)="onItemSelect($event)"
-                                                    (onDeSelect)="OnItemDeSelect($event)" 
-                                                    (onSelectAll)="onSelectAll($event)" 
+                                                    (onDeSelect)="OnItemDeSelect($event)"
+                                                    (onSelectAll)="onSelectAll($event)"
                                                     (onDeSelectAll)="onDeSelectAll($event)">
                                                   </angular2-multiselect>
                                               </div>
@@ -120,16 +105,16 @@
                                           <div *ngIf='selectedRole[0]'>
                                                 <div *ngIf='selectedRole[0].itemName=="Parent"'>
                                                       <label for="dateinput">Clase</label>
-                                                      <angular2-multiselect [data]="parentitemList" 
+                                                      <angular2-multiselect [data]="parentitemList"
                                                       [(ngModel)]="selectedItems" name= "something4"
-                                                      [settings]="settings" 
+                                                      [settings]="settings"
                                                       (onSelect)="onItemSelect($event)"
-                                                      (onDeSelect)="OnItemDeSelect($event)" 
-                                                      (onSelectAll)="onSelectAll($event)" 
+                                                      (onDeSelect)="OnItemDeSelect($event)"
+                                                      (onSelectAll)="onSelectAll($event)"
                                                       (onDeSelectAll)="onDeSelectAll($event)">
                                                     </angular2-multiselect>
                                                 </div>
-  
+
                                             </div>
 
                                   </div>
@@ -141,12 +126,12 @@
                                   <button class="btn btn-info" type="button" (click)="createUser()">Crear Usuario!</button>
                                   </form>
                                   <p  style="color:rgb(248, 53, 53)" value="">{{message_to_show }}</p>
-              
+
                              </div>
                           </div>
 
             </div>
-            
+
         </div>
     </div>
 </div>
